@@ -1,7 +1,9 @@
-package in.co.thingsdata.gurukul;
+package in.co.thingsdata.gurukul.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import in.co.thingsdata.gurukul.R;
 
 public class Dashboard extends AppCompatActivity {
 

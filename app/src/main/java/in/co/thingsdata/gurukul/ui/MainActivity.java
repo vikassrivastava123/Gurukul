@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import in.co.thingsdata.gurukul.Dashboard;
 import in.co.thingsdata.gurukul.R;
 
 public class MainActivity extends AppCompatActivity {
