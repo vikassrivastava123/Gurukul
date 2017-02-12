@@ -100,7 +100,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/schooldiary"
+                        android:src="@drawable/schooldiary"
                         android:id="@+id/diary"
                         />
                     <TextView
@@ -120,7 +120,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/attendance"
+                        android:src="@drawable/attendance"
                         android:id="@+id/attendance" />
                     <TextView
                         android:layout_width="wrap_content"
@@ -146,7 +146,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/leave"
+                        android:src="@drawable/leave"
                         android:id="@+id/leave"
                         />
                     <TextView
@@ -166,7 +166,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/notification"
+                        android:src="@drawable/notification"
                         android:id="@+id/notification" />
                     <TextView
                         android:layout_width="wrap_content"
@@ -192,7 +192,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/examschedule"
+                        android:src="@drawable/examschedule"
                         android:id="@+id/examSchedule"
                         />
                     <TextView
@@ -212,7 +212,8 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/reportcard"
+                        android:src="@drawable/reportcard"
+                        android:onClick="launchReportCard"
                         android:id="@+id/reportCard" />
                     <TextView
                         android:layout_width="wrap_content"
@@ -238,7 +239,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/feespayment"
+                        android:src="@drawable/feespayment"
                         android:id="@+id/fees"
                         />
                     <TextView
@@ -258,7 +259,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/queoftheday"
+                        android:src="@drawable/queoftheday"
                         android:id="@+id/queOfTheDay" />
                     <TextView
                         android:layout_width="wrap_content"

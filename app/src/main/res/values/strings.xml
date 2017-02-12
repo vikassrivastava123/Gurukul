@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Gurukul</string>
+    <string name="subject">Subject</string>
+    <string name="name">Name :</string>
+    <string name="rollNumber">Roll Number :</string>
+    <string name="classOfStudent">Class :</string>
+    <string name="title_activity_repotcard_teacher_view">RepotcardTeacherView</string>
 </resources>

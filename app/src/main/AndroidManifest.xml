@@ -15,7 +15,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.Dashboard"></activity>
+        <activity android:name=".ui.Dashboard" />
+        <activity
+            android:name=".ui.ReportCardUi.ReportCardSingleStudent"
+            android:label="Report Card"></activity>
     </application>
 
 </manifest>
