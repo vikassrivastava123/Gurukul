@@ -38,7 +38,7 @@ public class ReportCardSingleStudent extends AppCompatActivity implements GetRes
 
         setContentView(R.layout.reportcard_singlestudent);
 
-        mAdapter = new ReportCardAdapter(dataList);
+        mAdapter = new ReportCardAdapter(dataList,ReportCardAdapter.SINGLE_STUDENT_REPORTCARD_DETAIL);
 
         recyclerView = (RecyclerView)findViewById(R.id.singleStudentMarks);
 
@@ -60,7 +60,7 @@ public class ReportCardSingleStudent extends AppCompatActivity implements GetRes
                 android.R.layout.simple_dropdown_item_1line, yearArray);
         tvYear = (AutoCompleteTextView)
                 findViewById(R.id.autocomplete_year);
-        tvYear.setThreshold(1);
+        tvYear.setThreshold(0);
         tvYear.setAdapter(adapter);
 
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
@@ -68,12 +68,10 @@ public class ReportCardSingleStudent extends AppCompatActivity implements GetRes
         tvTypeOfExam = (AutoCompleteTextView)
                 findViewById(R.id.autocomplete_type);
 
-        tvTypeOfExam.setThreshold(1);
+        tvTypeOfExam.setThreshold(0);
         tvTypeOfExam.setAdapter(adapter2);
 
-
-
-    }
+   }
 
 
     void prepareMovieData(){

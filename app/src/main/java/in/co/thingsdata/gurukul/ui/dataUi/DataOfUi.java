@@ -5,6 +5,10 @@ package in.co.thingsdata.gurukul.ui.dataUi;
  */
 public abstract class DataOfUi {
 
-
+  abstract public String getFilterableObject(int screenName);
+  abstract public void setSubject(String data);
+  abstract public void setMarksObtained(String data);
+  abstract public void setTotal(String data);
+  abstract public void setPercentage(String data);
 
 }

@@ -2,7 +2,13 @@
     <string name="app_name">Gurukul</string>
     <string name="subject">Subject</string>
     <string name="name">Name :</string>
+    <string name="nmeOfStudent">Student:</string>
+    <string name="typeOfexam">Type :</string>
     <string name="rollNumber">Roll Number :</string>
     <string name="classOfStudent">Class :</string>
+    <string name="reportCard">Report Card</string>
     <string name="title_activity_repotcard_teacher_view">RepotcardTeacherView</string>
+    <string name="title_activity_report_card_teacher_view">ReportCardTeacherView</string>
+    <string name="title_activity_report_card_launch">reportCardLaunch</string>
+    <string name="title_activity_rc_create">rc_create</string>
 </resources>

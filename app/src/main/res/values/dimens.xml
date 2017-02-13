@@ -9,6 +9,7 @@
     <dimen name="component_top_margin">7dp</dimen>
 
     <dimen name="textsize_reportcard">18sp</dimen>
+    <dimen name="textsize_heading_reportcard">23sp</dimen>
     <dimen name="frame_top_margin">20dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 </resources>

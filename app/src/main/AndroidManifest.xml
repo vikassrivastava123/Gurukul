@@ -18,7 +18,18 @@
         <activity android:name=".ui.Dashboard" />
         <activity
             android:name=".ui.ReportCardUi.ReportCardSingleStudent"
-            android:label="Report Card"></activity>
+            android:label="@string/reportCard" />
+        <activity
+            android:name=".ui.ReportCardUi.ReportCardTeacherView"
+            android:label="@string/reportCard" />
+        <activity
+            android:name=".ui.ReportCardUi.ReportCardLaunch"
+            android:label="@string/reportCard"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.ReportCardUi.ReportCardCreate"
+            android:label="@string/reportCard"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
