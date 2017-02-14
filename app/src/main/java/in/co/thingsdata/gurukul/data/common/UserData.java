@@ -1,32 +1,38 @@
 package in.co.thingsdata.gurukul.data.common;
 
+import static in.co.thingsdata.gurukul.data.common.CommonDetails.CLASS_7;
+import static in.co.thingsdata.gurukul.data.common.CommonDetails.SECTION_B;
+import static in.co.thingsdata.gurukul.data.common.CommonDetails.USER_GENDER_MALE;
+import static in.co.thingsdata.gurukul.data.common.CommonDetails.USER_TYPE_STUDENT;
+
 /**
  * Created by Vikas on 2/11/2017.
  */
 
 public final class UserData {
-    private static boolean mIsDataReady;
+    //TODO: Remove hardcoded data
+    private static boolean mIsDataReady = true;
 
-    private static String mAccessToken;
-    private static String mRollNumber;
-    private static String mUserId;
-    private static String mLoginId;
-    private static String mClassRoomId; //for server string parsing only
-    private static String mSchoolCode;
-    private static String mFirstName;
+    private static String mAccessToken = "DUMMY";
+    private static String mRollNumber = "543210";
+    private static String mUserId = "Gurukul hardcoded test ID";
+    private static String mLoginId = "test_gurukul";
+    private static String mClassRoomId = "12B"; //for server string parsing only
+    private static String mSchoolCode = "01";
+    private static String mFirstName = "Ashutosh";
     private static String mMiddleName;
-    private static String mLastName;
-    private static String mDOB;
-    private static String mUserType;
-    private static String mGender;
-    private static String mEmailId;
-    private static String mMobileNumber;
-    private static int mClassId;
-    private static String mSectionId;
-    private static float mMonthlyFee;
-    private static String mAdmissionDate;
-    private static String mCertificateNumber;
-    private static String mParentName;
+    private static String mLastName = "Sharma";
+    private static String mDOB= "01-Jan-1982";
+    private static String mUserType = USER_TYPE_STUDENT;
+    private static String mGender = USER_GENDER_MALE;
+    private static String mEmailId = "test_gurukul@gmail.com";
+    private static String mMobileNumber = "+919891829557";
+    private static int mClassId = CLASS_7;
+    private static String mSectionId = SECTION_B;
+    private static double mMonthlyFee = 100.25;
+    private static String mAdmissionDate = "12-Jan-1989";
+    private static String mCertificateNumber ;
+    private static String mParentName = "Test";
     private static String mDepartment;
     private static String mDesignation;
     private static String mDateOfJoining;
@@ -48,7 +54,7 @@ public final class UserData {
     public static String getMobileNumber(){return mMobileNumber;}
     public static int getClassId(){return mClassId;}
     public static String getSectionId(){return mSectionId;}
-    public static float getMonthlyFee(){return mMonthlyFee;}
+    public static double getMonthlyFee(){return mMonthlyFee;}
     public static String getAdmissionDate(){return mAdmissionDate;}
     public static String getCertificateNumber(){return mCertificateNumber;}
     public static String getParentName(){return mParentName;}
