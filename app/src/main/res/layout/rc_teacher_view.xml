@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:paddingTop="16dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="in.co.thingsdata.gurukul.ui.ReportCardUi.ReportCardTeacherView"
     tools:showIn="@layout/rc_teacher_main">
+
+
 
 <RelativeLayout
     android:id="@+id/TopFrame"
@@ -23,75 +26,24 @@
         android:id="@+id/infoCardtv"
         card_view:cardBackgroundColor="@color/colorComponentBG"
         card_view:cardCornerRadius="4dp"
+        android:elevation="4dp"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
         >
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/activity_horizontal_margin"
-            android:id="@+id/line1OfView"
-            >
-
-            <TextView
-                android:id="@+id/typeOfExam"
-                android:text="@string/typeOfexam"
-                android:textSize="@dimen/textsize_reportcard"
-                android:textStyle="bold"
-                android:textColor="@color/colorWhite"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/nameOfStudent"
-                android:text="dummy Name"
-                android:textSize="@dimen/textsize_reportcard"
-                android:textColor="@color/colorWhite"
-                android:paddingLeft="20dp"
-                android:layout_toRightOf="@+id/typeOfExam"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/classtv"
-                android:text="@string/classOfStudent"
-                android:textSize="@dimen/textsize_reportcard"
-                android:textStyle="bold"
-                android:textColor="@color/colorWhite"
-                android:layout_below="@+id/nametv"
-                android:layout_width="wrap_content"
-                android:paddingTop="50dp"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/classOfStudent"
-                android:text="dummy Class"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/textsize_reportcard"
-                android:paddingLeft="10dp"
-                android:paddingTop="50dp"
-                android:layout_toRightOf="@+id/classtv"
-                android:layout_below="@+id/nametv"
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-
-        </RelativeLayout>
-
+    <include layout="@layout/rc_header_tv" />
 
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/buttonscard"
-        android:layout_toLeftOf="@+id/infoCard"
         android:layout_alignParentRight="true"
-        android:layout_gravity="center"
-        android:layout_marginLeft ="100dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="1dp"
+        card_view:cardBackgroundColor="@color/colorComponentBG"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         >
@@ -99,35 +51,42 @@
         <RelativeLayout
             android:layout_height="match_parent"
             android:layout_width="match_parent"
-            >
+        >
 
       <Button
             android:layout_height="50dp"
             android:layout_width="100dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:id="@+id/findButton"
-            android:text="Find"
+            android:onClick="executeFindQuery"
+            android:text="View"
      />
 
         <Button
             android:layout_height="50dp"
             android:id="@+id/uploadButton"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:layout_below="@+id/findButton"
             android:layout_width="100dp"
-            android:layout_marginLeft="10dp"
             android:text="Upload"
+            android:onClick="executeUploadQuery"
             />
         </RelativeLayout>
 
     </android.support.v7.widget.CardView>
-
 </RelativeLayout>
+
 
     <AutoCompleteTextView
         android:layout_height="60dp"
         android:layout_width="match_parent"
         android:padding="10dp"
+
         android:layout_below="@+id/TopFrame"
         android:hint="Type name of student to search"
         android:id="@+id/searchList"
@@ -140,9 +99,10 @@
         card_view:cardBackgroundColor="@color/lineColor"
         android:layout_below="@+id/searchList"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         card_view:cardCornerRadius="4dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
+
         >
 
 
@@ -151,32 +111,25 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:layout_width="300dp"
-                android:layout_height="55dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:text="Name"
-                android:layout_toLeftOf="@+id/dummyView"
-                android:paddingTop="15dp"
-                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="40dp"
                 android:id="@+id/subject"
                 android:textStyle="bold"
 
                 />
 
-            <View
-                android:layout_height="0dp"
-                android:layout_width="0dp"
-                android:id="@+id/dummyView"
-                android:layout_centerHorizontal="true"
-                >
-                </View>
-
-            <TextView
-                android:layout_width="155dp"
-                android:layout_height="55dp"
+           <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:text="Roll Number"
-                android:layout_toRightOf="@+id/dummyView"
-                android:paddingLeft="15dp"
-                android:paddingTop="15dp"
+                android:layout_alignParentRight="true"
+               android:layout_centerVertical="true"
+                android:layout_marginRight="25dp"
+               android:paddingTop="10dp"
                 android:textStyle="bold"
                 android:id="@+id/marksObtained"
                 />
@@ -184,15 +137,13 @@
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 
-
-
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/singleStudentMarks"
         android:layout_below="@+id/headerOfList"
         android:background="@color/lineColor"
         android:layout_width="match_parent"
         android:layout_height="250dp"
+        android:visibility="gone"
         />
+    </RelativeLayout>
 
-</RelativeLayout>

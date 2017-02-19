@@ -19,83 +19,7 @@
 
        >
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:padding="@dimen/activity_horizontal_margin"
-            android:id="@+id/line1OfView"
-            >
-
-        <TextView
-            android:id="@+id/nametv"
-            android:text="@string/name"
-            android:textSize="@dimen/textsize_reportcard"
-            android:textStyle="bold"
-            android:textColor="@color/colorWhite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-          <TextView
-                android:id="@+id/nameOfStudent"
-                android:text="dummy Name"
-                android:textSize="@dimen/textsize_reportcard"
-                android:textColor="@color/colorWhite"
-                android:paddingLeft="90dp"
-                android:layout_toRightOf="@+id/nametv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/classtv"
-                android:text="@string/classOfStudent"
-                android:textSize="@dimen/textsize_reportcard"
-                android:textStyle="bold"
-                android:textColor="@color/colorWhite"
-                android:layout_below="@+id/nametv"
-                android:layout_width="wrap_content"
-                android:paddingTop="20dp"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/classOfStudent"
-                android:text="dummy Class"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/textsize_reportcard"
-                android:paddingLeft="90dp"
-                android:layout_toRightOf="@+id/classtv"
-                android:layout_below="@+id/nametv"
-                android:paddingTop="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-
-            <TextView
-                android:id="@+id/rollnumbertv"
-                android:text="@string/rollNumber"
-                android:textSize="@dimen/textsize_reportcard"
-                android:textStyle="bold"
-                android:textColor="@color/colorWhite"
-                android:layout_below="@+id/classtv"
-                android:layout_width="wrap_content"
-                android:paddingTop="20dp"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/rollnumOfStudent"
-                android:text="dummy Rollnum"
-                android:textColor="@color/colorWhite"
-                android:paddingLeft="90dp"
-
-                android:textSize="@dimen/textsize_reportcard"
-                android:layout_toRightOf="@+id/classtv"
-                android:layout_below="@+id/classOfStudent"
-                android:paddingTop="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </RelativeLayout>
-
+      <include layout="@layout/rc_header_sv" />
 
     </android.support.v7.widget.CardView>
 
@@ -103,8 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/infoCard"
         android:id="@+id/inputInfo"
-
-        android:padding ="@dimen/activity_vertical_margin"
+        android:padding ="8dp"
         android:background="@color/colorWhite"
         android:layout_width="match_parent"
         >
@@ -145,12 +68,11 @@
         card_view:cardBackgroundColor="@color/lineColor"
         android:layout_below="@+id/inputInfo"
         android:layout_width="match_parent"
-
         android:layout_height="50dp"
         card_view:cardCornerRadius="4dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="8dp"
         >
 
 
@@ -211,11 +133,11 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/singleStudentMarks"
         android:layout_below="@+id/headerOfList"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:background="@color/lineColor"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="260dp"
         />
 
     <android.support.v7.widget.CardView
@@ -228,8 +150,8 @@
 
         android:layout_height="50dp"
         card_view:cardCornerRadius="4dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_alignParentBottom="true"
         >
 

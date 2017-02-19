@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/infoCard"
+    android:id="@+id/inputInfo"
+    android:background="@color/colorComponentBG"
+    android:layout_width="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <AutoCompleteTextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/autocomplete_class"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:hint="Class"
+        android:textColor="@color/colorWhite"
+        android:textColorHint="@color/colorWhite"
+        android:layout_height="wrap_content" />
+
+    <AutoCompleteTextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/autocomplete_section"
+        android:layout_toRightOf="@+id/autocomplete_class"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="56dp"
+        android:hint="Section"
+        android:textColor="@color/colorWhite"
+        android:textColorHint="@color/colorWhite"
+        android:layout_height="wrap_content" />
+
+
+    <AutoCompleteTextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/autocomplete_year"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/autocomplete_class"
+        android:paddingTop="8dp"
+        android:layout_alignLeft="@+id/autocomplete_class"
+        android:hint="Year"
+        android:textColor="@color/colorWhite"
+        android:textColorHint="@color/colorWhite"
+        android:layout_height="wrap_content" />
+
+    <AutoCompleteTextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/autocomplete_type"
+        android:layout_width="wrap_content"
+        android:layout_alignLeft="@+id/autocomplete_section"
+        android:layout_alignBottom="@+id/autocomplete_year"
+        android:hint="Type exam"
+        android:textColor="@color/colorWhite"
+        android:textColorHint="@color/colorWhite"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

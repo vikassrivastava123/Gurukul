@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -15,6 +16,7 @@ import java.util.List;
 
 import in.co.thingsdata.gurukul.R;
 import in.co.thingsdata.gurukul.data.MarkSheetData;
+import in.co.thingsdata.gurukul.data.common.UserData;
 import in.co.thingsdata.gurukul.services.helper.CommonRequest;
 import in.co.thingsdata.gurukul.services.request.GetResultReq;
 import in.co.thingsdata.gurukul.ui.dataUi.DataOfUi;
@@ -23,11 +25,11 @@ import in.co.thingsdata.gurukul.ui.dataUi.ReportCardData;
 public class ReportCardSingleStudent extends AppCompatActivity implements GetResultReq.GetResultCallback {
 
     private List<DataOfUi> dataList = new ArrayList<>();
-    private RecyclerView recyclerView;
+    private RecyclerView mRecyclerView;
     private ReportCardAdapter mAdapter;
 
     String[] yearArray , typeOfExamArray;
-
+    TextView mName,mClassSection,mRollNumber;
     AutoCompleteTextView tvYear , tvTypeOfExam;
 
     TextView mTitle;
@@ -37,19 +39,35 @@ public class ReportCardSingleStudent extends AppCompatActivity implements GetRes
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.reportcard_singlestudent);
+        initRes();
+        mAdapter = new ReportCardAdapter(dataList,ReportCardAdapter.SINGLE_STUDENT_REPORTCARD_DETAIL , new ReportCardAdapter.OnItemClickListener() {
 
-        mAdapter = new ReportCardAdapter(dataList,ReportCardAdapter.SINGLE_STUDENT_REPORTCARD_DETAIL);
+            @Override
+            public void onItemClick(View view, int position) {
+                Log.d("asas", "asasa");
+                ///list item was clicked
+            }
+        });
 
-        recyclerView = (RecyclerView)findViewById(R.id.singleStudentMarks);
+
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.setAdapter(mAdapter);
 
 
         initAutotextViewer();
     }
+
+
+    void initRes(){
+        mRecyclerView = (RecyclerView)findViewById(R.id.singleStudentMarks);
+        mName = (TextView)findViewById(R.id.enteredNametv);
+        mClassSection = (TextView)findViewById(R.id.ClassSection);
+        mRollNumber = (TextView)findViewById(R.id.enteredRolNum);
+    }
+
 
     void initAutotextViewer(){
 
@@ -100,8 +118,8 @@ public class ReportCardSingleStudent extends AppCompatActivity implements GetRes
     }
 
     public void executeResultQuery(View view) {
-
-        //        MarkSheetData markdata = new MarkSheetData();
+        String token = UserData.getAccessToken();
+           //    MarkSheetData markdata = new MarkSheetData(token,7,2017,);
         //       GetResultReq reqMarkesheet = GetResultReq(this, ,this);
 
         prepareMovieData();

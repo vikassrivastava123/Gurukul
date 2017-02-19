@@ -2,8 +2,6 @@ package in.co.thingsdata.gurukul.ui.ReportCardUi;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -27,6 +25,8 @@ public class ReportCardCreate extends AppCompatActivity {
         setSupportActionBar(toolbar);
 */
 
+
+        /*
         mAdapter = new ReportCardAdapter(dataList,ReportCardAdapter.CREATE_REPORT_CARD);
 
         recyclerView = (RecyclerView)findViewById(R.id.singleStudentMarks);
@@ -35,7 +35,7 @@ public class ReportCardCreate extends AppCompatActivity {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
-
+*/
 
 
 

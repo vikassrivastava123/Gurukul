@@ -3,7 +3,6 @@ package in.co.thingsdata.gurukul.data;
 import java.util.ArrayList;
 
 import in.co.thingsdata.gurukul.data.common.Student;
-import in.co.thingsdata.gurukul.services.request.GetAttendanceRequest;
 
 /**
  * Created by Vikas on 2/10/2017.
@@ -28,5 +27,7 @@ public class GetStudentListInClassData {
         mStudentList.add(s);
     }
     public int getTotalNumberOfStudent(){return  mStudentList.size();}
-    public ArrayList<Student> getStudentListInClass(){return mStudentList;}
+    public ArrayList<Student> getStudentListInClass(){
+
+        return mStudentList;}
 }

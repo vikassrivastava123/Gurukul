@@ -7,99 +7,180 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import in.co.thingsdata.gurukul.R;
 import in.co.thingsdata.gurukul.data.GetStudentListInClassData;
+import in.co.thingsdata.gurukul.data.common.UserData;
 import in.co.thingsdata.gurukul.services.helper.CommonRequest;
 import in.co.thingsdata.gurukul.services.request.GetStudentListInClassReq;
-import in.co.thingsdata.gurukul.ui.dataUi.DataOfUi;
+import in.co.thingsdata.gurukul.ui.MainActivity;
 import in.co.thingsdata.gurukul.ui.dataUi.ReportCardData;
+import in.co.thingsdata.gurukul.ui.dataUi.ReportCardStaticData;
 
 public class ReportCardTeacherView extends AppCompatActivity implements GetStudentListInClassReq.GetStudentListInClassCallback{
 
-    private List<DataOfUi> dataList = new ArrayList<>();
-    private RecyclerView recyclerView;
-    private ReportCardAdapter mAdapter;
+    private RecyclerView mRecyclerView = null;
+    private ReportCardAdapter mAdapter = null;
     TextView mTitle;
+    Button findButton ,upLoadButton;
+    AutoCompleteTextView searchList;
+    android.support.v7.widget.CardView headerOfList;
+    static  final String TAG = "ReportCardTeacherView";
+   // ArrayList<Student>  mStudentList = null;
+    String classEntered,sectionEntered,yearEntered,typeOfExamcEntered;
+    AutoCompleteTextView classTv , sectionTv, yearTv, typeOfExamTv;
+int rollNum = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.rc_teacher_view);
+        initRes();
+        initAutoTextView();
 
 
-/*        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar1);
-      //  toolbar.bringToFront();
-        setSupportActionBar(toolbar);
+        mAdapter = new ReportCardAdapter(MainActivity.dataList,ReportCardAdapter.TEACHER_VIEW_REPORTCARD
+                , new ReportCardAdapter.OnItemClickListener() {
 
-
-        mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
-        Typeface mycustomFont=Typeface.createFromAsset(getAssets(),"fonts/Montserrat-Regular.otf");
-        mTitle.setTypeface(mycustomFont);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                // back button pressed
-                finish();
-                //Intent intent = new Intent(getBaseContext(),HomeScreenFirstLogin.class);
-                //startActivity(intent);
+            public void onItemClick(View view, int position) {
+                Log.d("asas", "asasa");
+
+               ///list item was clicked
             }
+
+
+
+
         });
 
-*/
-
-
-
-        mAdapter = new ReportCardAdapter(dataList,ReportCardAdapter.TEACHER_VIEW_REPORTCARD);
-
-        recyclerView = (RecyclerView)findViewById(R.id.singleStudentMarks);
+        mRecyclerView = (RecyclerView)findViewById(R.id.singleStudentMarks);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.setAdapter(mAdapter);
 
-        prepareMovieData();
 
-        initAutoTextView();
+/*        if(ReportCardStaticData.mStudentList != null) {
+            fillPrevEnteredadat();
+            initRecyclerView();
+            executeResultQuery();
+        }*/
 
     }
 
+
+
+    void onClickImplimentation(){
+
+
+
+
+
+        if(mRecyclerView != null) {
+
+          /*  ItemClickSupport.addTo(mRecyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+                @Override
+                public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+
+                    RecyclerView.ViewHolder holder = mRecyclerView.getChildViewHolder(v);
+                    holder.itemView.setBackgroundColor(Color.parseColor("#76767"));
+                    Log.d(TAG, "item clicked:" + position);
+
+                }
+
+            });*/
+        }
+
+    }
+
+
+    void initRecyclerView(){
+        if(mAdapter == null) {
+            mAdapter = new ReportCardAdapter(MainActivity.dataList, ReportCardAdapter.TEACHER_VIEW_REPORTCARD , new ReportCardAdapter.OnItemClickListener() {
+
+                @Override
+                public void onItemClick(View view, int position) {
+                     Log.d("asas","asasa");
+                    ///list item was clicked
+                }
+            });
+        }
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+            mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+            mRecyclerView.setAdapter(mAdapter);
+
+
+
+
+
+    }
+
+
     @Override
     public void onGetStudentListResponse(CommonRequest.ResponseCode res, GetStudentListInClassData data) {
+        ReportCardData dataStudentListForAdapter = null;
+        switch (res){
+
+            case COMMON_RES_SUCCESS:
+                ReportCardStaticData.mStudentList = data.getStudentListInClass();
+
+                //if(ReportCardStaticData.mStudentList == null && ReportCardStaticData.mStudentList.size() ==0)
+                {
+                    prepareMovieData();
+                }
+/*                for(Student obj: ReportCardStaticData.mStudentList){
+
+                     String name = obj.getName();
+                     int rollNumber = obj.getRollNumber();
+                     dataStudentListForAdapter = new ReportCardData(name,rollNumber);
+                     MainActivity.dataList.add(dataStudentListForAdapter);
+
+                }*/
+
+
+                break;
+            default:
+                break;
+        }
+
 
     }
 
 
     void prepareMovieData(){
 
-        ReportCardData data = new ReportCardData("name 1",1);
+        ReportCardData data = new ReportCardData("argsubject3",1);
+        MainActivity.dataList.add(data);
 
-        dataList.add(data);
+        data =  new ReportCardData("secondubject3",2);
+        MainActivity.dataList.add(data);
 
-        data =  new ReportCardData("name 2",2);
-        dataList.add(data);
+        data =  new ReportCardData("thoredsubject3",3);
+        MainActivity.dataList.add(data);
 
-        data =  new ReportCardData("name 3",3);
-        dataList.add(data);
-
-        data =  new ReportCardData("name 4",4);
-        dataList.add(data);
+        data =  new ReportCardData("fourthsubject3",4);
+        MainActivity.dataList.add(data);
 
         mAdapter.notifyDataSetChanged();
+
     }
 
-    public void executeResultQuery(View view) {
+    public void executeResultQuery() {
 
-        //GetStudentListInClassData data = new GetStudentListInClassData();
-        //GetStudentListInClassReq req = new GetStudentListInClassReq(this,data,this);
+        String token = UserData.getAccessToken();
+        GetStudentListInClassData data = new GetStudentListInClassData(token,7,2);
+        GetStudentListInClassReq req = new GetStudentListInClassReq(this,data,this);
 
-        prepareMovieData();
+        req.executeRequest();
+
+        //prepareMovieData();
 
     }
 
@@ -110,7 +191,7 @@ public class ReportCardTeacherView extends AppCompatActivity implements GetStude
 
             @Override
             public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
-                if(mAdapter != null) {
+                if (mAdapter != null) {
                     mAdapter.getFilter().filter(cs);
                 }
             }
@@ -129,4 +210,79 @@ public class ReportCardTeacherView extends AppCompatActivity implements GetStude
 
     }
 
+
+    void initRes(){
+
+        headerOfList = (android.support.v7.widget.CardView)findViewById(R.id.headerOfList);
+        mRecyclerView = (RecyclerView)findViewById(R.id.singleStudentMarks);
+        searchList = (AutoCompleteTextView)findViewById(R.id.searchList);
+        findButton = (Button)findViewById(R.id.findButton);
+        upLoadButton = (Button)findViewById(R.id.uploadButton);
+
+
+        classTv =  (AutoCompleteTextView)findViewById(R.id.autocomplete_class);
+        sectionTv =  (AutoCompleteTextView)findViewById(R.id.autocomplete_section);
+        yearTv =  (AutoCompleteTextView)findViewById(R.id.autocomplete_year);
+        typeOfExamTv =  (AutoCompleteTextView)findViewById(R.id.autocomplete_type);
+    }
+
+    void fillPrevEnteredadat(){
+
+        try{
+            classTv.setText(ReportCardData.getSelectedClass());
+            sectionTv.setText(ReportCardData.getSelectedSection());
+            yearTv.setText(ReportCardData.getSelectedYear());
+            typeOfExamTv.setText(ReportCardData.getSelectedTypeOfExam());
+        }catch(NullPointerException e){
+            Log.d(TAG,"fillPrevEnteredadat ERROR");
+        }
+    }
+
+
+    void setVisibilityOfComponents(int visibility){
+        mRecyclerView.setVisibility(visibility);
+        headerOfList.setVisibility(visibility);
+        searchList.setVisibility(visibility);
+
+
+    }
+
+    void getTextEnteredByUser(){
+
+        try {
+            classEntered = classTv.getText().toString();
+            ReportCardData.setSelectedClass(classEntered);
+
+            sectionEntered = sectionTv.getText().toString();
+            ReportCardData.setSelectedSection(sectionEntered);
+
+            yearEntered = yearTv.getText().toString();
+            ReportCardData.setSelectedSection(yearEntered);
+
+            typeOfExamcEntered = typeOfExamTv.getText().toString();
+            ReportCardData.setSelectedSection(typeOfExamcEntered);
+        }catch (NullPointerException e){
+            Log.d(TAG,"AutoComplete resources null");
+        }
+
+
+    }
+
+
+
+    public void executeFindQuery(View view) {
+        setVisibilityOfComponents(View.VISIBLE);
+        getTextEnteredByUser();
+
+        initRecyclerView();
+        executeResultQuery(); //we need to show student list . when teacher clicks particular student show his results
+
+    }
+
+    public void executeUploadQuery(View view) {
+        setVisibilityOfComponents(View.VISIBLE);
+        getTextEnteredByUser();
+        initRecyclerView();
+
+    }
 }
