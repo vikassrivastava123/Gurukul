@@ -31,8 +31,12 @@ public class ReportCardSingleStudent extends AppCompatActivity implements GetRes
     private RecyclerView mRecyclerView;
     private ReportCardAdapter mAdapter;
 
+    int mTotalMarksObtained  = 80, mTotalMarks = 100;
+    float mFinalPer = 0;
+
     String[] yearArray , typeOfExamArray;
     TextView mName,mClassSection,mRollNumber;
+    TextView mMarksObt,mTotal,mPercent;
     AutoCompleteTextView tvYear , tvTypeOfExam;
     int mRolNumber = 0;
     TextView mTitle;
@@ -52,7 +56,8 @@ public class ReportCardSingleStudent extends AppCompatActivity implements GetRes
             mSelectedStudent = (ReportCardData) MainActivity.dataList.get(posInList);
             mName.setText(mSelectedStudent.getName());
 
-            mClassSection.setText(ReportCardStaticData.getSelectedClass() + " " + ReportCardStaticData.getSelectedSection());
+            mClassSection.setText(getResources().getText(R.string.classOfStudent) +  ReportCardStaticData.getSelectedClass()
+                    + " " + ReportCardStaticData.getSelectedSection());
 
             mRolNumber = mSelectedStudent.getRollNumber();
             mRollNumber.setText(Integer.toString(mRolNumber));
@@ -84,6 +89,12 @@ public class ReportCardSingleStudent extends AppCompatActivity implements GetRes
         mName = (TextView)findViewById(R.id.enteredNametv);
         mClassSection = (TextView)findViewById(R.id.ClassSection);
         mRollNumber = (TextView)findViewById(R.id.enteredRolNum);
+
+
+        mMarksObt = (TextView)findViewById(R.id.totalMarksObtained);
+        mTotal = (TextView)findViewById(R.id.totalSumOfMarks);
+        mPercent = (TextView)findViewById(R.id.percentageOfMarks);
+
     }
 
 
@@ -109,6 +120,11 @@ public class ReportCardSingleStudent extends AppCompatActivity implements GetRes
 
    }
 
+    void setFooter(){
+        mMarksObt.setText(Integer.toString(mTotalMarksObtained));
+        mTotal.setText(Integer.toString(mTotalMarks));
+        mPercent.setText(Float.toString(mFinalPer));
+    }
 
     void prepareMovieData(){
 
@@ -143,7 +159,9 @@ public class ReportCardSingleStudent extends AppCompatActivity implements GetRes
 
                     int marks = subjMakrs.getMarksObtained();
                     int totalMarks = subjMakrs.getTotalMarks();
-                    float percentage = (marks / totalMarks) * 100;
+                    mTotalMarksObtained += marks;
+                    mTotalMarks += totalMarks;
+                    float percentage = (marks*100)/ totalMarks;
 
                     ReportCardData data = new ReportCardData(subjMakrs.getSubject().getSubjectName(), Integer.toString(marks),
                             Integer.toString(totalMarks), Float.toString(percentage));
@@ -157,6 +175,10 @@ public class ReportCardSingleStudent extends AppCompatActivity implements GetRes
         }
         mAdapter.notifyDataSetChanged();
         */
+
+        mFinalPer = (mTotalMarksObtained*100)/mTotalMarks;
+
+        setFooter();
         prepareMovieData();
 
     }
