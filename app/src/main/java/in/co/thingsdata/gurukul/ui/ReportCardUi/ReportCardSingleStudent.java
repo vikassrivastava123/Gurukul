@@ -1,5 +1,6 @@
 package in.co.thingsdata.gurukul.ui.ReportCardUi;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -19,8 +20,10 @@ import in.co.thingsdata.gurukul.data.MarkSheetData;
 import in.co.thingsdata.gurukul.data.common.UserData;
 import in.co.thingsdata.gurukul.services.helper.CommonRequest;
 import in.co.thingsdata.gurukul.services.request.GetResultReq;
+import in.co.thingsdata.gurukul.ui.MainActivity;
 import in.co.thingsdata.gurukul.ui.dataUi.DataOfUi;
 import in.co.thingsdata.gurukul.ui.dataUi.ReportCardData;
+import in.co.thingsdata.gurukul.ui.dataUi.ReportCardStaticData;
 
 public class ReportCardSingleStudent extends AppCompatActivity implements GetResultReq.GetResultCallback {
 
@@ -31,15 +34,31 @@ public class ReportCardSingleStudent extends AppCompatActivity implements GetRes
     String[] yearArray , typeOfExamArray;
     TextView mName,mClassSection,mRollNumber;
     AutoCompleteTextView tvYear , tvTypeOfExam;
-
+    int mRolNumber = 0;
     TextView mTitle;
-
+    ReportCardData mSelectedStudent;
+    public static String TAG = "ReportCardSingleStudent";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.reportcard_singlestudent);
         initRes();
+
+        Intent intent = getIntent();
+        int posInList = intent.getIntExtra(getResources().getString(R.string.intent_extra_rolnumber), 1);
+
+        try {
+            mSelectedStudent = (ReportCardData) MainActivity.dataList.get(posInList);
+            mName.setText(mSelectedStudent.getName());
+
+            mClassSection.setText(ReportCardStaticData.getSelectedClass() + " " + ReportCardStaticData.getSelectedSection());
+
+            mRolNumber = mSelectedStudent.getRollNumber();
+            mRollNumber.setText(Integer.toString(mRolNumber));
+        }catch(NullPointerException e){
+            Log.d(TAG,"Data is null");
+        }
         mAdapter = new ReportCardAdapter(dataList,ReportCardAdapter.SINGLE_STUDENT_REPORTCARD_DETAIL , new ReportCardAdapter.OnItemClickListener() {
 
             @Override
@@ -48,8 +67,6 @@ public class ReportCardSingleStudent extends AppCompatActivity implements GetRes
                 ///list item was clicked
             }
         });
-
-
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -63,6 +80,7 @@ public class ReportCardSingleStudent extends AppCompatActivity implements GetRes
 
     void initRes(){
         mRecyclerView = (RecyclerView)findViewById(R.id.singleStudentMarks);
+
         mName = (TextView)findViewById(R.id.enteredNametv);
         mClassSection = (TextView)findViewById(R.id.ClassSection);
         mRollNumber = (TextView)findViewById(R.id.enteredRolNum);
@@ -113,18 +131,42 @@ public class ReportCardSingleStudent extends AppCompatActivity implements GetRes
 
 
     @Override
-    public void onResultResponse(CommonRequest.ResponseCode res, MarkSheetData data) {
+    public void onResultResponse(CommonRequest.ResponseCode res, MarkSheetData mrData) {
+
+        /*
+        if(res == CommonRequest.ResponseCode.COMMON_RES_SUCCESS){
+
+            try {
+                ArrayList<SubjectWiseMarks> receivedSubjMakrs = mrData.getMarkSheet();
+
+                for (SubjectWiseMarks subjMakrs : receivedSubjMakrs) {
+
+                    int marks = subjMakrs.getMarksObtained();
+                    int totalMarks = subjMakrs.getTotalMarks();
+                    float percentage = (marks / totalMarks) * 100;
+
+                    ReportCardData data = new ReportCardData(subjMakrs.getSubject().getSubjectName(), Integer.toString(marks),
+                            Integer.toString(totalMarks), Float.toString(percentage));
+                    dataList.add(data);
+
+                }
+            }catch(Exception e){
+                Log.d(TAG,"Error in marksheek ");
+            }
+
+        }
+        mAdapter.notifyDataSetChanged();
+        */
+        prepareMovieData();
 
     }
 
     public void executeResultQuery(View view) {
         String token = UserData.getAccessToken();
-           //    MarkSheetData markdata = new MarkSheetData(token,7,2017,);
-        //       GetResultReq reqMarkesheet = GetResultReq(this, ,this);
+        MarkSheetData markdata = new MarkSheetData(token,mRolNumber,ReportCardStaticData.getSelectedYear(),ReportCardStaticData.getSelectedTypeOfExam());
+        GetResultReq reqMarkesheet = new GetResultReq(ReportCardSingleStudent.this,markdata,this);
 
-        prepareMovieData();
-
-
+        reqMarkesheet.executeRequest();
     }
 
     void setDataOfViews(){

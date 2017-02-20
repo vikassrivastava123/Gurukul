@@ -90,38 +90,6 @@ public class ReportCardData extends DataOfUi {
     }
 
     /////
-    public static String classOfStudent ,section,year,typeOfExam;
-    public static void setSelectedClass(String data){
-        classOfStudent = data;
-    }
-
-    public static  void setSelectedSection(String data){
-        section = data;
-    }
-
-    public static  void setSelectedYear(String data){
-        year = data;
-    }
-
-    public static  void setSelectedTypeOfExam(String data){
-        typeOfExam = data;
-    }
-
-    public static  String  getSelectedClass(){
-        return classOfStudent;
-    }
-
-    public  static String  getSelectedYear(){
-        return year;
-    }
-
-    public static String  getSelectedSection(){
-        return section;
-    }
-
-    public static String  getSelectedTypeOfExam(){
-        return typeOfExam;
-    }
 
     ////
 

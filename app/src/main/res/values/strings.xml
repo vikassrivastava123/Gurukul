@@ -12,4 +12,5 @@
     <string name="title_activity_report_card_teacher_view">ReportCardTeacherView</string>
     <string name="title_activity_report_card_launch">reportCardLaunch</string>
     <string name="title_activity_rc_create">rc_create</string>
+    <string name="intent_extra_rolnumber">rollNum</string>
 </resources>

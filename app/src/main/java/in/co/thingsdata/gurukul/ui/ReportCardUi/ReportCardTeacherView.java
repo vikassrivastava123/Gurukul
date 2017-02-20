@@ -1,5 +1,7 @@
 package in.co.thingsdata.gurukul.ui.ReportCardUi;
 
+import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -40,6 +42,7 @@ int rollNum = 0;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.rc_teacher_view);
         initRes();
+        fillPrevEnteredadat();
         initAutoTextView();
 
 
@@ -48,7 +51,10 @@ int rollNum = 0;
 
             @Override
             public void onItemClick(View view, int position) {
-                Log.d("asas", "asasa");
+
+                Intent start = new Intent(ReportCardTeacherView.this,ReportCardSingleStudent.class);
+                start.putExtra(getResources().getString(R.string.intent_extra_rolnumber),position);
+                startActivity(start);
 
                ///list item was clicked
             }
@@ -229,11 +235,11 @@ int rollNum = 0;
     void fillPrevEnteredadat(){
 
         try{
-            classTv.setText(ReportCardData.getSelectedClass());
-            sectionTv.setText(ReportCardData.getSelectedSection());
-            yearTv.setText(ReportCardData.getSelectedYear());
-            typeOfExamTv.setText(ReportCardData.getSelectedTypeOfExam());
-        }catch(NullPointerException e){
+            classTv.setText(ReportCardStaticData.getSelectedClass());
+            sectionTv.setText(ReportCardStaticData.getSelectedSection());
+            yearTv.setText(ReportCardStaticData.getSelectedYear());
+            typeOfExamTv.setText(ReportCardStaticData.getSelectedTypeOfExam());
+        }catch(Resources.NotFoundException | NullPointerException ed){
             Log.d(TAG,"fillPrevEnteredadat ERROR");
         }
     }
@@ -251,17 +257,17 @@ int rollNum = 0;
 
         try {
             classEntered = classTv.getText().toString();
-            ReportCardData.setSelectedClass(classEntered);
+            ReportCardStaticData.setSelectedClass(classEntered);
 
             sectionEntered = sectionTv.getText().toString();
-            ReportCardData.setSelectedSection(sectionEntered);
+            ReportCardStaticData.setSelectedSection(sectionEntered);
 
             yearEntered = yearTv.getText().toString();
-            ReportCardData.setSelectedSection(yearEntered);
+            ReportCardStaticData.setSelectedYear(Integer.parseInt(yearEntered));
 
             typeOfExamcEntered = typeOfExamTv.getText().toString();
-            ReportCardData.setSelectedSection(typeOfExamcEntered);
-        }catch (NullPointerException e){
+            ReportCardStaticData.setSelectedSection(typeOfExamcEntered);
+        }catch (Exception e){
             Log.d(TAG,"AutoComplete resources null");
         }
 
