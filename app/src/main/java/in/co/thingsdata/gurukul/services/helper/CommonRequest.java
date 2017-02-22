@@ -20,20 +20,22 @@ import java.util.Map;
 
 public abstract class CommonRequest {
     /*------------------------- Constant Fields Definition ----------------------------*/
-    private static final String LOGIN_REQUEST_URL = "http://4ways:4wayssecret@ec2-52-40-240-149.us-west-2.compute.amazonaws.com:8899"
-            + "/4ways/userauth/oauth/token" + "?grant_type=password";
-    private static final String SIGN_UP_REQUEST_URL =
-            "http://ec2-52-66-99-210.ap-south-1.compute.amazonaws.com:8081" +
-                    "/4ways/api/user/register";
-    private static final String GET_PROFILE_DATA_URL =
-            "http://ec2-52-66-99-210.ap-south-1.compute.amazonaws.com:8091" +
-                    "/4ways/api/profile/search/profile/content";
+    private static final String DOMAIN = "http://ec2-35-154-121-61.ap-south-1.compute.amazonaws.com/";
+    private static final String LOGIN_REQUEST_URL = DOMAIN + "user/login";
+    private static final String SIGN_UP_REQUEST_URL = DOMAIN + "user/register";
+    private static final String GET_RESULT_URL = DOMAIN + "api/school/exam/result/search?";
+    private static final String SUBMIT_MARKSHEET_URL = DOMAIN + "api/school/exam/result/create?";
+    private static final String GET_STUDENT_DETAIL_URL = DOMAIN + "api/school/profile/student/search/detail/regNo?";
+    private static final String GET_TEACHER_DETAIL_URL = DOMAIN + "school/profile/teacher/search?";
+    private static final String GET_STUDENT_LIST_URL = DOMAIN + "api/school/profile/student/search/summary?";
+    private static final String GET_SUBJECT_LIST_URL = DOMAIN + "Subject list"; //TODO: Get proper URL
 
     public enum RequestType  {
         COMMON_REQUEST_LOGIN,
         COMMON_REQUEST_FORGET_PASSWORD,
         COMMON_REQUEST_SIGNUP,
-        COMMON_REQUEST_GET_USER_DATA,
+        COMMON_REQUEST_GET_STUDENT_DETAIL,
+        COMMON_REQUEST_GET_TEACHER_DETAIL,
 
         COMMON_REQUEST_GET_ATTENDANCE,
         COMMON_REQUEST_SUBMIT_ATTENDANCE,
@@ -49,6 +51,7 @@ public abstract class CommonRequest {
 
     public enum ResponseCode  {
         COMMON_RES_SUCCESS,
+        COMMON_RES_NO_DATA_FOUND,
         COMMON_RES_INTERNAL_ERROR,
         COMMON_RES_CONNECTION_TIMEOUT,
         COMMON_RES_FAILED_TO_CONNECT,
@@ -112,8 +115,23 @@ public abstract class CommonRequest {
             case COMMON_REQUEST_SIGNUP:
                 url = SIGN_UP_REQUEST_URL;
                 break;
-            case COMMON_REQUEST_GET_PROFILE:
-                url = GET_PROFILE_DATA_URL;
+            case COMMON_REQUEST_GET_STUDENT_DETAIL:
+                url = GET_STUDENT_DETAIL_URL;
+                break;
+            case COMMON_REQUEST_GET_TEACHER_DETAIL:
+                url = GET_TEACHER_DETAIL_URL;
+                break;
+            case COMMON_REQUEST_GET_RESULT:
+                url = GET_RESULT_URL;
+                break;
+            case COMMON_REQUEST_SUBMIT_RESULT:
+                url = SUBMIT_MARKSHEET_URL;
+                break;
+            case COMMON_REQUEST_GET_STUDENT_LIST_IN_CLASS:
+                url = GET_STUDENT_LIST_URL;
+                break;
+            case COMMON_REQUEST_GET_SUBJECT_LIST:
+                url = GET_SUBJECT_LIST_URL;
                 break;
         }
         return url;

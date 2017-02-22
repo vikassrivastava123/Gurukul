@@ -22,7 +22,9 @@ import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIEL
 import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_ATTENDANCE_STATUS;
 import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_DAY;
 import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_EXAM_TYPE;
+import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_MARKS;
 import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_MONTH;
+import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_REG_NUMBER;
 import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_RESULT_MARKS_OBTAINED;
 import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_RESULT_TOTAL_MARKS;
 import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_ROLL_NUMBER;
@@ -46,12 +48,10 @@ public class SubmitMarkSheetReq extends CommonRequest{
 
 
         Map<String, String> param = new HashMap<>();
-        param.put(JSON_FIELD_ACCESS_TOKEN, data.getAccessToken());
-        param.put(JSON_FIELD_ROLL_NUMBER, Integer.toString(data.getRollNumber()));
         param.put(JSON_FIELD_YEAR, Integer.toString(data.getExamYear()));
         param.put(JSON_FIELD_EXAM_TYPE, data.getExamType());
+        param.put(JSON_FIELD_REG_NUMBER, data.getRegistrationId());
 
-        setPostHeader(param);
 
         JSONArray jsonArray = new JSONArray();
         ArrayList<SubjectWiseMarks> markSheet = mData.getMarkSheet();
@@ -73,7 +73,8 @@ public class SubmitMarkSheetReq extends CommonRequest{
         try
         {
             JSONObject jsObj = jsonArray.toJSONObject(jsonArray);
-            setParam(jsObj);
+            param.put(JSON_FIELD_MARKS, jsObj.toString());
+            setParam(param);
         }catch (JSONException e) {
             e.printStackTrace();
         }
@@ -86,6 +87,6 @@ public class SubmitMarkSheetReq extends CommonRequest{
 
     @Override
     public void onErrorHandler(VolleyError error) {
-
+        mAppCallback.onSubmitMarksResponse(ResponseCode.COMMON_RES_FAILED_TO_CONNECT, mData);
     }
 }

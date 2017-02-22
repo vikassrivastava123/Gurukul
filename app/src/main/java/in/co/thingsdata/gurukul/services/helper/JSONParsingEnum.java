@@ -5,16 +5,24 @@ package in.co.thingsdata.gurukul.services.helper;
  */
 
 public class JSONParsingEnum {
+    public static final String JSON_FIELD_DATA = "data";
+    public static final String JSON_FIELD_NAME = "name";
+    public static final String JSON_FIELD_UNIQUE_ID = "uniqueId";
+    public static final String JSON_FIELD_REG_NUMBER = "regNo";
+    public static final String JSON_FIELD_STATUS = "status";
+
+    public static final String JSON_FIELD_MARKS = "marks";
+
     public static final String JSON_FIELD_ACCESS_TOKEN = "accessToken";
-    public static final String JSON_FIELD_ROLL_NUMBER = "rollNumber";
+    public static final String JSON_FIELD_ROLL_NUMBER = "rollNo";
     public static final String JSON_FIELD_DAY = "day";
     public static final String JSON_FIELD_MONTH = "month";
     public static final String JSON_FIELD_YEAR = "year";
     public static final String JSON_FIELD_ATTENDANCE_STATUS = "attendanceStatus";
     public static final String JSON_FIELD_EXAM_TYPE = "examType";
 
-    public static final String JSON_FIELD_CLASS_ID = "Class";
-    public static final String JSON_FIELD_SECTION_ID = "Section";
+    public static final String JSON_FIELD_CLASS_ID = "class";
+    public static final String JSON_FIELD_SECTION_ID = "section";
     public static final String JSON_FIELD_STUDENT_ID = "studentId";
     public static final String JSON_FIELD_STUDENT_NAME = "studentName";
 
@@ -30,15 +38,16 @@ public class JSONParsingEnum {
     public static final String JSON_FIELD_LOGIN_ID = "loginId";
     public static final String JSON_FIELD_PASSWORD = "password";
     public static final String JSON_FIELD_CLASS_ROOM_ID = "classRoomId";
-    public static final String JSON_FIELD_SCHOOL_CODE = "schoolCode";
+    public static final String JSON_FIELD_SCHOOL_CODE = "school";
     public static final String JSON_FIELD_FIRST_NAME = "firstName";
     public static final String JSON_FIELD_MIDDLE_NAME = "middleName";
     public static final String JSON_FIELD_LAST_NAME = "lastName";
     public static final String JSON_FIELD_DOB = "DOB";
     public static final String JSON_FIELD_USER_TYPE = "userType";
     public static final String JSON_FIELD_GENDER = "gender";
-    public static final String JSON_FIELD_EMAIL_ID = "emailId";
+    public static final String JSON_FIELD_EMAIL_ID = "mailId";
     public static final String JSON_FIELD_MOBILE_NUMBER = "mobileNumber";
+    public static final String JSON_FIELD_EMPLOYEE_CODE = "empCode";
     public static final String JSON_FIELD_FEE = "fee";
     public static final String JSON_FIELD_ADMISSION_DATE = "admissionDate";
     public static final String JSON_FIELD_CERTIFICATE_NUMBER = "certificateNumber";
