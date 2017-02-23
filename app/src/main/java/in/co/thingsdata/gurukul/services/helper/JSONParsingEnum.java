@@ -55,4 +55,12 @@ public class JSONParsingEnum {
     public static final String JSON_FIELD_DEPARTMENT = "department";
     public static final String JSON_FIELD_DESIGNATION = "designation";
     public static final String JSON_FIELD_DATE_OF_JOINING = "dateOfJoining";
+
+    public static final String JSON_FIELD_NOTIFICATION_CREATE_DATE = "createDate";
+    public static final String JSON_FIELD_NOTIFICATION_EXPIRY_DATE = "expiryDate";
+    public static final String JSON_FIELD_NOTIFICATION_TITLE = "title";
+    public static final String JSON_FIELD_NOTIFICATION_ID = "id";
+    public static final String JSON_FIELD_NOTIFICATION_DESCRIPTION = "description";
+    public static final String JSON_FIELD_NOTIFICATION_TYPE = "type";
+    public static final String JSON_FIELD_NOTIFICATION_REPLY = "reply";
 }

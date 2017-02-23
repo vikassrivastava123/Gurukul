@@ -5,6 +5,22 @@ package in.co.thingsdata.gurukul.data.common;
  */
 
 public final class CommonDetails {
+    public enum NotificationTypeEnum  {
+        NOTIFICATION_TYPE_NORMAL, // Used for the day which don't exist like 30 FEB.
+        NOTIFICATION_TYPE_VOTE,
+
+        NOTIFICATION_TYPE_END // WARNING: Add all attendance value above this line only
+    }
+
+    public enum NotificationReplyEnum  {
+        NOTIFICATION_REPLY_YES, // Used for the day which don't exist like 30 FEB.
+        NOTIFICATION_REPLY_NO,
+        NOTIFICATION_REPLY_READ,
+        NOTIFICATION_REPLY_PENDING,
+
+        NOTIFICATION_REPLY_END // WARNING: Add all attendance value above this line only
+    }
+
     public static final int CLASS_PRE_NURSERY = -1;
     public static final int CLASS_NURSERY = 0;
     public static final int CLASS_1 = 1;
@@ -24,6 +40,7 @@ public final class CommonDetails {
     public static final String SECTION_B = "B";
     public static final String SECTION_C = "C";
     public static final String SECTION_D = "D";
+    public static final String SECTION_INVALID = "INVALID";
 
     public static final String EXAM_TYPE_HALF_YEARLY = "HALF_YEARLY";
     public static final String EXAM_TYPE_YEARLY = "YEARLY";
