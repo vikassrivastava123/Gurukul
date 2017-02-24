@@ -53,7 +53,8 @@ int rollNum = 0;
             public void onItemClick(View view, int position) {
 
                 Intent start = new Intent(ReportCardTeacherView.this,ReportCardSingleStudent.class);
-                start.putExtra(getResources().getString(R.string.intent_extra_rolnumber),position);
+                start.putExtra(getResources().getString(R.string.intent_extra_posInList),position);
+
                 startActivity(start);
 
                ///list item was clicked
@@ -163,6 +164,24 @@ int rollNum = 0;
     void prepareMovieData(){
 
         ReportCardData data = new ReportCardData("argsubject3",1);
+        MainActivity.dataList.add(data);
+
+        data =  new ReportCardData("secondubject3",2);
+        MainActivity.dataList.add(data);
+
+        data =  new ReportCardData("thoredsubject3",3);
+        MainActivity.dataList.add(data);
+
+        data =  new ReportCardData("fourthsubject3",4);
+        MainActivity.dataList.add(data);
+
+        data =  new ReportCardData("secondubject3",2);
+        MainActivity.dataList.add(data);
+
+        data =  new ReportCardData("thoredsubject3",3);
+        MainActivity.dataList.add(data);
+
+        data =  new ReportCardData("fourthsubject3",4);
         MainActivity.dataList.add(data);
 
         data =  new ReportCardData("secondubject3",2);

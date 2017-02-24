@@ -185,7 +185,8 @@ public class ReportCardSingleStudent extends AppCompatActivity implements GetRes
 
     public void executeResultQuery(View view) {
         String token = UserData.getAccessToken();
-        MarkSheetData markdata = new MarkSheetData(token,mRolNumber,ReportCardStaticData.getSelectedYear(),ReportCardStaticData.getSelectedTypeOfExam());
+        //todo dummy RegistrationId
+        MarkSheetData markdata = new MarkSheetData(token,mRolNumber,ReportCardStaticData.getSelectedYear(),ReportCardStaticData.getSelectedTypeOfExam(),"1");
         GetResultReq reqMarkesheet = new GetResultReq(ReportCardSingleStudent.this,markdata,this);
 
         reqMarkesheet.executeRequest();

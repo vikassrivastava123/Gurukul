@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static List<DataOfUi> dataList = new ArrayList<>();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

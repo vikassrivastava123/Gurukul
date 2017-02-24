@@ -9,7 +9,7 @@ public class ReportCardData extends DataOfUi {
 
     String subject = null , marksObtained = null , total = null , percentage = null;
 
-    String name = null; int rollNumber = 0;
+    String name = null ,regNumber = null; int rollNumber = 0 ;
 
     public ReportCardData(String argname , int argrollNumber){
 
@@ -31,6 +31,14 @@ public class ReportCardData extends DataOfUi {
 
     public int getRollNumber(){
         return rollNumber;
+    }
+
+    public String getRegistrationNumber(){
+        return regNumber;
+    }
+
+    public void setRegistrationNumber(String argRegNumber){
+        regNumber = argRegNumber;
     }
 
     public void setRollNumber(int argRollNumber){
