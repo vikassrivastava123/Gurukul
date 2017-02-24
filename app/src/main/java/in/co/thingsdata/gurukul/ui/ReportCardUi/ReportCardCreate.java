@@ -62,6 +62,7 @@ public class ReportCardCreate extends AppCompatActivity implements GetSubjectLis
     void fillSubjectListData(){
         String token = UserData.getAccessToken();
         String classOfSt =  ReportCardStaticData.getSelectedClass();
+
         data = new GetSubjectListData(token,Integer.parseInt(classOfSt));
         GetSubjectListReq req = new GetSubjectListReq(ReportCardCreate.this,data,ReportCardCreate.this);
 

@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import in.co.thingsdata.gurukul.R;
-import in.co.thingsdata.gurukul.ui.ReportCardUi.ReportCardCreate;
+import in.co.thingsdata.gurukul.ui.ReportCardUi.ReportCardTeacherView;
 
 public class Dashboard extends AppCompatActivity {
 
@@ -18,7 +18,7 @@ public class Dashboard extends AppCompatActivity {
 
     public void launchReportCard(View view) {
 
-        Intent launchFeature = new Intent(this, ReportCardCreate.class);
+        Intent launchFeature = new Intent(this, ReportCardTeacherView.class);
         startActivity(launchFeature);
 
     }

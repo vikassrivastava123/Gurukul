@@ -50,7 +50,7 @@ public class ReportCardSingleStudent extends AppCompatActivity implements GetRes
         initRes();
 
         Intent intent = getIntent();
-        int posInList = intent.getIntExtra(getResources().getString(R.string.intent_extra_rolnumber), 1);
+        int posInList = intent.getIntExtra(getResources().getString(R.string.intent_extra_posInList), 1);
 
         try {
             mSelectedStudent = (ReportCardData) MainActivity.dataList.get(posInList);

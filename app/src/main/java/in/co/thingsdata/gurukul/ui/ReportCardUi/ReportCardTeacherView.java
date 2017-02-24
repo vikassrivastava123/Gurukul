@@ -52,7 +52,7 @@ int rollNum = 0;
             @Override
             public void onItemClick(View view, int position) {
 
-                Intent start = new Intent(ReportCardTeacherView.this,ReportCardSingleStudent.class);
+                Intent start = new Intent(ReportCardTeacherView.this,ReportCardCreate.class);
                 start.putExtra(getResources().getString(R.string.intent_extra_posInList),position);
 
                 startActivity(start);
@@ -156,7 +156,7 @@ int rollNum = 0;
             default:
                 break;
         }
-
+        prepareMovieData();
 
     }
 
@@ -285,7 +285,7 @@ int rollNum = 0;
             ReportCardStaticData.setSelectedYear(Integer.parseInt(yearEntered));
 
             typeOfExamcEntered = typeOfExamTv.getText().toString();
-            ReportCardStaticData.setSelectedSection(typeOfExamcEntered);
+            ReportCardStaticData.setSelectedTypeOfExam(typeOfExamcEntered);
         }catch (Exception e){
             Log.d(TAG,"AutoComplete resources null");
         }
@@ -308,6 +308,8 @@ int rollNum = 0;
         setVisibilityOfComponents(View.VISIBLE);
         getTextEnteredByUser();
         initRecyclerView();
+
+        prepareMovieData();
 
     }
 }
