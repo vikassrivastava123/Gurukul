@@ -14,11 +14,11 @@ public final class UserData {
     private static boolean mIsDataReady = true;
 
     private static String mAccessToken = "DUMMY";
-    private static String mRollNumber = "543210";
+    private static int mRollNumber = 1;
     private static String mUserId = "Gurukul hardcoded test ID";
     private static String mLoginId = "test_gurukul";
     private static String mClassRoomId = "12B"; //for server string parsing only
-    private static String mSchoolCode = "01";
+    private static int mSchoolCode = 1;
     private static String mFirstName = "Ashutosh";
     private static String mMiddleName;
     private static String mLastName = "Sharma";
@@ -36,14 +36,17 @@ public final class UserData {
     private static String mDepartment;
     private static String mDesignation;
     private static String mDateOfJoining;
+    private static String mRegistrationId;
+    private static String mEmployeeId;
+    private static String mUniqueId;
 
     public static boolean isUserDataReady(){return mIsDataReady;}
     public static String getAccessToken(){return mAccessToken;}
-    public static String getRollNumber(){return mRollNumber;}
+    public static int getRollNumber(){return mRollNumber;}
     public static String getUserId(){return mUserId;}
     public static String getLoginId(){return mLoginId;}
     public static String getClassRoomId(){return mClassRoomId;}
-    public static String getSchoolCode(){return mSchoolCode;}
+    public static int getSchoolCode(){return mSchoolCode;}
     public static String getFirstName(){return mFirstName;}
     public static String getMiddleName(){return mMiddleName;}
     public static String getLastName(){return mLastName;}
@@ -61,17 +64,20 @@ public final class UserData {
     public static String getDepartment(){return mDepartment;}
     public static String getDesignation(){return mDesignation;}
     public static String getDateOfJoining(){return mDateOfJoining;}
+    public static String getRegistrationId(){return mRegistrationId;}
+    public static String getEmployeeId(){return mEmployeeId;}
+    public static String getUniqueId(){return mUniqueId;}
 
 
 
     //TODO: All Setter must write in Shared preference
-    public static void isUserDataReady(boolean isReady){mIsDataReady = isReady;}
+    public static void setUserDataReady(boolean isReady){mIsDataReady = isReady;}
     public static void setAccessToken(String token){mAccessToken = token;}
-    public static void setRollNumber(String rnum){mRollNumber = rnum;}
+    public static void setRollNumber(int rnum){mRollNumber = rnum;}
     public static void setUserId(String uid){mUserId = uid;}
     public static void setLoginId(String lid){mLoginId = lid;}
     public static void setClassRoomId(String clid){mClassRoomId = clid;}
-    public static void setSchoolCode(String sc){mSchoolCode = sc;}
+    public static void setSchoolCode(int sc){mSchoolCode = sc;}
     public static void setFirstName(String fname){mFirstName = fname;}
     public static void setMiddleName(String mname){mMiddleName = mname;}
     public static void setLastName(String lname){mLastName = lname;}
@@ -89,4 +95,7 @@ public final class UserData {
     public static void setDepartment(String dept){mDepartment = dept;}
     public static void setDesignation(String des){mDesignation = des;}
     public static void setDateOfJoining(String doj){mDateOfJoining = doj;}
+    public static void setRegistrationId(String id){mRegistrationId = id;}
+    public static void setEmployeeId(String id){mEmployeeId = id;}
+    public static void setUniqueId(String id){mUniqueId = id;}
 }

@@ -5,15 +5,17 @@ package in.co.thingsdata.gurukul.data.common;
  */
 
 public final class Student {
-    private int mStudentId;
+    private String mStudentId;
+    private String mRegistrationId;
     private String mStudentName;
     private int mRollNumber;
 
-    public Student (int id, String name, int roll_num){
-        mStudentId = id; mStudentName = name; mRollNumber = roll_num;
+    public Student (String id, String name, int roll_num, String reg_id){
+        mStudentId = id; mStudentName = name; mRollNumber = roll_num; mRegistrationId = reg_id;
     }
 
-    public int getStudentId(){return mStudentId;}
+    public String getStudentId(){return mStudentId;}
     public int getRollNumber(){return mRollNumber;}
     public String getName(){return mStudentName;}
+    public String getRegistrationId(){return mRegistrationId;}
 }

@@ -4,18 +4,32 @@ import android.content.Context;
 
 import com.android.volley.VolleyError;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import in.co.thingsdata.gurukul.data.MarkSheetData;
+import in.co.thingsdata.gurukul.data.SubjectWiseMarks;
+import in.co.thingsdata.gurukul.data.common.Subject;
 import in.co.thingsdata.gurukul.services.helper.CommonRequest;
 
+import static in.co.thingsdata.gurukul.data.common.CommonDetails.CLASS_7;
 import static in.co.thingsdata.gurukul.services.helper.CommonRequest.RequestType.COMMON_REQUEST_GET_RESULT;
 import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_ACCESS_TOKEN;
+import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_DATA;
 import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_EXAM_TYPE;
+import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_MARKS;
+import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_NAME;
+import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_REG_NUMBER;
+import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_RESULT_MARKS_OBTAINED;
+import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_RESULT_TOTAL_MARKS;
 import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_ROLL_NUMBER;
+import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_STATUS;
+import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_SUBJECT_ID;
+import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_SUBJECT_NAME;
 import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_YEAR;
 
 /**
@@ -31,26 +45,45 @@ public class GetResultReq extends CommonRequest {
     private GetResultCallback mAppCallback;
 
     public GetResultReq(Context context, MarkSheetData data, GetResultCallback cb) {
-        super(context, COMMON_REQUEST_GET_RESULT, CommonRequestMethod.COMMON_REQUEST_METHOD_POST, null);
+        super(context, COMMON_REQUEST_GET_RESULT, CommonRequestMethod.COMMON_REQUEST_METHOD_GET, null);
         mData = data; mAppCallback = cb;
 
-        Map<String, String> param = new HashMap<>();
-        param.put(JSON_FIELD_ACCESS_TOKEN, data.getAccessToken());
-        param.put(JSON_FIELD_ROLL_NUMBER, Integer.toString(data.getRollNumber()));
-        param.put(JSON_FIELD_YEAR, Integer.toString(data.getExamYear()));
-        param.put(JSON_FIELD_EXAM_TYPE, data.getExamType());
-
-        setParam(param);
+        String url = getURL();
+        url += JSON_FIELD_YEAR + "=" + mData.getExamYear();
+        url += "&" + JSON_FIELD_EXAM_TYPE + "=" + mData.getExamType();
+        url += "&" + JSON_FIELD_REG_NUMBER + "=" + mData.getRegistrationId();
+        setURL(url);
     }
 
     @Override
     public void onResponseHandler(JSONObject response) {
-        //TODO: Parse response and add subject wise marks in mData.
-        mAppCallback.onResultResponse(ResponseCode.COMMON_RES_SUCCESS, mData);
+        try {
+            if (response.getInt(JSON_FIELD_STATUS) == 1) {
+                JSONObject data = response.getJSONObject(JSON_FIELD_DATA);
+                JSONArray marks = data.getJSONArray(JSON_FIELD_MARKS);
+                int total = marks.length();
+                for (int i = 0; i < total; i++) {
+                    JSONObject sub = marks.getJSONObject(i);
+                    String subjectId = sub.getString(JSON_FIELD_SUBJECT_ID);
+                    String subjectName = sub.getString(JSON_FIELD_SUBJECT_NAME);
+                    int marksObtained = sub.getInt(JSON_FIELD_RESULT_MARKS_OBTAINED);
+                    int totalMarks = sub.getInt(JSON_FIELD_RESULT_TOTAL_MARKS);
+                    Subject subject = new Subject(subjectId, subjectName, CLASS_7);
+                    SubjectWiseMarks subMarks = new SubjectWiseMarks(subject, totalMarks, marksObtained);
+                    mData.addMarksInSubject(subMarks);
+                }
+                mAppCallback.onResultResponse(ResponseCode.COMMON_RES_SUCCESS, mData);
+            }
+            else{
+                mAppCallback.onResultResponse(ResponseCode.COMMON_RES_NO_DATA_FOUND, mData);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void onErrorHandler(VolleyError error) {
-
+        mAppCallback.onResultResponse(ResponseCode.COMMON_RES_FAILED_TO_CONNECT, mData);
     }
 }

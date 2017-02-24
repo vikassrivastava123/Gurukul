@@ -10,10 +10,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import in.co.thingsdata.gurukul.data.GetSubjectListData;
+import in.co.thingsdata.gurukul.data.common.UserData;
 import in.co.thingsdata.gurukul.services.helper.CommonRequest;
 
 import static in.co.thingsdata.gurukul.services.helper.CommonRequest.RequestType.COMMON_REQUEST_GET_SUBJECT_LIST;
 import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_ACCESS_TOKEN;
+import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_CLASS_ID;
+import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_SCHOOL_CODE;
 
 /**
  * Created by Vikas on 2/10/2017.
@@ -28,11 +31,13 @@ public class GetSubjectListReq extends CommonRequest {
     private GetSubjectListResponse mAppCallback;
 
     public GetSubjectListReq(Context context, GetSubjectListData data, GetSubjectListResponse cb) {
-        super(context, COMMON_REQUEST_GET_SUBJECT_LIST, CommonRequestMethod.COMMON_REQUEST_METHOD_POST, null);
+        super(context, COMMON_REQUEST_GET_SUBJECT_LIST, CommonRequestMethod.COMMON_REQUEST_METHOD_GET, null);
         mData = data; mAppCallback = cb;
-        Map<String, String> param = new HashMap<>();
-        param.put(JSON_FIELD_ACCESS_TOKEN, data.getAccessToken());
-        setParam(param);
+        String url = getURL();
+        url += JSON_FIELD_ACCESS_TOKEN + "=" + data.getAccessToken();
+        url += "&" + JSON_FIELD_SCHOOL_CODE + "=" + UserData.getSchoolCode();
+        url += "&" + JSON_FIELD_CLASS_ID + "=" + data.getClassId();
+        setURL(url);
     }
 
     @Override

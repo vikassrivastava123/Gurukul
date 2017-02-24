@@ -5,18 +5,18 @@ package in.co.thingsdata.gurukul.data.common;
  */
 
 public final class Subject {
-    private int mId;
+    private String mId;
     private String mName;
-    private int mClass;  //Class ID in which the subject it being taught, if single subject is
+    private int mClassId;  //Class ID in which the subject it being taught, if single subject is
                             // Being taught in multiple classes it shall have multiple object.
 
-    public Subject (int id, String name, int class_id){
+    public Subject (String id, String name, int class_id){
         mId = id;
-        mClass = class_id;
+        mClassId = class_id;
         mName = name;
     }
 
-    public int getClassId (){return mClass;}
-    public int getSubjectId(){return mId;}
+    public int getClassId (){return mClassId;}
+    public String getSubjectId(){return mId;}
     public String getSubjectName(){return mName;}
 }
