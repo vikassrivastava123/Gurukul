@@ -10,9 +10,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import in.co.thingsdata.gurukul.data.GetSubjectListData;
+import in.co.thingsdata.gurukul.data.common.Subject;
 import in.co.thingsdata.gurukul.data.common.UserData;
 import in.co.thingsdata.gurukul.services.helper.CommonRequest;
 
+import static in.co.thingsdata.gurukul.data.common.CommonDetails.CLASS_12;
 import static in.co.thingsdata.gurukul.services.helper.CommonRequest.RequestType.COMMON_REQUEST_GET_SUBJECT_LIST;
 import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_ACCESS_TOKEN;
 import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_CLASS_ID;
@@ -23,7 +25,8 @@ import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIEL
  */
 
 public class GetSubjectListReq extends CommonRequest {
-    GetSubjectListData mData;
+    private GetSubjectListData mData;
+    private boolean mIsDummy = true;
 
     public interface GetSubjectListResponse {
         void onGetSubjectListResponse(ResponseCode res, GetSubjectListData data);
@@ -48,6 +51,31 @@ public class GetSubjectListReq extends CommonRequest {
 
     @Override
     public void onErrorHandler(VolleyError error) {
+        mAppCallback.onGetSubjectListResponse(ResponseCode.COMMON_RES_FAILED_TO_CONNECT, mData);
+    }
 
+    public void executeRequest (){
+        if(mIsDummy == true){
+            Subject s = new Subject("SC", "Science", CLASS_12);
+            mData.addSubject(s);
+            Subject s1 = new Subject("MT", "Mathematics", CLASS_12);
+            mData.addSubject(s1);
+            Subject s2 = new Subject("HN", "HINDI", CLASS_12);
+            mData.addSubject(s2);
+            Subject s3 = new Subject("SSC", "Social Science", CLASS_12);
+            mData.addSubject(s3);
+            Subject s4 = new Subject("EN", "English", CLASS_12);
+            mData.addSubject(s4);
+            Subject s5 = new Subject("PH", "Physics", CLASS_12);
+            mData.addSubject(s5);
+            Subject s6 = new Subject("CH", "Chemistry", CLASS_12);
+            mData.addSubject(s6);
+            Subject s7 = new Subject("BIO", "Biology", CLASS_12);
+            mData.addSubject(s7);
+            mAppCallback.onGetSubjectListResponse(ResponseCode.COMMON_RES_SUCCESS, mData);
+        }
+        else{
+            super.executeRequest();
+        }
     }
 }
