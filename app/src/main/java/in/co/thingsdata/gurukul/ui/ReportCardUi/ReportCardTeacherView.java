@@ -200,7 +200,7 @@ int rollNum = 0;
     public void executeResultQuery() {
 
         String token = UserData.getAccessToken();
-        GetStudentListInClassData data = new GetStudentListInClassData(token,7,2);
+        GetStudentListInClassData data = new GetStudentListInClassData(token,"12","A");
         GetStudentListInClassReq req = new GetStudentListInClassReq(this,data,this);
 
         req.executeRequest();

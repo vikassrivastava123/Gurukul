@@ -1,6 +1,8 @@
 package in.co.thingsdata.gurukul.data.common;
 
+import static in.co.thingsdata.gurukul.data.common.CommonDetails.CLASS_12;
 import static in.co.thingsdata.gurukul.data.common.CommonDetails.CLASS_7;
+import static in.co.thingsdata.gurukul.data.common.CommonDetails.SECTION_A;
 import static in.co.thingsdata.gurukul.data.common.CommonDetails.SECTION_B;
 import static in.co.thingsdata.gurukul.data.common.CommonDetails.USER_GENDER_MALE;
 import static in.co.thingsdata.gurukul.data.common.CommonDetails.USER_TYPE_STUDENT;
@@ -17,8 +19,8 @@ public final class UserData {
     private static int mRollNumber = 1;
     private static String mUserId = "Gurukul hardcoded test ID";
     private static String mLoginId = "test_gurukul";
-    private static String mClassRoomId = "12B"; //for server string parsing only
-    private static int mSchoolCode = 1;
+    private static String mClassRoomId = "2-12-A"; //for server string parsing only
+    private static int mSchoolCode = 2;
     private static String mFirstName = "Ashutosh";
     private static String mMiddleName;
     private static String mLastName = "Sharma";
@@ -27,9 +29,9 @@ public final class UserData {
     private static String mGender = USER_GENDER_MALE;
     private static String mEmailId = "test_gurukul@gmail.com";
     private static String mMobileNumber = "+919891829557";
-    private static int mClassId = CLASS_7;
-    private static String mSectionId = SECTION_B;
-    private static double mMonthlyFee = 100.25;
+    private static int mClassId = CLASS_12;
+    private static String mSectionId = SECTION_A;
+    private static double mMonthlyFee = 2200;
     private static String mAdmissionDate = "12-Jan-1989";
     private static String mCertificateNumber ;
     private static String mParentName = "Test";
