@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.HorizontalScrollView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
@@ -77,43 +76,48 @@ public class ReportCardCreate extends AppCompatActivity implements GetSubjectLis
 
     void createDynamicLayout(){
         final ScrollView addDynamicLayoutToScrollView =  new ScrollView(ReportCardCreate.this);
-        addDynamicLayoutToScrollView.setLayoutParams(new ScrollView.LayoutParams(ScrollView.LayoutParams.MATCH_PARENT, ScrollView.LayoutParams.MATCH_PARENT));
+        addDynamicLayoutToScrollView.setLayoutParams
+                (new ScrollView.LayoutParams(ScrollView.LayoutParams.MATCH_PARENT, ScrollView.LayoutParams.MATCH_PARENT));
         addDynamicLayoutToScrollView.removeAllViews();
 
         layout = (RelativeLayout) findViewById(R.id.addSubjectRl);
         layout.removeAllViews();
 
         final RelativeLayout layoutTest = new RelativeLayout(this);
-        layoutTest.setLayoutParams(new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
+        layoutTest.setLayoutParams(new RelativeLayout.LayoutParams
+                (RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT));
         layoutTest.removeAllViews();
 
         {
             int rows = getNumberOfSubjects();
             int columns = 3;
-            float x =  TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, getResources().getDisplayMetrics());
+            float x =  TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources().getDisplayMetrics());
             float y =  TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 70, getResources().getDisplayMetrics());
 
             float rowHt =  TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources().getDisplayMetrics());
             //@Override
             //public void run()
             {
-                for(int i =0 ;i<rows;i++) {
+                int rowIterator = 1;
+                for(;rowIterator<rows;rowIterator++) {
 
                     final RelativeLayout row = new RelativeLayout(ReportCardCreate.this);
                     row.removeAllViews();
-                    row.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                 //   row.setLayoutParams
+                   //         (new RelativeLayout.LayoutParams(300, RelativeLayout.LayoutParams.MATCH_PARENT));
 
                     RelativeLayout.LayoutParams rowLp = new RelativeLayout.LayoutParams(new ViewGroup.LayoutParams(
-                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            RelativeLayout.LayoutParams.MATCH_PARENT,
                             (int)rowHt));
 
-                    row.setId(i);
+                    int  rowId = View.generateViewId();
+                    row.setId(rowId);
 
-                    if(i!=0)
+                    if(rowId!=1)
                     {
-                        rowLp.addRule(RelativeLayout.BELOW, i - 1);
+                        rowLp.addRule(RelativeLayout.BELOW, rowIterator - 1);
                     }
-                    rowLp.setMargins(52, 22, 0, 0);
+                    rowLp.setMargins(10, 10, 10, 10);
                     row.setLayoutParams(rowLp);
                     //row.setOrientation(LinearLayout.HORIZONTAL);
 
@@ -122,6 +126,11 @@ public class ReportCardCreate extends AppCompatActivity implements GetSubjectLis
                     for(int j = 0;j<columns;j++){
 
                         EditText et = new EditText(ReportCardCreate.this);
+
+                        if(j == 2) {
+                            et.setEnabled(false);
+                        }
+
                         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(new ViewGroup.LayoutParams(
                                 (int)x,
                                 (int)y));
@@ -132,8 +141,8 @@ public class ReportCardCreate extends AppCompatActivity implements GetSubjectLis
 
 
                         if(ID[indexOfId].equals("Subject")){
-                            et.setText(receivedSubjMakrs.get(i).getSubjectName());
-                            et.setTag(editBOxId, receivedSubjMakrs.get(i).getSubjectId());
+                            et.setText(receivedSubjMakrs.get(rowIterator).getSubjectName());
+                         //todo here   et.setTag(editBOxId, receivedSubjMakrs.get(i).getSubjectId());
                         }else if (ID[indexOfId++].equals("Total")){
                             et.setText("100");
                         }else{
@@ -148,7 +157,7 @@ public class ReportCardCreate extends AppCompatActivity implements GetSubjectLis
                                     , editBOxId);
                         }
 
-                        lp.setMargins(20, 0, 0, 0);
+                        lp.setMargins(10, 0, 10, 0);
                         et.setLayoutParams(lp);
                         row.addView(et);
 
