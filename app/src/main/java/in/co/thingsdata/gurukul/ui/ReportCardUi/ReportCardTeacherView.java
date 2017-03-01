@@ -55,6 +55,7 @@ int rollNum = 0;
 
                 Intent start = new Intent(ReportCardTeacherView.this,ReportCardCreate.class);
                 start.putExtra(getResources().getString(R.string.intent_extra_posInList),position);
+                //start.putExtra(getResources().getString(R.string.intent_extra_rolnum),ReportCardStaticData.mStudentList.);
 
                 startActivity(start);
 
@@ -201,7 +202,7 @@ int rollNum = 0;
     public void executeResultQuery() {
 
         String token = UserData.getAccessToken();
-        String classN = ReportCardStaticData.getSelectedClass();
+        String classN = UserData.getClassRoomId();//ReportCardStaticData.getSelectedClass();
         String classSec = ReportCardStaticData.getSelectedSection();
 
         GetStudentListInClassData data = new GetStudentListInClassData(token,classN,classSec);
