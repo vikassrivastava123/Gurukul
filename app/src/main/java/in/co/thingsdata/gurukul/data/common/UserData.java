@@ -1,5 +1,7 @@
 package in.co.thingsdata.gurukul.data.common;
 
+import java.util.ArrayList;
+
 import static in.co.thingsdata.gurukul.data.common.CommonDetails.CLASS_12;
 import static in.co.thingsdata.gurukul.data.common.CommonDetails.CLASS_7;
 import static in.co.thingsdata.gurukul.data.common.CommonDetails.SECTION_A;
@@ -41,6 +43,7 @@ public final class UserData {
     private static String mRegistrationId;
     private static String mEmployeeId;
     private static String mUniqueId;
+    private static ArrayList<Class> mClasses = new ArrayList<>();
 
     public static boolean isUserDataReady(){return mIsDataReady;}
     public static String getAccessToken(){return mAccessToken;}
@@ -69,6 +72,8 @@ public final class UserData {
     public static String getRegistrationId(){return mRegistrationId;}
     public static String getEmployeeId(){return mEmployeeId;}
     public static String getUniqueId(){return mUniqueId;}
+    public static ArrayList<Class> getAllClassesInSchool(){return mClasses;}
+    public static int getTotalNumberOfClasses(){return mClasses.size();}
 
 
 
@@ -100,4 +105,5 @@ public final class UserData {
     public static void setRegistrationId(String id){mRegistrationId = id;}
     public static void setEmployeeId(String id){mEmployeeId = id;}
     public static void setUniqueId(String id){mUniqueId = id;}
+    public static void addClass(Class c){mClasses.add(c);}
 }

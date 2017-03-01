@@ -38,7 +38,8 @@ public class JSONParsingEnum {
     public static final String JSON_FIELD_LOGIN_ID = "loginId";
     public static final String JSON_FIELD_PASSWORD = "password";
     public static final String JSON_FIELD_CLASS_ROOM_ID = "classRoomId";
-    public static final String JSON_FIELD_SCHOOL_CODE = "school";
+    public static final String JSON_FIELD_SCHOOL = "school";
+    public static final String JSON_FIELD_SCHOOL_CODE = "schoolCode";
     public static final String JSON_FIELD_FIRST_NAME = "firstName";
     public static final String JSON_FIELD_MIDDLE_NAME = "middleName";
     public static final String JSON_FIELD_LAST_NAME = "lastName";

@@ -8,21 +8,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import in.co.thingsdata.gurukul.data.GetStudentListInClassData;
 import in.co.thingsdata.gurukul.data.common.Student;
 import in.co.thingsdata.gurukul.data.common.UserData;
 import in.co.thingsdata.gurukul.services.helper.CommonRequest;
 
-import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_ACCESS_TOKEN;
 import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_CLASS_ID;
 import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_DATA;
 import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_NAME;
 import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_REG_NUMBER;
 import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_ROLL_NUMBER;
-import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_SCHOOL_CODE;
+import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_SCHOOL;
 import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_SECTION_ID;
 import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_STATUS;
 import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_UNIQUE_ID;
@@ -45,7 +41,7 @@ public class GetStudentListInClassReq extends CommonRequest {
         mData = data; mAppCallback = cb;
 
         String url = getURL();
-        url+= JSON_FIELD_SCHOOL_CODE + "=" + UserData.getSchoolCode();
+        url+= JSON_FIELD_SCHOOL + "=" + UserData.getSchoolCode();
         url+= "&" + JSON_FIELD_CLASS_ID + "=" + mData.getClassId();
         url+= "&" + JSON_FIELD_SECTION_ID + "=" + mData.getSectionId();
 

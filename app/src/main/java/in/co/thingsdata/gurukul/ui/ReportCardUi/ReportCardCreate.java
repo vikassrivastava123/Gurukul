@@ -245,7 +245,7 @@ public class ReportCardCreate extends AppCompatActivity implements GetSubjectLis
         String regNum = rcData.getRegistrationNumber();
 
 
-        subMitMarkdata = new MarkSheetData(UserData.getAccessToken(),rolnum,ReportCardStaticData.getSelectedYear(),
+        subMitMarkdata = new MarkSheetData(UserData.getAccessToken(), UserData.getClassRoomId(),rolnum,ReportCardStaticData.getSelectedYear(),
                 ReportCardStaticData.getSelectedTypeOfExam(),regNum);
 
         for (int i = 0; i < count; i++) {

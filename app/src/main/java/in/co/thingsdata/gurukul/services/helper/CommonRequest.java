@@ -24,7 +24,7 @@ public abstract class CommonRequest {
     private static final String LOGIN_REQUEST_URL = DOMAIN + "school-data-service/api/school/login/enduser";
     private static final String SIGN_UP_REQUEST_URL = DOMAIN + "school-data-service/api/school/signup/enduser";
     private static final String GET_RESULT_URL = DOMAIN + "exam-service/api/school/exam/result/search?";
-    private static final String SUBMIT_MARKSHEET_URL = DOMAIN + "exam-service/api/school/exam/result/create?";
+    private static final String SUBMIT_MARKSHEET_URL = DOMAIN + "exam-service/api/school/exam/result";
     private static final String GET_STUDENT_DETAIL_URL = DOMAIN + "school-data-service/api/school/profile/student/search/detail/regNo?";
     private static final String GET_TEACHER_DETAIL_URL = DOMAIN + "school-data-service/school/profile/teacher/search?";
     private static final String GET_STUDENT_LIST_URL = DOMAIN + "school-data-service/api/school/profile/student/search/summary?";
