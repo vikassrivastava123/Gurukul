@@ -51,7 +51,7 @@ public class GetResultReq extends CommonRequest {
         String url = getURL();
         url += JSON_FIELD_YEAR + "=" + mData.getExamYear();
         url += "&" + JSON_FIELD_EXAM_TYPE + "=" + mData.getExamType();
-        url += "&" + JSON_FIELD_REG_NUMBER + "=" + mData.getRegistrationId();
+        url += "&" + "reg" + "=" + mData.getRegistrationId();
         setURL(url);
     }
 
@@ -68,7 +68,7 @@ public class GetResultReq extends CommonRequest {
                     String subjectName = sub.getString(JSON_FIELD_SUBJECT_NAME);
                     int marksObtained = sub.getInt(JSON_FIELD_RESULT_MARKS_OBTAINED);
                     int totalMarks = sub.getInt(JSON_FIELD_RESULT_TOTAL_MARKS);
-                    Subject subject = new Subject(subjectId, subjectName, CLASS_7);
+                    Subject subject = new Subject(subjectId, subjectName);
                     SubjectWiseMarks subMarks = new SubjectWiseMarks(subject, totalMarks, marksObtained);
                     mData.addMarksInSubject(subMarks);
                 }

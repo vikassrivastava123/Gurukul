@@ -292,7 +292,7 @@ public class ReportCardCreate extends AppCompatActivity implements GetSubjectLis
                 }
 
                 if(marks > -1) {
-                    Subject subObj = new Subject(subId, sub, Integer.parseInt(ReportCardStaticData.getSelectedClass()));
+                    Subject subObj = new Subject(subId, sub);
                     SubjectWiseMarks addSub = new SubjectWiseMarks(subObj, total, marks);
                     subMitMarkdata.addMarksInSubject(addSub);
                 }

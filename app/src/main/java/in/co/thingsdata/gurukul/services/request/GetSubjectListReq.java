@@ -53,21 +53,21 @@ public class GetSubjectListReq extends CommonRequest {
 
     public void executeRequest (){
         if(mIsDummy == true){
-            Subject s = new Subject("SC", "Science", CLASS_12);
+            Subject s = new Subject("SC", "Science");
             mData.addSubject(s);
-            Subject s1 = new Subject("MT", "Mathematics", CLASS_12);
+            Subject s1 = new Subject("MT", "Mathematics");
             mData.addSubject(s1);
-            Subject s2 = new Subject("HN", "HINDI", CLASS_12);
+            Subject s2 = new Subject("HN", "HINDI");
             mData.addSubject(s2);
-            Subject s3 = new Subject("SSC", "Social Science", CLASS_12);
+            Subject s3 = new Subject("SSC", "Social Science");
             mData.addSubject(s3);
-            Subject s4 = new Subject("EN", "English", CLASS_12);
+            Subject s4 = new Subject("EN", "English");
             mData.addSubject(s4);
-            Subject s5 = new Subject("PH", "Physics", CLASS_12);
+            Subject s5 = new Subject("PH", "Physics");
             mData.addSubject(s5);
-            Subject s6 = new Subject("CH", "Chemistry", CLASS_12);
+            Subject s6 = new Subject("CH", "Chemistry");
             mData.addSubject(s6);
-            Subject s7 = new Subject("BIO", "Biology", CLASS_12);
+            Subject s7 = new Subject("BIO", "Biology");
             mData.addSubject(s7);
             mAppCallback.onGetSubjectListResponse(ResponseCode.COMMON_RES_SUCCESS, mData);
         }

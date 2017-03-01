@@ -187,6 +187,17 @@ public abstract class CommonRequest {
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     return ((mPostHeader != null)? mPostHeader : super.getHeaders());
                 }
+
+                @Override
+                public byte[] getBody() throws AuthFailureError {
+                    if (mJSONParams == null) {
+                        return super.getBody();
+                    }
+                    else
+                    {
+                        return mJSONParams.toString().getBytes();
+                    }
+                }
             };
             requestQueue.add(jsObjRequest);
         }
