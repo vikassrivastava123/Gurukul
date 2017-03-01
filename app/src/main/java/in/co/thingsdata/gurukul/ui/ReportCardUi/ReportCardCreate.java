@@ -1,8 +1,10 @@
 package in.co.thingsdata.gurukul.ui.ReportCardUi;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -197,7 +199,7 @@ public class ReportCardCreate extends AppCompatActivity implements GetSubjectLis
     MarkSheetData subMitMarkdata = null;
     SubjectWiseMarks subWiseMarks = null;
 
-    public void addSubject(View view) {
+    public void addSubject() {
 
         int count = layout.getChildCount();
         ScrollView viewScrol = (ScrollView)layout.getChildAt(0);
@@ -279,7 +281,7 @@ public class ReportCardCreate extends AppCompatActivity implements GetSubjectLis
 
     @Override
     public void onSubmitMarksResponse(CommonRequest.ResponseCode res, MarkSheetData data) {
-        Log.d(TAG,"response :" + res);
+        Log.d(TAG, "response :" + res);
         switch (res) {
             case COMMON_RES_SUCCESS:
                 break;
@@ -288,5 +290,28 @@ public class ReportCardCreate extends AppCompatActivity implements GetSubjectLis
         }
 
 
+    }
+
+    public void executeSubjectQuery(View view) {
+        addSubject();
+    }
+
+    public void cancelSubjectQuery(View view) {
+
+        new AlertDialog.Builder(ReportCardCreate.this)
+                .setTitle("Cancel Create ReportCard")
+                .setMessage("Are you sure you want to quit?")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 }
