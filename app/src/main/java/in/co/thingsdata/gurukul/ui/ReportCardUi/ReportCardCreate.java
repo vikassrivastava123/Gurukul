@@ -47,6 +47,7 @@ public class ReportCardCreate extends AppCompatActivity implements GetSubjectLis
     int indexOfStudentSel = 0;
     TextView className,rollNum,nameOfstudent;
     Student mSelStudent = null;
+    String ID[] = new String[] {"Subject","MarksObt","Total"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -163,7 +164,7 @@ public class ReportCardCreate extends AppCompatActivity implements GetSubjectLis
                     row.setLayoutParams(rowLp);
                     //row.setOrientation(LinearLayout.HORIZONTAL);
 
-                    String ID[] = new String[] {"Subject","MarksObt","Total"};
+
                     int indexOfId = 0;
                     int lastEditBoxId = 0;
                     for(int j = 0;j<columns;j++){
@@ -253,26 +254,37 @@ public class ReportCardCreate extends AppCompatActivity implements GetSubjectLis
             int innerChildCount = oneRow.getChildCount();
             String sub = null; int total = 0; int marks = 0;
 
-            for (int y = 0; y < innerChildCount; y++) {
-                final View edtText = oneRow.getChildAt(y);
+            //for (int y = 0; y < innerChildCount; y++)
+            {
+                View edtText = oneRow.getChildAt(0);
                 String subId = null;
-                if (edtText instanceof EditText) {//"Subject","MarksObt","Total"
+                //if (edtText instanceof EditText)
+                {//"Subject","MarksObt","Total"
 
-                    if(edtText.getTag().equals("Total")) {//total
-                        String strTotal = ((EditText) edtText).getText().toString();
-                        total = Integer.parseInt(strTotal);
-                        Log.d("test", "String " + data);
-                    }else if(edtText.getTag().equals("MarksObt")) {//these will be marks obtained
-                        String strMarks = ((EditText) edtText).getText().toString();
-                        marks = Integer.parseInt(strMarks);
-                        Log.d("testasa", "marks " + marks);
-                    }
-                    else if(edtText.getTag().equals("Subject")) {//these will be subject
+                    if(edtText.getTag().equals("Subject")) {//total
+
                         sub = ((EditText) edtText).getText().toString();
                         subId = (String)edtText.getTag(R.id.subject_id);
 
                         Log.d("testasa", "sub " + sub);
                         Log.d("testasa", "sub-id " + subId);
+
+
+                    }//else
+
+                    edtText = oneRow.getChildAt(1);
+                    if(edtText.getTag().equals("MarksObt")) {//these will be marks obtained
+                        String strMarks = ((EditText) edtText).getText().toString();
+                        marks = Integer.parseInt(strMarks);
+                        Log.d("testasa", "marks " + marks);
+                    }
+
+                    edtText = oneRow.getChildAt(2);
+                    //else
+                    if(edtText.getTag().equals("Total")) {//these will be subject
+                        String strTotal = ((EditText) edtText).getText().toString();
+                        total = Integer.parseInt(strTotal);
+                        Log.d("test", "String " + data);
                     }
                 }
 

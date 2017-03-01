@@ -203,7 +203,7 @@ int rollNum = 0;
 
         String token = UserData.getAccessToken();
         String classN = UserData.getClassRoomId();//ReportCardStaticData.getSelectedClass();
-        String classSec = ReportCardStaticData.getSelectedSection();
+        String classSec = "A";//ReportCardStaticData.getSelectedSection();
 
         GetStudentListInClassData data = new GetStudentListInClassData(token,classN,classSec);
         GetStudentListInClassReq req = new GetStudentListInClassReq(this,data,this);
