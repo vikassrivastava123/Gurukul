@@ -187,7 +187,7 @@ public class ReportCardCreate extends AppCompatActivity implements GetSubjectLis
                             et.setTag(R.id.subject_id , receivedSubjMakrs.get(rowIterator).getSubjectId());
 
                         }else if (indexOfId == 1){
-                            et.setText("0");
+                            et.setHint("0");
                         }else if (indexOfId == 2){
                             et.setText("100");
                         }
@@ -252,7 +252,7 @@ public class ReportCardCreate extends AppCompatActivity implements GetSubjectLis
 
             RelativeLayout oneRow = (RelativeLayout) row.getChildAt(i);
             int innerChildCount = oneRow.getChildCount();
-            String sub = null; int total = 0; int marks = 0;
+            String sub = null; int total = 0; int marks = -1;
 
             //for (int y = 0; y < innerChildCount; y++)
             {
@@ -274,8 +274,11 @@ public class ReportCardCreate extends AppCompatActivity implements GetSubjectLis
 
                     edtText = oneRow.getChildAt(1);
                     if(edtText.getTag().equals("MarksObt")) {//these will be marks obtained
-                        String strMarks = ((EditText) edtText).getText().toString();
-                        marks = Integer.parseInt(strMarks);
+                        String strMarks = null;
+                        strMarks =  ((EditText) edtText).getText().toString();
+                        if(strMarks!=null && strMarks.length() > 0) {
+                            marks = Integer.parseInt(strMarks);
+                        }
                         Log.d("testasa", "marks " + marks);
                     }
 
@@ -288,9 +291,11 @@ public class ReportCardCreate extends AppCompatActivity implements GetSubjectLis
                     }
                 }
 
-                Subject subObj = new Subject(subId,sub,Integer.parseInt(ReportCardStaticData.getSelectedClass()));
-                SubjectWiseMarks addSub = new SubjectWiseMarks(subObj,total,marks);
-                subMitMarkdata.addMarksInSubject(addSub);
+                if(marks > -1) {
+                    Subject subObj = new Subject(subId, sub, Integer.parseInt(ReportCardStaticData.getSelectedClass()));
+                    SubjectWiseMarks addSub = new SubjectWiseMarks(subObj, total, marks);
+                    subMitMarkdata.addMarksInSubject(addSub);
+                }
 
             }
         }
