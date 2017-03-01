@@ -10,18 +10,18 @@ import in.co.thingsdata.gurukul.data.common.Student;
 
 public class GetStudentListInClassData {
     private String mAccessToken;
-    private int mClass;
-    private int mSection;
+    private String mClass;
+    private String mSection;
 
     private ArrayList<Student> mStudentList = new ArrayList<>();
 
-    public GetStudentListInClassData(String token, int c, int sec){
+    public GetStudentListInClassData(String token, String c, String sec){
         mAccessToken = token; mClass = c; mSection = sec;
     }
 
     public String getAccessToken(){return mAccessToken;}
-    public int getClassId(){return mClass;}
-    public int getSectionId(){return mSection;}
+    public String getClassId(){return mClass;}
+    public String getSectionId(){return mSection;}
 
     public void addStudent(Student s){
         mStudentList.add(s);

@@ -20,14 +20,14 @@ import java.util.Map;
 
 public abstract class CommonRequest {
     /*------------------------- Constant Fields Definition ----------------------------*/
-    private static final String DOMAIN = "http://ec2-35-154-121-61.ap-south-1.compute.amazonaws.com/";
-    private static final String LOGIN_REQUEST_URL = DOMAIN + "user/login";
-    private static final String SIGN_UP_REQUEST_URL = DOMAIN + "user/register";
-    private static final String GET_RESULT_URL = DOMAIN + "api/school/exam/result/search?";
-    private static final String SUBMIT_MARKSHEET_URL = DOMAIN + "api/school/exam/result/create?";
-    private static final String GET_STUDENT_DETAIL_URL = DOMAIN + "api/school/profile/student/search/detail/regNo?";
-    private static final String GET_TEACHER_DETAIL_URL = DOMAIN + "school/profile/teacher/search?";
-    private static final String GET_STUDENT_LIST_URL = DOMAIN + "api/school/profile/student/search/summary?";
+    private static final String DOMAIN = "http://ec2-35-154-121-61.ap-south-1.compute.amazonaws.com:8080/";
+    private static final String LOGIN_REQUEST_URL = DOMAIN + "school-data-service/api/school/login/enduser";
+    private static final String SIGN_UP_REQUEST_URL = DOMAIN + "school-data-service/api/school/signup/enduser";
+    private static final String GET_RESULT_URL = DOMAIN + "exam-service/api/school/exam/result/search?";
+    private static final String SUBMIT_MARKSHEET_URL = DOMAIN + "exam-service/api/school/exam/result/create?";
+    private static final String GET_STUDENT_DETAIL_URL = DOMAIN + "school-data-service/api/school/profile/student/search/detail/regNo?";
+    private static final String GET_TEACHER_DETAIL_URL = DOMAIN + "school-data-service/school/profile/teacher/search?";
+    private static final String GET_STUDENT_LIST_URL = DOMAIN + "school-data-service/api/school/profile/student/search/summary?";
     private static final String GET_SUBJECT_LIST_URL = DOMAIN + "Subject list"; //TODO: Get proper URL
 
     public enum RequestType  {
