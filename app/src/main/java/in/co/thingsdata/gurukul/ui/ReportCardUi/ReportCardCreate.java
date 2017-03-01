@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,7 @@ import in.co.thingsdata.gurukul.R;
 import in.co.thingsdata.gurukul.data.GetSubjectListData;
 import in.co.thingsdata.gurukul.data.MarkSheetData;
 import in.co.thingsdata.gurukul.data.SubjectWiseMarks;
+import in.co.thingsdata.gurukul.data.common.Student;
 import in.co.thingsdata.gurukul.data.common.Subject;
 import in.co.thingsdata.gurukul.data.common.UserData;
 import in.co.thingsdata.gurukul.services.helper.CommonRequest;
@@ -43,7 +45,8 @@ public class ReportCardCreate extends AppCompatActivity implements GetSubjectLis
     RelativeLayout layout;
     int editBOxId = 1;
     int indexOfStudentSel = 0;
-
+    TextView className,rollNum,nameOfstudent;
+    Student mSelStudent = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +57,35 @@ public class ReportCardCreate extends AppCompatActivity implements GetSubjectLis
 
         Intent selKid = this.getIntent();
         indexOfStudentSel = selKid.getIntExtra(getResources().getString(R.string.intent_extra_posInList),0);
+        initRes();
         fillSubjectListData();
+
+    }
+
+    void initRes(){
+
+        className = (TextView)findViewById(R.id.classOfStudent);
+        rollNum = (TextView)findViewById(R.id.rollnumOfStudent);
+        nameOfstudent = (TextView)findViewById(R.id.nameOfStudent);
+
+        try {
+            className.setText(ReportCardStaticData.getSelectedClass() + " " + ReportCardStaticData.getSelectedSection());
+            mSelStudent = ReportCardStaticData.mStudentList.get(indexOfStudentSel);
+
+            String stdName = mSelStudent.getName();
+            nameOfstudent.setText(stdName);
+
+            int stdRol  = mSelStudent.getRollNumber();
+            nameOfstudent.setText(Integer.toString(stdRol));
+
+
+        }catch(Exception e){
+            finish();
+
+        }
+
+
+
 
     }
 
@@ -238,7 +269,6 @@ public class ReportCardCreate extends AppCompatActivity implements GetSubjectLis
                     }
                     else if(edtText.getTag().equals("Subject")) {//these will be subject
                         sub = ((EditText) edtText).getText().toString();
-                        subId = (String)edtText.getTag();
                         subId = (String)edtText.getTag(R.id.subject_id);
 
                         Log.d("testasa", "sub " + sub);

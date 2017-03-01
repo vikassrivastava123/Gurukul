@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import in.co.thingsdata.gurukul.R;
 import in.co.thingsdata.gurukul.data.GetStudentListInClassData;
+import in.co.thingsdata.gurukul.data.common.Student;
 import in.co.thingsdata.gurukul.data.common.UserData;
 import in.co.thingsdata.gurukul.services.helper.CommonRequest;
 import in.co.thingsdata.gurukul.services.request.GetStudentListInClassReq;
@@ -123,10 +124,6 @@ int rollNum = 0;
             mRecyclerView.setItemAnimator(new DefaultItemAnimator());
             mRecyclerView.setAdapter(mAdapter);
 
-
-
-
-
     }
 
 
@@ -134,29 +131,33 @@ int rollNum = 0;
     public void onGetStudentListResponse(CommonRequest.ResponseCode res, GetStudentListInClassData data) {
         ReportCardData dataStudentListForAdapter = null;
         switch (res){
-
+            case COMMON_RES_INTERNAL_ERROR:
+            case COMMON_RES_CONNECTION_TIMEOUT:
+            case COMMON_RES_FAILED_TO_CONNECT:
+            case COMMON_RES_IMAGE_NOT_FOUND:
+            case COMMON_RES_SERVER_ERROR_WITH_MESSAGE:
             case COMMON_RES_SUCCESS:
                 ReportCardStaticData.mStudentList = data.getStudentListInClass();
 
                 //if(ReportCardStaticData.mStudentList == null && ReportCardStaticData.mStudentList.size() ==0)
                 {
-                    prepareMovieData();
+//                    prepareMovieData();
                 }
-/*                for(Student obj: ReportCardStaticData.mStudentList){
+                for(Student obj: ReportCardStaticData.mStudentList){
 
                      String name = obj.getName();
                      int rollNumber = obj.getRollNumber();
                      dataStudentListForAdapter = new ReportCardData(name,rollNumber);
                      MainActivity.dataList.add(dataStudentListForAdapter);
 
-                }*/
-
+                }
+            mAdapter.notifyDataSetChanged();
 
                 break;
             default:
                 break;
         }
-        prepareMovieData();
+  //      prepareMovieData();
 
     }
 
@@ -200,7 +201,10 @@ int rollNum = 0;
     public void executeResultQuery() {
 
         String token = UserData.getAccessToken();
-        GetStudentListInClassData data = new GetStudentListInClassData(token,"12","A");
+        String classN = ReportCardStaticData.getSelectedClass();
+        String classSec = ReportCardStaticData.getSelectedSection();
+
+        GetStudentListInClassData data = new GetStudentListInClassData(token,classN,classSec);
         GetStudentListInClassReq req = new GetStudentListInClassReq(this,data,this);
 
         req.executeRequest();
