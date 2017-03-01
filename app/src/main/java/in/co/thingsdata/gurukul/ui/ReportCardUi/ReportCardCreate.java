@@ -1,6 +1,7 @@
 package in.co.thingsdata.gurukul.ui.ReportCardUi;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -93,12 +94,13 @@ public class ReportCardCreate extends AppCompatActivity implements GetSubjectLis
             int columns = 3;
             float x =  TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources().getDisplayMetrics());
             float y =  TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 70, getResources().getDisplayMetrics());
-
+            float marginall =  TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics());
             float rowHt =  TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources().getDisplayMetrics());
             //@Override
             //public void run()
             {
-                int rowIterator = 1;
+                int rowIterator = 0;
+                int lastRowId = 0;
                 for(;rowIterator<rows;rowIterator++) {
 
                     final RelativeLayout row = new RelativeLayout(ReportCardCreate.this);
@@ -110,24 +112,30 @@ public class ReportCardCreate extends AppCompatActivity implements GetSubjectLis
                             RelativeLayout.LayoutParams.MATCH_PARENT,
                             (int)rowHt));
 
-                    int  rowId = View.generateViewId();
+                    int  rowId = rowIterator;
+
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                        rowId =  ReportCardStaticData.generateViewId();
+                    } else {
+                        rowId = View.generateViewId();
+                    }
+
                     row.setId(rowId);
 
-                    if(rowId!=1)
-                    {
-                        rowLp.addRule(RelativeLayout.BELOW, rowIterator - 1);
+                    if(lastRowId!=0){
+                        rowLp.addRule(RelativeLayout.BELOW, lastRowId);
                     }
-                    rowLp.setMargins(10, 10, 10, 10);
+                    lastRowId = rowId;
+                    rowLp.setMargins((int)marginall, (int)marginall, (int)marginall, (int)marginall);
                     row.setLayoutParams(rowLp);
                     //row.setOrientation(LinearLayout.HORIZONTAL);
 
                     String ID[] = new String[] {"Subject","MarksObt","Total"};
                     int indexOfId = 0;
+                    int lastEditBoxId = 0;
                     for(int j = 0;j<columns;j++){
-
                         EditText et = new EditText(ReportCardCreate.this);
-
-                        if(j == 2) {
+                        if(j == 0) {
                             et.setEnabled(false);
                         }
 
@@ -140,23 +148,33 @@ public class ReportCardCreate extends AppCompatActivity implements GetSubjectLis
                         }
 
 
-                        if(ID[indexOfId].equals("Subject")){
+                        if (indexOfId == 0){
                             et.setText(receivedSubjMakrs.get(rowIterator).getSubjectName());
-                         //todo here   et.setTag(editBOxId, receivedSubjMakrs.get(i).getSubjectId());
-                        }else if (ID[indexOfId++].equals("Total")){
-                            et.setText("100");
-                        }else{
+                            et.setTag(R.id.subject_id , receivedSubjMakrs.get(rowIterator).getSubjectId());
+
+                        }else if (indexOfId == 1){
                             et.setText("0");
+                        }else if (indexOfId == 2){
+                            et.setText("100");
                         }
 
-                        et.setId(editBOxId++);
-                        et.setTag(ID[indexOfId++]);
+                        int editBoxIdGen = 0;
+                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                            editBoxIdGen =  ReportCardStaticData.generateViewId();
+                        } else {
+                            editBoxIdGen = View.generateViewId();
+                        }
+                        editBOxId++;
+                        et.setId(editBoxIdGen);
+                        et.setTag(ID[indexOfId]);
 
-                        if(editBOxId > 1) {
+                        indexOfId++;
+
+                        if(indexOfId > 0) {
                             lp.addRule(RelativeLayout.RIGHT_OF
-                                    , editBOxId);
+                                    , lastEditBoxId);
                         }
-
+                        lastEditBoxId = editBoxIdGen;
                         lp.setMargins(10, 0, 10, 0);
                         et.setLayoutParams(lp);
                         row.addView(et);
@@ -218,8 +236,11 @@ public class ReportCardCreate extends AppCompatActivity implements GetSubjectLis
                     }
                     else if(edtText.getTag().equals("Subject")) {//these will be subject
                         sub = ((EditText) edtText).getText().toString();
-                        subId = (String)edtText.getTag(edtText.getId());
+                        subId = (String)edtText.getTag();
+                        subId = (String)edtText.getTag(R.id.subject_id);
+
                         Log.d("testasa", "sub " + sub);
+                        Log.d("testasa", "sub-id " + subId);
                     }
                 }
 
