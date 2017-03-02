@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Created by Vikas on 3/1/2017.
  */
 
-public class Class {
+public class ClassData {
     private String mClassCode;
     private String mName;
     private String mClassRoomId;
@@ -16,7 +16,7 @@ public class Class {
     private ArrayList<Subject> mSubjects = new ArrayList<>();
     private String mUniqueId;
 
-    public Class (String class_room_id, String name){
+    public ClassData(String class_room_id, String name){
         mClassRoomId = class_room_id; mName = name;
     }
 

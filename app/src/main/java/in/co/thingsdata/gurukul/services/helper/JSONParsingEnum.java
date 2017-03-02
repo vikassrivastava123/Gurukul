@@ -22,6 +22,11 @@ public class JSONParsingEnum {
     public static final String JSON_FIELD_EXAM_TYPE = "examType";
 
     public static final String JSON_FIELD_CLASS_ID = "class";
+    public static final String JSON_FIELD_CLASS_CODE = "classCode";
+    public static final String JSON_FIELD_CLASS_NAME = "className";
+    public static final String JSON_FIELD_CLASS_TEACHER_ID = "classTeacherId";
+    public static final String JSON_FIELD_CLASS_TEACHER_NAME = "classTeacherName";
+
     public static final String JSON_FIELD_SECTION_ID = "section";
     public static final String JSON_FIELD_STUDENT_ID = "studentId";
     public static final String JSON_FIELD_STUDENT_NAME = "studentName";
@@ -29,6 +34,7 @@ public class JSONParsingEnum {
     public static final String JSON_FIELD_SUBJECT_ID = "subjectId";
     public static final String JSON_FIELD_SUBJECT_NAME = "subjectName";
     public static final String JSON_FIELD_SUBJECT_CLASS = "subjectClass";
+    public static final String JSON_FIELD_SUBJECTS = "subjects";
 
     public static final String JSON_FIELD_RESULT_TOTAL_MARKS = "totalMarks";
     public static final String JSON_FIELD_RESULT_MARKS_OBTAINED = "marksObtained";

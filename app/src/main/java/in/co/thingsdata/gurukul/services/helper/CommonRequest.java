@@ -22,6 +22,8 @@ public abstract class CommonRequest {
     /*------------------------- Constant Fields Definition ----------------------------*/
     private static final String DOMAIN = "http://ec2-35-154-121-61.ap-south-1.compute.amazonaws.com:8080/";
     private static final String LOGIN_REQUEST_URL = DOMAIN + "school-data-service/api/school/login/enduser";
+    private static final String CLASS_LIST_URL = DOMAIN + "school-data-service/api/school/class/room/search?";
+    private static final String CLASS_DETAIL_URL = DOMAIN + "/school-data-service/api/school/class/room/search/";
     private static final String SIGN_UP_REQUEST_URL = DOMAIN + "school-data-service/api/school/signup/enduser";
     private static final String GET_RESULT_URL = DOMAIN + "exam-service/api/school/exam/result/search?";
     private static final String SUBMIT_MARKSHEET_URL = DOMAIN + "exam-service/api/school/exam/result";
@@ -32,6 +34,8 @@ public abstract class CommonRequest {
 
     public enum RequestType  {
         COMMON_REQUEST_LOGIN,
+        COMMON_REQUEST_GET_CLASS_LIST,
+        COMMON_REQUEST_GET_CLASS_DETAIL,
         COMMON_REQUEST_FORGET_PASSWORD,
         COMMON_REQUEST_SIGNUP,
         COMMON_REQUEST_GET_STUDENT_DETAIL,
@@ -138,6 +142,14 @@ public abstract class CommonRequest {
             case COMMON_REQUEST_GET_SUBJECT_LIST:
                 url = GET_SUBJECT_LIST_URL;
                 break;
+            case COMMON_REQUEST_GET_CLASS_LIST:
+                url = CLASS_LIST_URL;
+                break;
+            case COMMON_REQUEST_GET_CLASS_DETAIL:
+                url = CLASS_DETAIL_URL;
+                break;
+            default:
+                url = null;
         }
         return url;
     }
