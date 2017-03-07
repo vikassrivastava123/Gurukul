@@ -9,9 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import in.co.thingsdata.gurukul.R;
+import in.co.thingsdata.gurukul.data.common.ClassData;
+import in.co.thingsdata.gurukul.data.common.UserData;
+import in.co.thingsdata.gurukul.services.helper.CommonRequest;
+import in.co.thingsdata.gurukul.services.request.GetClassListRequest;
 import in.co.thingsdata.gurukul.ui.dataUi.DataOfUi;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements GetClassListRequest.GetClassListCallback {
 
     public static List<DataOfUi> dataList = new ArrayList<>();
 
@@ -24,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void dashboard (View v){
         Intent it = new Intent(this, Dashboard.class);
+        initializeUserData();
         startActivity(it);
     }
 
@@ -36,4 +41,18 @@ public class MainActivity extends AppCompatActivity {
          dataList = data;
     }
 
+    public void initializeUserData(){
+        GetClassListRequest req = new GetClassListRequest(this, this);
+        req.executeRequest();
+    }
+
+    @Override
+    public void onGetClassListResponse(CommonRequest.ResponseCode res, ArrayList<ClassData> classes) {
+        if (res == CommonRequest.ResponseCode.COMMON_RES_SUCCESS)
+        {
+            for (int i=0; i < classes.size(); i++){
+                UserData.addClass(classes.get(i));
+            }
+        }
+    }
 }

@@ -10,14 +10,20 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import in.co.thingsdata.gurukul.data.common.ClassData;
+import in.co.thingsdata.gurukul.data.common.Subject;
 import in.co.thingsdata.gurukul.data.common.UserData;
 import in.co.thingsdata.gurukul.services.helper.CommonRequest;
 
 import static in.co.thingsdata.gurukul.services.helper.CommonRequest.RequestType.COMMON_REQUEST_GET_CLASS_LIST;
+import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_CLASS_NAME;
 import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_CLASS_ROOM_ID;
 import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_DATA;
+import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_NAME;
 import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_SCHOOL;
+import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_SECTION_ID;
 import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_STATUS;
+import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_SUBJECTS;
 import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIELD_UNIQUE_ID;
 
 /**
@@ -25,10 +31,10 @@ import static in.co.thingsdata.gurukul.services.helper.JSONParsingEnum.JSON_FIEL
  */
 
 public class GetClassListRequest extends CommonRequest {
-    private ArrayList<String> mClassIdList;
+    private ArrayList<ClassData> mClassList = new ArrayList<>();
 
     public interface GetClassListCallback {
-        void onGetClassListResponse(ResponseCode res, ArrayList<String> class_id_list);
+        void onGetClassListResponse(ResponseCode res, ArrayList<ClassData> classes);
     }
     private GetClassListCallback mAppCallback;
     public GetClassListRequest(Context context, GetClassListCallback cb) {
@@ -47,16 +53,29 @@ public class GetClassListRequest extends CommonRequest {
                 int total = data.length();
                 for (int i = 0; i < total; i++) {
                     JSONObject class_detail = data.getJSONObject(i);
+                    if (!class_detail.has(JSON_FIELD_SUBJECTS)){
+                        continue;
+                    }
                     String class_unique_id = class_detail.getString(JSON_FIELD_UNIQUE_ID);
-                    mClassIdList.add(class_unique_id);
+                    String name = class_detail.getString(JSON_FIELD_CLASS_NAME);
+                    ClassData _class = new ClassData(class_unique_id,name );
+                    _class.setSection(class_detail.getString(JSON_FIELD_SECTION_ID));
+                    _class.setClassRoomId(class_detail.getString(JSON_FIELD_CLASS_ROOM_ID));
+                    JSONArray subjectList = class_detail.getJSONArray(JSON_FIELD_SUBJECTS);
+                    for (int j=0; j<subjectList.length(); j++){
+                        Subject s = new Subject(subjectList.get(j).toString(), subjectList.get(j).toString());
+                        _class.addSubjectInClass(s);
+                    }
+                    mClassList.add(_class);
                 }
-                mAppCallback.onGetClassListResponse(ResponseCode.COMMON_RES_SUCCESS, mClassIdList);
+                mAppCallback.onGetClassListResponse(ResponseCode.COMMON_RES_SUCCESS, mClassList);
             }
             else{
                 mAppCallback.onGetClassListResponse(ResponseCode.COMMON_RES_NO_DATA_FOUND, null);
             }
         } catch (JSONException e) {
             e.printStackTrace();
+            mAppCallback.onGetClassListResponse(ResponseCode.COMMON_RES_INTERNAL_ERROR, null);
         }
     }
 

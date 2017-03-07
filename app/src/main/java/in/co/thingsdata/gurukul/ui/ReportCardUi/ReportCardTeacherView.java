@@ -408,7 +408,7 @@ int rollNum = 0;
 
 
             @Override
-            public void onGetClassListResponse(CommonRequest.ResponseCode res, ArrayList<String> class_id_list) {
+            public void onGetClassListResponse(CommonRequest.ResponseCode res, ArrayList<ClassData> class_id_list) {
 
                 ArrayAdapter<String> spinnerAdapterClass = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, android.R.id.text1);
                 spinnerAdapterClass.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
