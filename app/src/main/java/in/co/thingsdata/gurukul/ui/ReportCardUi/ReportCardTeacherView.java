@@ -47,7 +47,7 @@ public class ReportCardTeacherView extends AppCompatActivity
     String classEntered,sectionEntered,yearEntered,typeOfExamcEntered;
     Spinner classTv , sectionTv, yearTv, typeOfExamTv;
 
-    ArrayList<ClassData> mClassesInSchoolObj = null;
+
             int rollNum = 0;
 
             void fillDropDownData(){
@@ -68,10 +68,10 @@ public class ReportCardTeacherView extends AppCompatActivity
                 spinnerAdapterType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 typeOfExamTv.setAdapter(spinnerAdapterType);
 
-                mClassesInSchoolObj = CommonDetails.getAllClassesInSchool();
+                ReportCardStaticData.mClassesInSchoolObj = CommonDetails.getAllClassesInSchool();
 
                 try {
-                    for (ClassData obj : mClassesInSchoolObj) {
+                    for (ClassData obj : ReportCardStaticData.mClassesInSchoolObj) {
                         String classsName = obj.getName();
                         String section = obj.getSection();
 
@@ -300,7 +300,7 @@ public class ReportCardTeacherView extends AppCompatActivity
 
         Integer indexValue = classTv.getSelectedItemPosition();
 
-        String classN = mClassesInSchoolObj.get(indexValue).getClassRoomId();//UserData.getClassRoomId();//todo: uncomment once server data is right //ReportCardStaticData.getSelectedClass();
+        String classN = ReportCardStaticData.mClassesInSchoolObj.get(indexValue).getClassRoomId();//UserData.getClassRoomId();//todo: uncomment once server data is right //ReportCardStaticData.getSelectedClass();
         ReportCardStaticData.setSelectedClassRoomId(classN);
 
         String classSec = sectionTvStr; //todo: uncomment once server data is right //ReportCardStaticData.getSelectedSection();

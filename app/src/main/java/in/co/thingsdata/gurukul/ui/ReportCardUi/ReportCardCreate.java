@@ -16,6 +16,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ import in.co.thingsdata.gurukul.R;
 import in.co.thingsdata.gurukul.data.GetSubjectListData;
 import in.co.thingsdata.gurukul.data.MarkSheetData;
 import in.co.thingsdata.gurukul.data.SubjectWiseMarks;
+import in.co.thingsdata.gurukul.data.common.ClassData;
 import in.co.thingsdata.gurukul.data.common.Student;
 import in.co.thingsdata.gurukul.data.common.Subject;
 import in.co.thingsdata.gurukul.data.common.UserData;
@@ -92,15 +94,25 @@ public class ReportCardCreate extends AppCompatActivity implements GetSubjectLis
 
 
     GetSubjectListData data;
-
+     ArrayList<Subject> mSublist;
     void fillSubjectListData(){
-        String token = UserData.getAccessToken();
-        String classOfSt =  ReportCardStaticData.getSelectedClass();
+        //String token = UserData.getAccessToken();
+        //String classOfSt =  ReportCardStaticData.getSelectedClassRoomId();
 
-        data = new GetSubjectListData(token,Integer.parseInt(classOfSt));
-        GetSubjectListReq req = new GetSubjectListReq(ReportCardCreate.this,data,ReportCardCreate.this);
+       // data = new GetSubjectListData(token,Integer.parseInt(classOfSt));
+      //  GetSubjectListReq req = new GetSubjectListReq(ReportCardCreate.this,data,ReportCardCreate.this);
 
-        req.executeRequest();
+        for(ClassData obj : ReportCardStaticData.mClassesInSchoolObj){
+            if(obj.getClassRoomId().equals(ReportCardStaticData.getSelectedClassRoomId())){
+                receivedSubjMakrs = obj.getSubjectList();
+                break;
+            }
+        }
+
+        createDynamicLayout();
+
+
+        //req.executeRequest();
 
 
     }
@@ -331,11 +343,14 @@ public class ReportCardCreate extends AppCompatActivity implements GetSubjectLis
         Log.d(TAG, "response :" + res);
         switch (res) {
             case COMMON_RES_SUCCESS:
+                Toast.makeText(ReportCardCreate.this,"Report Card Successfully Uploaded",Toast.LENGTH_LONG).show();
                 break;
             default:
+                Toast.makeText(ReportCardCreate.this,"Report Card Error in Upload , Please try again",Toast.LENGTH_LONG).show();
                 break;
         }
 
+        finish();
 
     }
 

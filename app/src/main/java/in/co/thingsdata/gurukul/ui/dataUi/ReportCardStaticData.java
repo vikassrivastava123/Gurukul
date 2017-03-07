@@ -3,6 +3,7 @@ package in.co.thingsdata.gurukul.ui.dataUi;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import in.co.thingsdata.gurukul.data.common.ClassData;
 import in.co.thingsdata.gurukul.data.common.Student;
 
 /**
@@ -11,7 +12,9 @@ import in.co.thingsdata.gurukul.data.common.Student;
 public class ReportCardStaticData {
 
     public static ArrayList<Student> mStudentList = null;
+    public static ArrayList<ClassData> mClassesInSchoolObj = null;
     private static String classOfStudent ,section,typeOfExam,regId,classRoomId;
+
 
     public enum buttonType{
         viewBtn,
