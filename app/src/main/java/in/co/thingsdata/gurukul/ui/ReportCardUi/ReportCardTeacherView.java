@@ -1,7 +1,6 @@
 package in.co.thingsdata.gurukul.ui.ReportCardUi;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -11,21 +10,30 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 import in.co.thingsdata.gurukul.R;
 import in.co.thingsdata.gurukul.data.GetStudentListInClassData;
+import in.co.thingsdata.gurukul.data.common.ClassData;
 import in.co.thingsdata.gurukul.data.common.Student;
 import in.co.thingsdata.gurukul.data.common.UserData;
 import in.co.thingsdata.gurukul.services.helper.CommonRequest;
+import in.co.thingsdata.gurukul.services.request.GetClassListRequest;
 import in.co.thingsdata.gurukul.services.request.GetStudentListInClassReq;
 import in.co.thingsdata.gurukul.ui.MainActivity;
 import in.co.thingsdata.gurukul.ui.dataUi.ReportCardData;
 import in.co.thingsdata.gurukul.ui.dataUi.ReportCardStaticData;
 
-public class ReportCardTeacherView extends AppCompatActivity implements GetStudentListInClassReq.GetStudentListInClassCallback{
+public class ReportCardTeacherView extends AppCompatActivity
+        implements GetStudentListInClassReq.GetStudentListInClassCallback ,
+        GetClassListRequest.GetClassListCallback
+        {
 
     private RecyclerView mRecyclerView = null;
     private ReportCardAdapter mAdapter = null;
@@ -36,14 +44,83 @@ public class ReportCardTeacherView extends AppCompatActivity implements GetStude
     static  final String TAG = "ReportCardTeacherView";
    // ArrayList<Student>  mStudentList = null;
     String classEntered,sectionEntered,yearEntered,typeOfExamcEntered;
-    AutoCompleteTextView classTv , sectionTv, yearTv, typeOfExamTv;
+    Spinner classTv , sectionTv, yearTv, typeOfExamTv;
+
+
+
 int rollNum = 0;
+
+            void fillDropDownData(){
+
+                ArrayAdapter<String> spinnerAdapterClass = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, android.R.id.text1);
+                spinnerAdapterClass.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                classTv.setAdapter(spinnerAdapterClass);
+
+                ArrayAdapter<String> spinnerAdapterSection = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, android.R.id.text1);
+                spinnerAdapterSection.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                sectionTv.setAdapter(spinnerAdapterSection);
+
+                ArrayAdapter<String> spinnerAdapterYear = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, android.R.id.text1);
+                spinnerAdapterYear.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                yearTv.setAdapter(spinnerAdapterYear);
+
+                ArrayAdapter<String> spinnerAdapterType = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, android.R.id.text1);
+                spinnerAdapterType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                typeOfExamTv.setAdapter(spinnerAdapterType);
+
+                ArrayList<ClassData> dataObj = UserData.getAllClassesInSchool();
+
+                try {
+                    for (ClassData obj : dataObj) {
+                        String classsName = obj.getName();
+                        String section = obj.getSection();
+
+                        spinnerAdapterClass.add(classsName);
+                        spinnerAdapterSection.add(section);
+                    }
+                }catch(NullPointerException e){
+
+                }
+
+
+
+                spinnerAdapterYear.add("2016");
+                spinnerAdapterYear.add("2017");
+                spinnerAdapterYear.add("2018");
+                spinnerAdapterYear.add("2019");
+                spinnerAdapterYear.add("2020");
+
+                spinnerAdapterType.add("value1");
+                spinnerAdapterType.add("value2");
+                spinnerAdapterType.add("value3");
+                spinnerAdapterType.add("value4");
+
+                spinnerAdapterClass.notifyDataSetChanged();
+                spinnerAdapterSection.notifyDataSetChanged();
+                spinnerAdapterYear.notifyDataSetChanged();
+                spinnerAdapterType.notifyDataSetChanged();
+
+
+            }
+
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.rc_teacher_view);
         initRes();
+
+        fillDropDownData();
+
+        //GetClassListRequest request = new GetClassListRequest(ReportCardTeacherView.this,ReportCardTeacherView.this);
+        //request.executeRequest();
+
+ /*
         fillPrevEnteredadat();
+        */
         initAutoTextView();
 
 
@@ -53,8 +130,17 @@ int rollNum = 0;
             @Override
             public void onItemClick(View view, int position) {
 
-                Intent start = new Intent(ReportCardTeacherView.this,ReportCardCreate.class);
-                start.putExtra(getResources().getString(R.string.intent_extra_posInList),position);
+                Intent start;
+                if(ReportCardStaticData.clickedButton == ReportCardStaticData.buttonType.viewBtn){
+                    start = new Intent(ReportCardTeacherView.this, ReportCardSingleStudent.class);
+                }else {
+                    start = new Intent(ReportCardTeacherView.this, ReportCardCreate.class);
+                }
+                start.putExtra(getResources().getString(R.string.intent_extra_posInList), position);
+
+                String regId = ReportCardStaticData.mStudentList.get(position).getRegistrationId();
+                ReportCardStaticData.setRegistrationId(regId);
+
                 //start.putExtra(getResources().getString(R.string.intent_extra_rolnum),ReportCardStaticData.mStudentList.);
 
                 startActivity(start);
@@ -75,11 +161,7 @@ int rollNum = 0;
         mRecyclerView.setAdapter(mAdapter);
 
 
-/*        if(ReportCardStaticData.mStudentList != null) {
-            fillPrevEnteredadat();
-            initRecyclerView();
-            executeResultQuery();
-        }*/
+
 
     }
 
@@ -138,6 +220,7 @@ int rollNum = 0;
             case COMMON_RES_IMAGE_NOT_FOUND:
             case COMMON_RES_SERVER_ERROR_WITH_MESSAGE:
             case COMMON_RES_SUCCESS:
+
                 ReportCardStaticData.mStudentList = data.getStudentListInClass();
 
                 //if(ReportCardStaticData.mStudentList == null && ReportCardStaticData.mStudentList.size() ==0)
@@ -202,10 +285,10 @@ int rollNum = 0;
     public void executeResultQuery() {
 
         String token = UserData.getAccessToken();
-        String classN = UserData.getClassRoomId();//ReportCardStaticData.getSelectedClass();
-        String classSec = "A";//ReportCardStaticData.getSelectedSection();
+        String classN = UserData.getClassRoomId();//todo: uncomment once server data is right //ReportCardStaticData.getSelectedClass();
+        String classSec = "A"; //todo: uncomment once server data is right //ReportCardStaticData.getSelectedSection();
 
-        GetStudentListInClassData data = new GetStudentListInClassData(token,classN,"A");
+        GetStudentListInClassData data = new GetStudentListInClassData(token,classN,classSec);
         GetStudentListInClassReq req = new GetStudentListInClassReq(this,data,this);
 
         req.executeRequest();
@@ -250,22 +333,22 @@ int rollNum = 0;
         upLoadButton = (Button)findViewById(R.id.uploadButton);
 
 
-        classTv =  (AutoCompleteTextView)findViewById(R.id.autocomplete_class);
-        sectionTv =  (AutoCompleteTextView)findViewById(R.id.autocomplete_section);
-        yearTv =  (AutoCompleteTextView)findViewById(R.id.autocomplete_year);
-        typeOfExamTv =  (AutoCompleteTextView)findViewById(R.id.autocomplete_type);
+        classTv =  (Spinner )findViewById(R.id.spinner_class);
+        sectionTv =  (Spinner )findViewById(R.id.spinner_section);
+        yearTv =  (Spinner )findViewById(R.id.spinner_year);
+        typeOfExamTv =  (Spinner )findViewById(R.id.spinner_type);
     }
 
     void fillPrevEnteredadat(){
 
-        try{
+       /* try{
             classTv.setText(ReportCardStaticData.getSelectedClass());
             sectionTv.setText(ReportCardStaticData.getSelectedSection());
             yearTv.setText(ReportCardStaticData.getSelectedYear());
             typeOfExamTv.setText(ReportCardStaticData.getSelectedTypeOfExam());
         }catch(Resources.NotFoundException | NullPointerException ed){
             Log.d(TAG,"fillPrevEnteredadat ERROR");
-        }
+        }*/
     }
 
 
@@ -279,7 +362,7 @@ int rollNum = 0;
 
     void getTextEnteredByUser(){
 
-        try {
+/*        try {
             classEntered = classTv.getText().toString();
             ReportCardStaticData.setSelectedClass(classEntered);
 
@@ -294,7 +377,7 @@ int rollNum = 0;
         }catch (Exception e){
             Log.d(TAG,"AutoComplete resources null");
         }
-
+*/
 
     }
 
@@ -303,8 +386,10 @@ int rollNum = 0;
     public void executeFindQuery(View view) {
         setVisibilityOfComponents(View.VISIBLE);
         getTextEnteredByUser();
-
         initRecyclerView();
+
+        ReportCardStaticData.clickedButton = ReportCardStaticData.buttonType.viewBtn;
+
         executeResultQuery(); //we need to show student list . when teacher clicks particular student show his results
 
     }
@@ -314,7 +399,69 @@ int rollNum = 0;
         getTextEnteredByUser();
         initRecyclerView();
 
-        prepareMovieData();
+        ReportCardStaticData.clickedButton = ReportCardStaticData.buttonType.uploadBtn;
+
+        executeResultQuery(); //we need to show student list . when teacher clicks particular student show his results
+//        prepareMovieData();
 
     }
-}
+
+
+            @Override
+            public void onGetClassListResponse(CommonRequest.ResponseCode res, ArrayList<String> class_id_list) {
+
+                ArrayAdapter<String> spinnerAdapterClass = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, android.R.id.text1);
+                spinnerAdapterClass.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                classTv.setAdapter(spinnerAdapterClass);
+
+                ArrayAdapter<String> spinnerAdapterSection = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, android.R.id.text1);
+                spinnerAdapterSection.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                sectionTv.setAdapter(spinnerAdapterSection);
+
+                ArrayAdapter<String> spinnerAdapterYear = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, android.R.id.text1);
+                spinnerAdapterYear.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                yearTv.setAdapter(spinnerAdapterYear);
+
+                ArrayAdapter<String> spinnerAdapterType = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, android.R.id.text1);
+                spinnerAdapterType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                typeOfExamTv.setAdapter(spinnerAdapterType);
+
+                ArrayList<ClassData> dataObj = UserData.getAllClassesInSchool();
+
+                try {
+                    for (ClassData obj : dataObj) {
+                        String classsName = obj.getName();
+                        String section = obj.getSection();
+
+                        spinnerAdapterClass.add(classsName);
+                        spinnerAdapterSection.add(section);
+                    }
+                }catch(NullPointerException e){
+
+                }
+
+
+
+                spinnerAdapterYear.add("2016");
+                spinnerAdapterYear.add("2017");
+                spinnerAdapterYear.add("2018");
+                spinnerAdapterYear.add("2019");
+                spinnerAdapterYear.add("2020");
+
+
+
+
+                spinnerAdapterType.add("value1");
+                spinnerAdapterType.add("value2");
+                spinnerAdapterType.add("value3");
+                spinnerAdapterType.add("value4");
+
+                spinnerAdapterClass.notifyDataSetChanged();
+                spinnerAdapterSection.notifyDataSetChanged();
+                spinnerAdapterYear.notifyDataSetChanged();
+                spinnerAdapterType.notifyDataSetChanged();
+
+
+
+            }
+        }

@@ -77,7 +77,7 @@ public class ReportCardCreate extends AppCompatActivity implements GetSubjectLis
             nameOfstudent.setText(stdName);
 
             int stdRol  = mSelStudent.getRollNumber();
-            nameOfstudent.setText(Integer.toString(stdRol));
+            rollNum.setText(Integer.toString(stdRol));
 
 
         }catch(Exception e){

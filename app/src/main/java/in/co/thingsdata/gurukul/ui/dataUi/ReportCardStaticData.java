@@ -11,11 +11,22 @@ import in.co.thingsdata.gurukul.data.common.Student;
 public class ReportCardStaticData {
 
     public static ArrayList<Student> mStudentList = null;
-    public static String classOfStudent ,section,typeOfExam;
-    static int year;
+    public static String classOfStudent ,section,typeOfExam,regId;
+
+    public enum buttonType{
+        viewBtn,
+        uploadBtn
+    }
+
+    public static buttonType clickedButton =  buttonType.viewBtn;
+    public static int year;
 
     public static void setSelectedClass(String data){
         classOfStudent = data;
+    }
+
+    public static void setRegistrationId(String data){
+        regId = data;
     }
 
     public static  void setSelectedSection(String data){
@@ -44,6 +55,10 @@ public class ReportCardStaticData {
 
     public static String  getSelectedTypeOfExam(){
         return typeOfExam;
+    }
+
+    public static String getRegId(){
+        return regId;
     }
 
 

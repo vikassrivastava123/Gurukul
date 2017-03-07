@@ -17,6 +17,7 @@ import java.util.List;
 
 import in.co.thingsdata.gurukul.R;
 import in.co.thingsdata.gurukul.data.MarkSheetData;
+import in.co.thingsdata.gurukul.data.SubjectWiseMarks;
 import in.co.thingsdata.gurukul.data.common.UserData;
 import in.co.thingsdata.gurukul.services.helper.CommonRequest;
 import in.co.thingsdata.gurukul.services.request.GetResultReq;
@@ -80,6 +81,8 @@ public class ReportCardSingleStudent extends AppCompatActivity implements GetRes
 
 
         initAutotextViewer();
+
+
     }
 
 
@@ -149,7 +152,7 @@ public class ReportCardSingleStudent extends AppCompatActivity implements GetRes
     @Override
     public void onResultResponse(CommonRequest.ResponseCode res, MarkSheetData mrData) {
 
-        /*
+
         if(res == CommonRequest.ResponseCode.COMMON_RES_SUCCESS){
 
             try {
@@ -174,7 +177,7 @@ public class ReportCardSingleStudent extends AppCompatActivity implements GetRes
 
         }
         mAdapter.notifyDataSetChanged();
-        */
+
 
         mFinalPer = (mTotalMarksObtained*100)/mTotalMarks;
 
@@ -185,8 +188,14 @@ public class ReportCardSingleStudent extends AppCompatActivity implements GetRes
 
     public void executeResultQuery(View view) {
         String token = UserData.getAccessToken();
+
+       String classRoomId =  UserData.getClassRoomId();
+       String type = "YEARLY";//ReportCardStaticData.getSelectedTypeOfExam();
+       int yr = 2017;//ReportCardStaticData.getSelectedYear();
+       String regId = ReportCardStaticData.getRegId();
+
         //todo dummy RegistrationId
-        MarkSheetData markdata = new MarkSheetData(token,UserData.getClassRoomId(),mRolNumber,ReportCardStaticData.getSelectedYear(),ReportCardStaticData.getSelectedTypeOfExam(),"1");
+        MarkSheetData markdata = new MarkSheetData(token,classRoomId,mRolNumber,yr,type,regId);
         GetResultReq reqMarkesheet = new GetResultReq(ReportCardSingleStudent.this,markdata,this);
 
         reqMarkesheet.executeRequest();
