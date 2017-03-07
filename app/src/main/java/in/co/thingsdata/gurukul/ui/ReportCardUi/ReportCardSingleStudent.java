@@ -189,9 +189,9 @@ public class ReportCardSingleStudent extends AppCompatActivity implements GetRes
     public void executeResultQuery(View view) {
         String token = UserData.getAccessToken();
 
-       String classRoomId =  UserData.getClassRoomId();
-       String type = "YEARLY";//ReportCardStaticData.getSelectedTypeOfExam();
-       int yr = 2017;//ReportCardStaticData.getSelectedYear();
+       String classRoomId =  ReportCardStaticData.getSelectedClassRoomId();
+       String type = ReportCardStaticData.getSelectedTypeOfExam();
+       int yr = ReportCardStaticData.getSelectedYear();
        String regId = ReportCardStaticData.getRegId();
 
         //todo dummy RegistrationId

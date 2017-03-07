@@ -47,8 +47,8 @@ public class ReportCardTeacherView extends AppCompatActivity
     String classEntered,sectionEntered,yearEntered,typeOfExamcEntered;
     Spinner classTv , sectionTv, yearTv, typeOfExamTv;
 
-            ArrayList<ClassData> mClassesInSchoolObj = null;
-int rollNum = 0;
+    ArrayList<ClassData> mClassesInSchoolObj = null;
+            int rollNum = 0;
 
             void fillDropDownData(){
 
@@ -220,6 +220,9 @@ int rollNum = 0;
             case COMMON_RES_SERVER_ERROR_WITH_MESSAGE:
             case COMMON_RES_SUCCESS:
 
+                if(ReportCardStaticData.mStudentList != null) {
+                    ReportCardStaticData.mStudentList.clear();
+                }
                 ReportCardStaticData.mStudentList = data.getStudentListInClass();
 
                 //if(ReportCardStaticData.mStudentList == null && ReportCardStaticData.mStudentList.size() ==0)
@@ -294,9 +297,12 @@ int rollNum = 0;
         ReportCardStaticData.setSelectedClass(classTvStr);
         ReportCardStaticData.setSelectedYear(yearTvStr);
 
+
         Integer indexValue = classTv.getSelectedItemPosition();
 
         String classN = mClassesInSchoolObj.get(indexValue).getClassRoomId();//UserData.getClassRoomId();//todo: uncomment once server data is right //ReportCardStaticData.getSelectedClass();
+        ReportCardStaticData.setSelectedClassRoomId(classN);
+
         String classSec = sectionTvStr; //todo: uncomment once server data is right //ReportCardStaticData.getSelectedSection();
 
         GetStudentListInClassData data = new GetStudentListInClassData(token,classN,classSec);

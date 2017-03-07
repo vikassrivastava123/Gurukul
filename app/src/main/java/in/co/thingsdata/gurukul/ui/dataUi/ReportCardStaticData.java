@@ -11,7 +11,7 @@ import in.co.thingsdata.gurukul.data.common.Student;
 public class ReportCardStaticData {
 
     public static ArrayList<Student> mStudentList = null;
-    public static String classOfStudent ,section,typeOfExam,regId;
+    private static String classOfStudent ,section,typeOfExam,regId,classRoomId;
 
     public enum buttonType{
         viewBtn,
@@ -37,12 +37,22 @@ public class ReportCardStaticData {
         year = data;
     }
 
+    public static  void setSelectedClassRoomId(String data){
+        classRoomId = data;
+    }
+
+
+
     public static  void setSelectedTypeOfExam(String data){
         typeOfExam = data;
     }
 
     public static  String  getSelectedClass(){
         return classOfStudent;
+    }
+
+    public static  String  getSelectedClassRoomId(){
+        return classRoomId;
     }
 
     public  static int  getSelectedYear(){
