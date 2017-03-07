@@ -140,6 +140,8 @@ public class ReportCardTeacherView extends AppCompatActivity
                 String regId = ReportCardStaticData.mStudentList.get(position).getRegistrationId();
                 ReportCardStaticData.setRegistrationId(regId);
 
+                int rolNumber = ReportCardStaticData.mStudentList.get(position).getRollNumber();
+                ReportCardStaticData.setRollNumber(rolNumber);
                 //start.putExtra(getResources().getString(R.string.intent_extra_rolnum),ReportCardStaticData.mStudentList.);
 
                 startActivity(start);

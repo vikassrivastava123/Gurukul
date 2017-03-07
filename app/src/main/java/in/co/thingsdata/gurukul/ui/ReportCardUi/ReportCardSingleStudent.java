@@ -192,7 +192,7 @@ public class ReportCardSingleStudent extends AppCompatActivity implements GetRes
        String classRoomId =  ReportCardStaticData.getSelectedClassRoomId();
        String type = ReportCardStaticData.getSelectedTypeOfExam();
        int yr = ReportCardStaticData.getSelectedYear();
-       String regId = ReportCardStaticData.getRegId();
+       String regId = ReportCardStaticData.getRegistrationId();
 
         //todo dummy RegistrationId
         MarkSheetData markdata = new MarkSheetData(token,classRoomId,mRolNumber,yr,type,regId);

@@ -253,8 +253,8 @@ public class ReportCardCreate extends AppCompatActivity implements GetSubjectLis
         count = row.getChildCount();
 
         ReportCardData rcData = (ReportCardData)MainActivity.dataList.get(indexOfStudentSel);
-        int rolnum = rcData.getRollNumber();
-        String regNum = rcData.getRegistrationNumber();
+        int rolnum = ReportCardStaticData.getSelectedRollNumbber();
+        String regNum = ReportCardStaticData.getRegistrationId();
 
 
         subMitMarkdata = new MarkSheetData(UserData.getAccessToken(), UserData.getClassRoomId(),rolnum,ReportCardStaticData.getSelectedYear(),

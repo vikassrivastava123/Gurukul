@@ -14,7 +14,7 @@ public class ReportCardStaticData {
     public static ArrayList<Student> mStudentList = null;
     public static ArrayList<ClassData> mClassesInSchoolObj = null;
     private static String classOfStudent ,section,typeOfExam,regId,classRoomId;
-
+    private static int rolNum =0;
 
     public enum buttonType{
         viewBtn,
@@ -32,6 +32,10 @@ public class ReportCardStaticData {
         regId = data;
     }
 
+    public static void setRollNumber(int data){
+        rolNum = data;
+    }
+
     public static  void setSelectedSection(String data){
         section = data;
     }
@@ -43,8 +47,6 @@ public class ReportCardStaticData {
     public static  void setSelectedClassRoomId(String data){
         classRoomId = data;
     }
-
-
 
     public static  void setSelectedTypeOfExam(String data){
         typeOfExam = data;
@@ -62,6 +64,10 @@ public class ReportCardStaticData {
         return year;
     }
 
+    public  static int  getSelectedRollNumbber(){
+        return rolNum;
+    }
+
     public static String  getSelectedSection(){
         return section;
     }
@@ -70,7 +76,7 @@ public class ReportCardStaticData {
         return typeOfExam;
     }
 
-    public static String getRegId(){
+    public static String getRegistrationId(){
         return regId;
     }
 
