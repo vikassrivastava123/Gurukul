@@ -47,8 +47,7 @@ public class ReportCardTeacherView extends AppCompatActivity
     String classEntered,sectionEntered,yearEntered,typeOfExamcEntered;
     Spinner classTv , sectionTv, yearTv, typeOfExamTv;
 
-
-
+            ArrayList<ClassData> mClassesInSchoolObj = null;
 int rollNum = 0;
 
             void fillDropDownData(){
@@ -69,10 +68,10 @@ int rollNum = 0;
                 spinnerAdapterType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 typeOfExamTv.setAdapter(spinnerAdapterType);
 
-                ArrayList<ClassData> dataObj = CommonDetails.getAllClassesInSchool();
+                mClassesInSchoolObj = CommonDetails.getAllClassesInSchool();
 
                 try {
-                    for (ClassData obj : dataObj) {
+                    for (ClassData obj : mClassesInSchoolObj) {
                         String classsName = obj.getName();
                         String section = obj.getSection();
 
@@ -91,10 +90,9 @@ int rollNum = 0;
                 spinnerAdapterYear.add("2019");
                 spinnerAdapterYear.add("2020");
 
-                spinnerAdapterType.add("value1");
-                spinnerAdapterType.add("value2");
-                spinnerAdapterType.add("value3");
-                spinnerAdapterType.add("value4");
+                spinnerAdapterType.add(CommonDetails.EXAM_TYPE_YEARLY);
+                spinnerAdapterType.add(CommonDetails.EXAM_TYPE_HALF_YEARLY);
+
 
                 spinnerAdapterClass.notifyDataSetChanged();
                 spinnerAdapterSection.notifyDataSetChanged();
@@ -286,8 +284,20 @@ int rollNum = 0;
     public void executeResultQuery() {
 
         String token = UserData.getAccessToken();
-        String classN = UserData.getClassRoomId();//todo: uncomment once server data is right //ReportCardStaticData.getSelectedClass();
-        String classSec = "A"; //todo: uncomment once server data is right //ReportCardStaticData.getSelectedSection();
+        String classTvStr = classTv.getSelectedItem().toString();
+        String sectionTvStr = sectionTv.getSelectedItem().toString();
+        int yearTvStr = Integer.parseInt(yearTv.getSelectedItem().toString());
+        String typeOfExamTvStr = typeOfExamTv.getSelectedItem().toString();
+
+        ReportCardStaticData.setSelectedTypeOfExam(typeOfExamTvStr);
+        ReportCardStaticData.setSelectedSection(sectionTvStr);
+        ReportCardStaticData.setSelectedClass(classTvStr);
+        ReportCardStaticData.setSelectedYear(yearTvStr);
+
+        Integer indexValue = classTv.getSelectedItemPosition();
+
+        String classN = mClassesInSchoolObj.get(indexValue).getClassRoomId();//UserData.getClassRoomId();//todo: uncomment once server data is right //ReportCardStaticData.getSelectedClass();
+        String classSec = sectionTvStr; //todo: uncomment once server data is right //ReportCardStaticData.getSelectedSection();
 
         GetStudentListInClassData data = new GetStudentListInClassData(token,classN,classSec);
         GetStudentListInClassReq req = new GetStudentListInClassReq(this,data,this);

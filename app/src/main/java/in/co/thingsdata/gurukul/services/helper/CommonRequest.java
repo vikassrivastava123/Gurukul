@@ -159,6 +159,8 @@ public abstract class CommonRequest {
     }
 
     public void executeRequest (){
+
+
         if ((mURL == null)|| (mURL.isEmpty())) {
             onResponseHandler(null);
         }
