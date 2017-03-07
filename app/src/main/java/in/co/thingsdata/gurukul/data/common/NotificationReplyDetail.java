@@ -32,7 +32,7 @@ public class NotificationReplyDetail {
 
     public void setTeacherDetails(String name, String emp_code){
         mUserType = CommonDetails.USER_TYPE_TEACHER;
-        mUserName = name; mEmpCode = emp_code; mClassId = -1; mSectionId = CommonDetails.SECTION_INVALID;
+        mUserName = name; mEmpCode = emp_code; mClassId = -1; mSectionId = "A";
         mRegistrationNumber = null; mRollNumber = -1;
     }
 

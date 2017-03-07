@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import in.co.thingsdata.gurukul.R;
 import in.co.thingsdata.gurukul.data.GetStudentListInClassData;
 import in.co.thingsdata.gurukul.data.common.ClassData;
+import in.co.thingsdata.gurukul.data.common.CommonDetails;
 import in.co.thingsdata.gurukul.data.common.Student;
 import in.co.thingsdata.gurukul.data.common.UserData;
 import in.co.thingsdata.gurukul.services.helper.CommonRequest;
@@ -68,7 +69,7 @@ int rollNum = 0;
                 spinnerAdapterType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 typeOfExamTv.setAdapter(spinnerAdapterType);
 
-                ArrayList<ClassData> dataObj = UserData.getAllClassesInSchool();
+                ArrayList<ClassData> dataObj = CommonDetails.getAllClassesInSchool();
 
                 try {
                     for (ClassData obj : dataObj) {
@@ -426,7 +427,7 @@ int rollNum = 0;
                 spinnerAdapterType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 typeOfExamTv.setAdapter(spinnerAdapterType);
 
-                ArrayList<ClassData> dataObj = UserData.getAllClassesInSchool();
+                ArrayList<ClassData> dataObj = CommonDetails.getAllClassesInSchool();
 
                 try {
                     for (ClassData obj : dataObj) {

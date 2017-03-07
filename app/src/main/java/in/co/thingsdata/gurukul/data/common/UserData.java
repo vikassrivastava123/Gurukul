@@ -2,8 +2,7 @@ package in.co.thingsdata.gurukul.data.common;
 
 import java.util.ArrayList;
 
-import static in.co.thingsdata.gurukul.data.common.CommonDetails.CLASS_12;
-import static in.co.thingsdata.gurukul.data.common.CommonDetails.SECTION_A;
+
 import static in.co.thingsdata.gurukul.data.common.CommonDetails.USER_GENDER_MALE;
 import static in.co.thingsdata.gurukul.data.common.CommonDetails.USER_TYPE_STUDENT;
 
@@ -29,8 +28,8 @@ public final class UserData {
     private static String mGender = USER_GENDER_MALE;
     private static String mEmailId = "test_gurukul@gmail.com";
     private static String mMobileNumber = "+919891829557";
-    private static int mClassId = CLASS_12;
-    private static String mSectionId = SECTION_A;
+    private static int mClassId = 12;
+    private static String mSectionId = "A";
     private static double mMonthlyFee = 2200;
     private static String mAdmissionDate = "12-Jan-1989";
     private static String mCertificateNumber ;
@@ -41,7 +40,6 @@ public final class UserData {
     private static String mRegistrationId;
     private static String mEmployeeId;
     private static String mUniqueId;
-    private static ArrayList<ClassData> mClasses = new ArrayList<>();
 
     public static boolean isUserDataReady(){return mIsDataReady;}
     public static String getAccessToken(){return mAccessToken;}
@@ -70,8 +68,6 @@ public final class UserData {
     public static String getRegistrationId(){return mRegistrationId;}
     public static String getEmployeeId(){return mEmployeeId;}
     public static String getUniqueId(){return mUniqueId;}
-    public static ArrayList<ClassData> getAllClassesInSchool(){return mClasses;}
-    public static int getTotalNumberOfClasses(){return mClasses.size();}
 
 
 
@@ -103,5 +99,4 @@ public final class UserData {
     public static void setRegistrationId(String id){mRegistrationId = id;}
     public static void setEmployeeId(String id){mEmployeeId = id;}
     public static void setUniqueId(String id){mUniqueId = id;}
-    public static void addClass(ClassData c){mClasses.add(c);}
 }

@@ -29,7 +29,7 @@
         <activity
             android:name=".ui.ReportCardUi.ReportCardCreate"
             android:label="@string/reportCard"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

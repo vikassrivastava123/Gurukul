@@ -15,4 +15,5 @@
     <string name="subject_id">subId</string>
     <string name="intent_extra_posInList">pos</string>
     <string name="intent_extra_rolnum">rolnum</string>
+    <string name="title_activity_create_notification">CreateNotification</string>
 </resources>

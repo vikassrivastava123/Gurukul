@@ -10,6 +10,7 @@ import java.util.List;
 
 import in.co.thingsdata.gurukul.R;
 import in.co.thingsdata.gurukul.data.common.ClassData;
+import in.co.thingsdata.gurukul.data.common.CommonDetails;
 import in.co.thingsdata.gurukul.data.common.UserData;
 import in.co.thingsdata.gurukul.services.helper.CommonRequest;
 import in.co.thingsdata.gurukul.services.request.GetClassListRequest;
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements GetClassListReque
         if (res == CommonRequest.ResponseCode.COMMON_RES_SUCCESS)
         {
             for (int i=0; i < classes.size(); i++){
-                UserData.addClass(classes.get(i));
+                CommonDetails.addClass(classes.get(i));
             }
         }
     }
