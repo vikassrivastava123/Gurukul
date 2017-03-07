@@ -65,9 +65,14 @@ public class GetResultReq extends CommonRequest {
                 for (int i = 0; i < total; i++) {
                     JSONObject sub = marks.getJSONObject(i);
                     String subjectId = sub.getString(JSON_FIELD_SUBJECT_ID);
-                    String subjectName = sub.getString(JSON_FIELD_SUBJECT_NAME);
+
                     int marksObtained = sub.getInt(JSON_FIELD_RESULT_MARKS_OBTAINED);
                     int totalMarks = sub.getInt(JSON_FIELD_RESULT_TOTAL_MARKS);
+                    String subjectName = null;
+                    if (sub.has(JSON_FIELD_SUBJECT_NAME)){
+                        subjectName = sub.getString(JSON_FIELD_SUBJECT_NAME);
+                    }
+
                     Subject subject = new Subject(subjectId, subjectName);
                     SubjectWiseMarks subMarks = new SubjectWiseMarks(subject, totalMarks, marksObtained);
                     mData.addMarksInSubject(subMarks);
