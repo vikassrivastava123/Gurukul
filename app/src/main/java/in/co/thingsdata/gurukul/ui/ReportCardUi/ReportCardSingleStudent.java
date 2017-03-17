@@ -21,7 +21,6 @@ import in.co.thingsdata.gurukul.data.SubjectWiseMarks;
 import in.co.thingsdata.gurukul.data.common.UserData;
 import in.co.thingsdata.gurukul.services.helper.CommonRequest;
 import in.co.thingsdata.gurukul.services.request.GetResultReq;
-import in.co.thingsdata.gurukul.ui.MainActivity;
 import in.co.thingsdata.gurukul.ui.dataUi.DataOfUi;
 import in.co.thingsdata.gurukul.ui.dataUi.ReportCardData;
 import in.co.thingsdata.gurukul.ui.dataUi.ReportCardStaticData;
@@ -43,6 +42,7 @@ public class ReportCardSingleStudent extends AppCompatActivity implements GetRes
     TextView mTitle;
     ReportCardData mSelectedStudent;
     public static String TAG = "ReportCardSingleStudent";
+    int mposInList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,10 +51,10 @@ public class ReportCardSingleStudent extends AppCompatActivity implements GetRes
         initRes();
 
         Intent intent = getIntent();
-        int posInList = intent.getIntExtra(getResources().getString(R.string.intent_extra_posInList), 1);
+        mposInList = intent.getIntExtra(getResources().getString(R.string.intent_extra_posInList), 1);
 
         try {
-            mSelectedStudent = (ReportCardData) MainActivity.dataList.get(posInList);
+            mSelectedStudent = (ReportCardData) ReportCardStaticData.dataList.get(mposInList);
             mName.setText(mSelectedStudent.getName());
 
             mClassSection.setText(getResources().getText(R.string.classOfStudent) +  ReportCardStaticData.getSelectedClass()
@@ -192,7 +192,7 @@ public class ReportCardSingleStudent extends AppCompatActivity implements GetRes
        String classRoomId =  ReportCardStaticData.getSelectedClassRoomId();
        String type = ReportCardStaticData.getSelectedTypeOfExam();
        int yr = ReportCardStaticData.getSelectedYear();
-       String regId = ReportCardStaticData.getRegistrationId();
+       String regId = ReportCardStaticData.mStudentList.get(mposInList).getRegistrationId();//ReportCardStaticData.getRegistrationId();
 
         //todo dummy RegistrationId
         MarkSheetData markdata = new MarkSheetData(token,classRoomId,mRolNumber,yr,type,regId);

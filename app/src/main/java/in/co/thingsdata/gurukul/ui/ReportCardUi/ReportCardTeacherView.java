@@ -27,7 +27,6 @@ import in.co.thingsdata.gurukul.data.common.UserData;
 import in.co.thingsdata.gurukul.services.helper.CommonRequest;
 import in.co.thingsdata.gurukul.services.request.GetClassListRequest;
 import in.co.thingsdata.gurukul.services.request.GetStudentListInClassReq;
-import in.co.thingsdata.gurukul.ui.MainActivity;
 import in.co.thingsdata.gurukul.ui.dataUi.ReportCardData;
 import in.co.thingsdata.gurukul.ui.dataUi.ReportCardStaticData;
 
@@ -123,7 +122,7 @@ public class ReportCardTeacherView extends AppCompatActivity
         initAutoTextView();
 
 
-        mAdapter = new ReportCardAdapter(MainActivity.dataList,ReportCardAdapter.TEACHER_VIEW_REPORTCARD
+        mAdapter = new ReportCardAdapter(ReportCardStaticData.dataList,ReportCardAdapter.TEACHER_VIEW_REPORTCARD
                 , new ReportCardAdapter.OnItemClickListener() {
 
             @Override
@@ -194,7 +193,7 @@ public class ReportCardTeacherView extends AppCompatActivity
 
     void initRecyclerView(){
         if(mAdapter == null) {
-            mAdapter = new ReportCardAdapter(MainActivity.dataList, ReportCardAdapter.TEACHER_VIEW_REPORTCARD , new ReportCardAdapter.OnItemClickListener() {
+            mAdapter = new ReportCardAdapter(ReportCardStaticData.dataList, ReportCardAdapter.TEACHER_VIEW_REPORTCARD , new ReportCardAdapter.OnItemClickListener() {
 
                 @Override
                 public void onItemClick(View view, int position) {
@@ -235,8 +234,9 @@ public class ReportCardTeacherView extends AppCompatActivity
 
                      String name = obj.getName();
                      int rollNumber = obj.getRollNumber();
-                     dataStudentListForAdapter = new ReportCardData(name,rollNumber);
-                     MainActivity.dataList.add(dataStudentListForAdapter);
+                     String regId = obj.getRegistrationId();
+                     dataStudentListForAdapter = new ReportCardData(name,rollNumber,regId);
+                    ReportCardStaticData.dataList.add(dataStudentListForAdapter);
 
                 }
             mAdapter.notifyDataSetChanged();
@@ -252,35 +252,35 @@ public class ReportCardTeacherView extends AppCompatActivity
 
     void prepareMovieData(){
 
-        ReportCardData data = new ReportCardData("argsubject3",1);
-        MainActivity.dataList.add(data);
+        ReportCardData data = new ReportCardData("argsubject3",1,"1");
+        ReportCardStaticData.dataList.add(data);
 
-        data =  new ReportCardData("secondubject3",2);
-        MainActivity.dataList.add(data);
+        data =  new ReportCardData("secondubject3",2,"2");
+        ReportCardStaticData.dataList.add(data);
 
-        data =  new ReportCardData("thoredsubject3",3);
-        MainActivity.dataList.add(data);
+        data =  new ReportCardData("thoredsubject3",3,"3");
+        ReportCardStaticData.dataList.add(data);
 
-        data =  new ReportCardData("fourthsubject3",4);
-        MainActivity.dataList.add(data);
+        data =  new ReportCardData("fourthsubject3",4,"4");
+        ReportCardStaticData.dataList.add(data);
 
-        data =  new ReportCardData("secondubject3",2);
-        MainActivity.dataList.add(data);
+        data =  new ReportCardData("secondubject3",2,"5");
+        ReportCardStaticData.dataList.add(data);
 
-        data =  new ReportCardData("thoredsubject3",3);
-        MainActivity.dataList.add(data);
+        data =  new ReportCardData("thoredsubject3",3,"6");
+        ReportCardStaticData.dataList.add(data);
 
-        data =  new ReportCardData("fourthsubject3",4);
-        MainActivity.dataList.add(data);
+        data =  new ReportCardData("fourthsubject3",4,"7");
+        ReportCardStaticData.dataList.add(data);
 
-        data =  new ReportCardData("secondubject3",2);
-        MainActivity.dataList.add(data);
+        data =  new ReportCardData("secondubject3",2,"8");
+        ReportCardStaticData.dataList.add(data);
 
-        data =  new ReportCardData("thoredsubject3",3);
-        MainActivity.dataList.add(data);
+        data =  new ReportCardData("thoredsubject3",3,"9");
+        ReportCardStaticData.dataList.add(data);
 
-        data =  new ReportCardData("fourthsubject3",4);
-        MainActivity.dataList.add(data);
+        data =  new ReportCardData("fourthsubject3",4,"10");
+        ReportCardStaticData.dataList.add(data);
 
         mAdapter.notifyDataSetChanged();
 

@@ -1,6 +1,7 @@
 package in.co.thingsdata.gurukul.ui.dataUi;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import in.co.thingsdata.gurukul.data.common.ClassData;
@@ -11,6 +12,7 @@ import in.co.thingsdata.gurukul.data.common.Student;
  */
 public class ReportCardStaticData {
 
+    public static List<DataOfUi> dataList = new ArrayList<>();
     public static ArrayList<Student> mStudentList = null;
     public static ArrayList<ClassData> mClassesInSchoolObj = null;
     private static String classOfStudent ,section,typeOfExam,regId,classRoomId;
@@ -100,5 +102,14 @@ public class ReportCardStaticData {
             }
         }
     }
+
+    public static List<DataOfUi> getDataList(){
+        return dataList;
+    }
+
+    public static void setDataList(List<DataOfUi> data){
+       dataList = data;
+    }
+
 
 }

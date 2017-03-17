@@ -9,12 +9,13 @@ public class ReportCardData extends DataOfUi {
 
     String subject = null , marksObtained = null , total = null , percentage = null;
 
-    String name = null ,regNumber = null; int rollNumber = 0 ;
+    String name = null ,regNumber = null ,regId = null; int rollNumber = 0 ;
 
-    public ReportCardData(String argname , int argrollNumber){
+    public ReportCardData(String argname , int argrollNumber ,String regId){
 
         name = argname;
         rollNumber = argrollNumber;
+        this.regId = regId;
 
     }
 

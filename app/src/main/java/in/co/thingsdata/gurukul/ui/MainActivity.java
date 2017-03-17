@@ -18,7 +18,7 @@ import in.co.thingsdata.gurukul.ui.dataUi.DataOfUi;
 
 public class MainActivity extends AppCompatActivity implements GetClassListRequest.GetClassListCallback {
 
-    public static List<DataOfUi> dataList = new ArrayList<>();
+
 
 
     @Override
@@ -33,14 +33,7 @@ public class MainActivity extends AppCompatActivity implements GetClassListReque
         startActivity(it);
     }
 
-    public static List<DataOfUi> getDataList(){
-        return dataList;
-    }
 
-    public static void setDataList(List<DataOfUi> data){
-
-         dataList = data;
-    }
 
     public void initializeUserData(){
         GetClassListRequest req = new GetClassListRequest(this, this);
