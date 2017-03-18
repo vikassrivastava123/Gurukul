@@ -82,6 +82,7 @@ public class ReportCardSingleStudent extends AppCompatActivity implements GetRes
 
         initAutotextViewer();
 
+        getResultsOfQuery();
 
     }
 
@@ -110,6 +111,10 @@ public class ReportCardSingleStudent extends AppCompatActivity implements GetRes
                 android.R.layout.simple_dropdown_item_1line, yearArray);
         tvYear = (AutoCompleteTextView)
                 findViewById(R.id.autocomplete_year);
+
+        String yearsel = Integer.toString(ReportCardStaticData.getSelectedYear());
+        tvYear.setText(yearsel);
+
         tvYear.setThreshold(0);
         tvYear.setAdapter(adapter);
 
@@ -118,6 +123,8 @@ public class ReportCardSingleStudent extends AppCompatActivity implements GetRes
         tvTypeOfExam = (AutoCompleteTextView)
                 findViewById(R.id.autocomplete_type);
 
+        String typOfExam = ReportCardStaticData.getSelectedTypeOfExam();
+        tvTypeOfExam.setText(typOfExam);
         tvTypeOfExam.setThreshold(0);
         tvTypeOfExam.setAdapter(adapter2);
 
@@ -129,26 +136,6 @@ public class ReportCardSingleStudent extends AppCompatActivity implements GetRes
         mPercent.setText(Float.toString(mFinalPer));
     }
 
-    void prepareMovieData(){
-
-        ReportCardData data = new ReportCardData("argsubject","argmarksObtained","argtotal","argpercentage");
-
-        dataList.add(data);
-
-        data =  new ReportCardData("argsubject1","argmarksObtained1","argtotal1","argpercentage1");
-        dataList.add(data);
-
-        data =  new ReportCardData("argsubject2","argmarksObtained2","argtotal2","argpercentage2");
-        dataList.add(data);
-
-        data =  new ReportCardData("argsubject3","argmarksObtained3","argtotal3","argpercentage3");
-        dataList.add(data);
-
-        mAdapter.notifyDataSetChanged();
-    }
-
-
-
     @Override
     public void onResultResponse(CommonRequest.ResponseCode res, MarkSheetData mrData) {
 
@@ -158,6 +145,7 @@ public class ReportCardSingleStudent extends AppCompatActivity implements GetRes
             try {
                 ArrayList<SubjectWiseMarks> receivedSubjMakrs = mrData.getMarkSheet();
 
+                dataList.clear();
                 for (SubjectWiseMarks subjMakrs : receivedSubjMakrs) {
 
                     int marks = subjMakrs.getMarksObtained();
@@ -166,7 +154,7 @@ public class ReportCardSingleStudent extends AppCompatActivity implements GetRes
                     mTotalMarks += totalMarks;
                     float percentage = (marks*100)/ totalMarks;
 
-                    ReportCardData data = new ReportCardData(subjMakrs.getSubject().getSubjectName(), Integer.toString(marks),
+                    ReportCardData data = new ReportCardData(subjMakrs.getSubject().getSubjectId(), Integer.toString(marks),
                             Integer.toString(totalMarks), Float.toString(percentage));
                     dataList.add(data);
 
@@ -182,23 +170,33 @@ public class ReportCardSingleStudent extends AppCompatActivity implements GetRes
         mFinalPer = (mTotalMarksObtained*100)/mTotalMarks;
 
         setFooter();
-        prepareMovieData();
+     //   prepareMovieData();
 
     }
 
-    public void executeResultQuery(View view) {
+    public void getResultsOfQuery(){
+
         String token = UserData.getAccessToken();
 
-       String classRoomId =  ReportCardStaticData.getSelectedClassRoomId();
-       String type = ReportCardStaticData.getSelectedTypeOfExam();
-       int yr = ReportCardStaticData.getSelectedYear();
-       String regId = ReportCardStaticData.mStudentList.get(mposInList).getRegistrationId();//ReportCardStaticData.getRegistrationId();
+        String classRoomId =  ReportCardStaticData.getSelectedClassRoomId();
+        String type = tvTypeOfExam.getText().toString();//ReportCardStaticData.getSelectedTypeOfExam();
 
-        //todo dummy RegistrationId
+        int yr =  Integer.parseInt(tvYear.getText().toString());//ReportCardStaticData.getSelectedYear();
+        String regId = ReportCardStaticData.mStudentList.get(mposInList).getRegistrationId();//ReportCardStaticData.getRegistrationId();
+
+
         MarkSheetData markdata = new MarkSheetData(token,classRoomId,mRolNumber,yr,type,regId);
         GetResultReq reqMarkesheet = new GetResultReq(ReportCardSingleStudent.this,markdata,this);
 
         reqMarkesheet.executeRequest();
+
+    }
+
+
+
+    public void executeResultQuery(View view) {
+
+        getResultsOfQuery();
     }
 
     void setDataOfViews(){

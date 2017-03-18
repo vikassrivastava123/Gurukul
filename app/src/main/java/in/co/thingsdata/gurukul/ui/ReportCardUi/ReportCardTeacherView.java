@@ -15,6 +15,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -214,11 +215,7 @@ public class ReportCardTeacherView extends AppCompatActivity
     public void onGetStudentListResponse(CommonRequest.ResponseCode res, GetStudentListInClassData data) {
         ReportCardData dataStudentListForAdapter = null;
         switch (res){
-            case COMMON_RES_INTERNAL_ERROR:
-            case COMMON_RES_CONNECTION_TIMEOUT:
-            case COMMON_RES_FAILED_TO_CONNECT:
-            case COMMON_RES_IMAGE_NOT_FOUND:
-            case COMMON_RES_SERVER_ERROR_WITH_MESSAGE:
+
             case COMMON_RES_SUCCESS:
 
                 if(ReportCardStaticData.mStudentList != null) {
@@ -230,6 +227,8 @@ public class ReportCardTeacherView extends AppCompatActivity
                 {
 //                    prepareMovieData();
                 }
+
+                ReportCardStaticData.dataList.clear();
                 for(Student obj: ReportCardStaticData.mStudentList){
 
                      String name = obj.getName();
@@ -239,50 +238,23 @@ public class ReportCardTeacherView extends AppCompatActivity
                     ReportCardStaticData.dataList.add(dataStudentListForAdapter);
 
                 }
-            mAdapter.notifyDataSetChanged();
-
+              mAdapter.notifyDataSetChanged();
+              Toast.makeText(ReportCardTeacherView.this, "Select Student from List", Toast.LENGTH_LONG).show();
                 break;
+            case COMMON_RES_INTERNAL_ERROR:
+            case COMMON_RES_CONNECTION_TIMEOUT:
+            case COMMON_RES_FAILED_TO_CONNECT:
+            case COMMON_RES_IMAGE_NOT_FOUND:
+            case COMMON_RES_SERVER_ERROR_WITH_MESSAGE:
+
+                Toast.makeText(ReportCardTeacherView.this, "Error in receiving data ,Please try some other time", Toast.LENGTH_LONG).show();
+
             default:
+                Toast.makeText(ReportCardTeacherView.this, "Error : Please try some other time", Toast.LENGTH_LONG).show();
+                Log.d(TAG,"NOt known exception :" + res);
                 break;
         }
   //      prepareMovieData();
-
-    }
-
-
-    void prepareMovieData(){
-
-        ReportCardData data = new ReportCardData("argsubject3",1,"1");
-        ReportCardStaticData.dataList.add(data);
-
-        data =  new ReportCardData("secondubject3",2,"2");
-        ReportCardStaticData.dataList.add(data);
-
-        data =  new ReportCardData("thoredsubject3",3,"3");
-        ReportCardStaticData.dataList.add(data);
-
-        data =  new ReportCardData("fourthsubject3",4,"4");
-        ReportCardStaticData.dataList.add(data);
-
-        data =  new ReportCardData("secondubject3",2,"5");
-        ReportCardStaticData.dataList.add(data);
-
-        data =  new ReportCardData("thoredsubject3",3,"6");
-        ReportCardStaticData.dataList.add(data);
-
-        data =  new ReportCardData("fourthsubject3",4,"7");
-        ReportCardStaticData.dataList.add(data);
-
-        data =  new ReportCardData("secondubject3",2,"8");
-        ReportCardStaticData.dataList.add(data);
-
-        data =  new ReportCardData("thoredsubject3",3,"9");
-        ReportCardStaticData.dataList.add(data);
-
-        data =  new ReportCardData("fourthsubject3",4,"10");
-        ReportCardStaticData.dataList.add(data);
-
-        mAdapter.notifyDataSetChanged();
 
     }
 

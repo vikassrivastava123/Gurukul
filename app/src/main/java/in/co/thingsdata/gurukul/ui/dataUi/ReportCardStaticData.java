@@ -12,9 +12,18 @@ import in.co.thingsdata.gurukul.data.common.Student;
  */
 public class ReportCardStaticData {
 
+    /*
+    * dataList : This list is used to add data in adapter
+    * Fill this list with data that is required to be passed in constructor of DataUi class
+    * */
     public static List<DataOfUi> dataList = new ArrayList<>();
+
+    /*
+    * Fill with Student list class objects (of Service)as we get in callback
+    * */
     public static ArrayList<Student> mStudentList = null;
     public static ArrayList<ClassData> mClassesInSchoolObj = null;
+
     private static String classOfStudent ,section,typeOfExam,regId,classRoomId;
     private static int rolNum =0;
 
