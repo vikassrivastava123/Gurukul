@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import java.util.List;
 import in.co.thingsdata.gurukul.R;
 import in.co.thingsdata.gurukul.data.MarkSheetData;
 import in.co.thingsdata.gurukul.data.SubjectWiseMarks;
+import in.co.thingsdata.gurukul.data.common.CommonDetails;
 import in.co.thingsdata.gurukul.data.common.UserData;
 import in.co.thingsdata.gurukul.services.helper.CommonRequest;
 import in.co.thingsdata.gurukul.services.request.GetResultReq;
@@ -36,6 +38,7 @@ public class ReportCardSingleStudent extends AppCompatActivity implements GetRes
 
     String[] yearArray , typeOfExamArray;
     TextView mName,mClassSection,mRollNumber;
+    Spinner yearTv, typeOfExamTv;
     TextView mMarksObt,mTotal,mPercent;
     AutoCompleteTextView tvYear , tvTypeOfExam;
     int mRolNumber = 0;
@@ -99,6 +102,54 @@ public class ReportCardSingleStudent extends AppCompatActivity implements GetRes
         mTotal = (TextView)findViewById(R.id.totalSumOfMarks);
         mPercent = (TextView)findViewById(R.id.percentageOfMarks);
 
+        yearTv =  (Spinner)findViewById(R.id.spinner_year);
+        typeOfExamTv =  (Spinner )findViewById(R.id.spinner_type);
+
+        ArrayAdapter<String> spinnerAdapterYear = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, android.R.id.text1);
+        spinnerAdapterYear.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        yearTv.setAdapter(spinnerAdapterYear);
+
+
+        String yrArray[] = {"2016","2017","2018","2019","2020"};
+
+        spinnerAdapterYear.add(yrArray[0]);
+        spinnerAdapterYear.add(yrArray[1]);
+        spinnerAdapterYear.add(yrArray[2]);
+        spinnerAdapterYear.add(yrArray[3]);
+        spinnerAdapterYear.add(yrArray[4]);
+
+
+
+        ArrayAdapter<String> spinnerAdapterType = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, android.R.id.text1);
+        spinnerAdapterType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        typeOfExamTv.setAdapter(spinnerAdapterType);
+
+        spinnerAdapterType.add(CommonDetails.EXAM_TYPE_YEARLY);
+        spinnerAdapterType.add(CommonDetails.EXAM_TYPE_HALF_YEARLY);
+
+        String type = ReportCardStaticData.getSelectedTypeOfExam();
+        String year = Integer.toString(ReportCardStaticData.getSelectedYear());
+        int siz = yrArray.length;
+        int typeIndex = 0,yrIndex = 0;
+
+        for(yrIndex = 0;yrIndex <siz;yrIndex++){
+            String yrStr = yrArray[yrIndex];
+            if(yrStr.equals(year)== true){
+                break;
+            }
+        }
+        yearTv.setSelection(yrIndex);
+
+        if(type.equals(CommonDetails.EXAM_TYPE_YEARLY)) {
+            typeIndex = 0;
+        }else{
+            typeIndex = 1;
+        }
+        typeOfExamTv.setSelection(typeIndex);
+
+        spinnerAdapterYear.notifyDataSetChanged();
+        spinnerAdapterType.notifyDataSetChanged();
+
     }
 
 
@@ -139,13 +190,15 @@ public class ReportCardSingleStudent extends AppCompatActivity implements GetRes
     @Override
     public void onResultResponse(CommonRequest.ResponseCode res, MarkSheetData mrData) {
 
+        ReportCardStaticData.dismissProgressBar();
 
+        if(dataList != null) {
+            dataList.clear();
+        }
         if(res == CommonRequest.ResponseCode.COMMON_RES_SUCCESS){
 
             try {
                 ArrayList<SubjectWiseMarks> receivedSubjMakrs = mrData.getMarkSheet();
-
-                dataList.clear();
                 for (SubjectWiseMarks subjMakrs : receivedSubjMakrs) {
 
                     int marks = subjMakrs.getMarksObtained();
@@ -165,8 +218,6 @@ public class ReportCardSingleStudent extends AppCompatActivity implements GetRes
 
         }
         mAdapter.notifyDataSetChanged();
-
-
         mFinalPer = (mTotalMarksObtained*100)/mTotalMarks;
 
         setFooter();
@@ -176,20 +227,35 @@ public class ReportCardSingleStudent extends AppCompatActivity implements GetRes
 
     public void getResultsOfQuery(){
 
-        String token = UserData.getAccessToken();
+        try {
+            String token = UserData.getAccessToken();
 
-        String classRoomId =  ReportCardStaticData.getSelectedClassRoomId();
-        String type = tvTypeOfExam.getText().toString();//ReportCardStaticData.getSelectedTypeOfExam();
+            String classRoomId = ReportCardStaticData.getSelectedClassRoomId();
+            String type = typeOfExamTv.getSelectedItem().toString();//tvTypeOfExam.getText().toString();//ReportCardStaticData.getSelectedTypeOfExam();
 
-        int yr =  Integer.parseInt(tvYear.getText().toString());//ReportCardStaticData.getSelectedYear();
-        String regId = ReportCardStaticData.mStudentList.get(mposInList).getRegistrationId();//ReportCardStaticData.getRegistrationId();
+            if (type == null) {
+                type = ReportCardStaticData.getSelectedTypeOfExam();
+            }
+
+            int yr = 0;
+            String yrStr = yearTv.getSelectedItem().toString();
+            if (yrStr != null) {
+                yr = Integer.parseInt(yrStr);//Integer.parseInt(tvYear.getText().toString());//ReportCardStaticData.getSelectedYear();
+            } else {
+                yr = ReportCardStaticData.getSelectedYear();
+            }
 
 
-        MarkSheetData markdata = new MarkSheetData(token,classRoomId,mRolNumber,yr,type,regId);
-        GetResultReq reqMarkesheet = new GetResultReq(ReportCardSingleStudent.this,markdata,this);
+            String regId = ReportCardStaticData.mStudentList.get(mposInList).getRegistrationId();//ReportCardStaticData.getRegistrationId();
 
-        reqMarkesheet.executeRequest();
 
+            MarkSheetData markdata = new MarkSheetData(token, classRoomId, mRolNumber, yr, type, regId);
+            GetResultReq reqMarkesheet = new GetResultReq(ReportCardSingleStudent.this, markdata, this);
+
+            reqMarkesheet.executeRequest();
+        }catch (Exception e){
+            Log.v(TAG,"getResultsOfQuery");
+        }
     }
 
 

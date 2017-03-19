@@ -14,7 +14,6 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -38,7 +37,7 @@ public class ReportCardTeacherView extends AppCompatActivity
 
     private RecyclerView mRecyclerView = null;
     private ReportCardAdapter mAdapter = null;
-    TextView mTitle;
+
     Button findButton ,upLoadButton;
     AutoCompleteTextView searchList;
     android.support.v7.widget.CardView headerOfList;
@@ -82,8 +81,6 @@ public class ReportCardTeacherView extends AppCompatActivity
 
                 }
 
-
-
                 spinnerAdapterYear.add("2016");
                 spinnerAdapterYear.add("2017");
                 spinnerAdapterYear.add("2018");
@@ -101,10 +98,6 @@ public class ReportCardTeacherView extends AppCompatActivity
 
 
             }
-
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,22 +122,26 @@ public class ReportCardTeacherView extends AppCompatActivity
             @Override
             public void onItemClick(View view, int position) {
 
-                Intent start;
-                if(ReportCardStaticData.clickedButton == ReportCardStaticData.buttonType.viewBtn){
-                    start = new Intent(ReportCardTeacherView.this, ReportCardSingleStudent.class);
-                }else {
-                    start = new Intent(ReportCardTeacherView.this, ReportCardCreate.class);
+                try {
+                    Intent start;
+                    if (ReportCardStaticData.clickedButton == ReportCardStaticData.buttonType.viewBtn) {
+                        start = new Intent(ReportCardTeacherView.this, ReportCardSingleStudent.class);
+                    } else {
+                        start = new Intent(ReportCardTeacherView.this, ReportCardCreate.class);
+                    }
+                    start.putExtra(getResources().getString(R.string.intent_extra_posInList), position);
+
+                    String regId = ReportCardStaticData.mStudentList.get(position).getRegistrationId();
+                    ReportCardStaticData.setRegistrationId(regId);
+
+                    int rolNumber = ReportCardStaticData.mStudentList.get(position).getRollNumber();
+                    ReportCardStaticData.setRollNumber(rolNumber);
+                    //start.putExtra(getResources().getString(R.string.intent_extra_rolnum),ReportCardStaticData.mStudentList.);
+
+                    startActivity(start);
+                }catch(Exception e){
+                    Toast.makeText(ReportCardTeacherView.this, "Error : Please restart Application", Toast.LENGTH_LONG).show();
                 }
-                start.putExtra(getResources().getString(R.string.intent_extra_posInList), position);
-
-                String regId = ReportCardStaticData.mStudentList.get(position).getRegistrationId();
-                ReportCardStaticData.setRegistrationId(regId);
-
-                int rolNumber = ReportCardStaticData.mStudentList.get(position).getRollNumber();
-                ReportCardStaticData.setRollNumber(rolNumber);
-                //start.putExtra(getResources().getString(R.string.intent_extra_rolnum),ReportCardStaticData.mStudentList.);
-
-                startActivity(start);
 
                ///list item was clicked
             }
@@ -214,6 +211,7 @@ public class ReportCardTeacherView extends AppCompatActivity
     @Override
     public void onGetStudentListResponse(CommonRequest.ResponseCode res, GetStudentListInClassData data) {
         ReportCardData dataStudentListForAdapter = null;
+        ReportCardStaticData.dismissProgressBar();
         switch (res){
 
             case COMMON_RES_SUCCESS:
@@ -221,21 +219,15 @@ public class ReportCardTeacherView extends AppCompatActivity
                 if(ReportCardStaticData.mStudentList != null) {
                     ReportCardStaticData.mStudentList.clear();
                 }
-                ReportCardStaticData.mStudentList = data.getStudentListInClass();
-
-                //if(ReportCardStaticData.mStudentList == null && ReportCardStaticData.mStudentList.size() ==0)
-                {
-//                    prepareMovieData();
-                }
-
                 ReportCardStaticData.dataList.clear();
-                for(Student obj: ReportCardStaticData.mStudentList){
 
+                ReportCardStaticData.mStudentList = data.getStudentListInClass();
+                for(Student obj: ReportCardStaticData.mStudentList){
                      String name = obj.getName();
                      int rollNumber = obj.getRollNumber();
                      String regId = obj.getRegistrationId();
                      dataStudentListForAdapter = new ReportCardData(name,rollNumber,regId);
-                    ReportCardStaticData.dataList.add(dataStudentListForAdapter);
+                     ReportCardStaticData.dataList.add(dataStudentListForAdapter);
 
                 }
               mAdapter.notifyDataSetChanged();
@@ -248,7 +240,7 @@ public class ReportCardTeacherView extends AppCompatActivity
             case COMMON_RES_SERVER_ERROR_WITH_MESSAGE:
 
                 Toast.makeText(ReportCardTeacherView.this, "Error in receiving data ,Please try some other time", Toast.LENGTH_LONG).show();
-
+              break;
             default:
                 Toast.makeText(ReportCardTeacherView.this, "Error : Please try some other time", Toast.LENGTH_LONG).show();
                 Log.d(TAG,"NOt known exception :" + res);
@@ -290,27 +282,30 @@ public class ReportCardTeacherView extends AppCompatActivity
 
     void initAutoTextView(){
 
-        AutoCompleteTextView textView = (AutoCompleteTextView) findViewById(R.id.searchList);
-        textView.addTextChangedListener(new TextWatcher() {
+        try {
+            searchList.addTextChangedListener(new TextWatcher() {
 
-            @Override
-            public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
-                if (mAdapter != null) {
-                    mAdapter.getFilter().filter(cs);
+                @Override
+                public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
+                    if (mAdapter != null) {
+                        mAdapter.getFilter().filter(cs);
+                    }
                 }
-            }
 
-            @Override
-            public void beforeTextChanged(CharSequence s, int arg1, int arg2, int arg3) {
+                @Override
+                public void beforeTextChanged(CharSequence s, int arg1, int arg2, int arg3) {
 
-            }
+                }
 
-            @Override
-            public void afterTextChanged(Editable arg0) {
+                @Override
+                public void afterTextChanged(Editable arg0) {
 
-            }
+                }
 
-        });
+            });
+        }catch(Exception e){
+            Log.v("TAG","Error of searchList autotextview");
+        }
 
     }
 
@@ -381,6 +376,12 @@ public class ReportCardTeacherView extends AppCompatActivity
 
         ReportCardStaticData.clickedButton = ReportCardStaticData.buttonType.viewBtn;
 
+        if(searchList != null) {
+            //searchList.clearListSelection();
+           // searchList.clearComposingText();
+            searchList.setText("");
+        }
+
         executeResultQuery(); //we need to show student list . when teacher clicks particular student show his results
 
     }
@@ -389,8 +390,14 @@ public class ReportCardTeacherView extends AppCompatActivity
         setVisibilityOfComponents(View.VISIBLE);
         getTextEnteredByUser();
         initRecyclerView();
-
+        ReportCardStaticData.showProgressBar(ReportCardTeacherView.this);
         ReportCardStaticData.clickedButton = ReportCardStaticData.buttonType.uploadBtn;
+
+        if(searchList != null) {
+            searchList.setText("");
+            //searchList.clearComposingText();
+         //   searchList.clearListSelection();
+        }
 
         executeResultQuery(); //we need to show student list . when teacher clicks particular student show his results
 //        prepareMovieData();
@@ -428,10 +435,8 @@ public class ReportCardTeacherView extends AppCompatActivity
                         spinnerAdapterSection.add(section);
                     }
                 }catch(NullPointerException e){
-
+                    Toast.makeText(ReportCardTeacherView.this, "Error: Please restart application", Toast.LENGTH_LONG).show();
                 }
-
-
 
                 spinnerAdapterYear.add("2016");
                 spinnerAdapterYear.add("2017");

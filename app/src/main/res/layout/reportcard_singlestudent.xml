@@ -37,26 +37,59 @@
             android:layout_width="75dp"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:text="2017"
+            android:visibility="gone"
             android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinerrow2"
+            android:paddingTop="10dp"
+           >
 
+            <Spinner
+                android:id="@+id/spinner_year"
+                android:layout_width="122dp"
+                android:layout_weight="1"
+                android:hint="Year"
+                android:textColor="@color/colorWhite"
+                android:textColorHint="@color/colorWhite"
+                android:layout_height="wrap_content"
+                />
+
+            <Spinner
+                android:id="@+id/spinner_type"
+                android:layout_width="123dp"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:hint="Type exam"
+                android:textColor="@color/colorWhite"
+                android:textColorHint="@color/colorWhite"
+                android:layout_height="wrap_content"
+                />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:id="@+id/executeResultQuery"
+                android:layout_weight="1"
+                android:layout_gravity="end"
+                android:onClick="executeResultQuery"
+                android:background="@drawable/execute"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_toRightOf="@+id/spinner_type"
+                />
+
+        </LinearLayout>
         <AutoCompleteTextView xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/autocomplete_type"
             android:layout_width="105dp"
             android:layout_toRightOf="@+id/autocomplete_year"
             android:layout_marginLeft="40dp"
+            android:visibility="gone"
             android:text="Yearly"
             android:layout_height="wrap_content" />
 
-        <ImageButton
-            android:layout_width="50dp"
-            android:id="@+id/executeResultQuery"
-            android:layout_gravity="end"
-            android:onClick="executeResultQuery"
-            android:background="@drawable/execute"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:layout_toRightOf="@+id/autocomplete_type"
-            />
+
 
     </RelativeLayout>
 

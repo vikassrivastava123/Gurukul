@@ -71,8 +71,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/spinerrow2"
         android:paddingTop="10dp"
-
-
         >
 
     <Spinner
@@ -80,7 +78,6 @@
         android:layout_width="122dp"
         android:layout_weight="1"
         android:hint="Year"
-
         android:textColor="@color/colorWhite"
         android:textColorHint="@color/colorWhite"
         android:layout_height="wrap_content"

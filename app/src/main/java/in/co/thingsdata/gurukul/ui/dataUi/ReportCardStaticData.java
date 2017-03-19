@@ -1,5 +1,8 @@
 package in.co.thingsdata.gurukul.ui.dataUi;
 
+import android.app.ProgressDialog;
+import android.content.Context;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -120,5 +123,47 @@ public class ReportCardStaticData {
        dataList = data;
     }
 
+    private static ProgressDialog progress;
+
+    public static void dismissProgressBar(){
+
+        try {
+            progress.dismiss();
+        }catch(Exception e){
+
+        }
+    }
+
+    public static void showProgressBar(Context contx){
+
+        progress=new ProgressDialog(contx);
+        progress.setMessage("Getting Data ..");
+        progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progress.setIndeterminate(true);
+        progress.setProgress(0);
+        progress.show();
+
+        final int totalProgressTime = 100;
+        final Thread t = new Thread() {
+            @Override
+            public void run() {
+                int jumpTime = 0;
+
+                while(jumpTime < totalProgressTime) {
+                    try {
+                        sleep(20);
+                        jumpTime += 5;
+                        if(jumpTime < 80) {
+                            progress.setProgress(jumpTime);
+                        }
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        t.start();
+    }
 
 }

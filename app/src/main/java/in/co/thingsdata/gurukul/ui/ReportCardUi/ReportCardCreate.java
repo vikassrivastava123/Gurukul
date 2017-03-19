@@ -146,30 +146,40 @@ public class ReportCardCreate extends AppCompatActivity implements GetSubjectLis
             {
                 int rowIterator = 0;
                 int lastRowId = 0;
-                for(;rowIterator<rows;rowIterator++) {
+                boolean repeatLoop = true;
+                int  rowId = 1011;
+
+                for(;rowIterator<rows;) {
 
                     final RelativeLayout row = new RelativeLayout(ReportCardCreate.this);
-                    row.removeAllViews();
-                 //   row.setLayoutParams
-                   //         (new RelativeLayout.LayoutParams(300, RelativeLayout.LayoutParams.MATCH_PARENT));
-
-                    RelativeLayout.LayoutParams rowLp = new RelativeLayout.LayoutParams(new ViewGroup.LayoutParams(
-                            RelativeLayout.LayoutParams.MATCH_PARENT,
-                            (int)rowHt));
-
-                    int  rowId = rowIterator;
-
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
                         rowId =  ReportCardStaticData.generateViewId();
                     } else {
                         rowId = View.generateViewId();
                     }
 
+                    row.removeAllViews();
+
+                    RelativeLayout.LayoutParams rowLp = new RelativeLayout.LayoutParams(new ViewGroup.LayoutParams(
+                            RelativeLayout.LayoutParams.MATCH_PARENT,
+                            (int)rowHt));
+
+
+                   //   row.setLayoutParams
+                   //         (new RelativeLayout.LayoutParams(300, RelativeLayout.LayoutParams.MATCH_PARENT));
+                   //         rowId = rowIterator;
+
+
+
                     row.setId(rowId);
 
-                    if(lastRowId!=0){
+                 //   if(lastRowId!=0)
+                    {
                         rowLp.addRule(RelativeLayout.BELOW, lastRowId);
                     }
+//                    else {
+//                        rowLp.addRule(RelativeLayout.ALIGN_PARENT_TOP, lastRowId);
+//                    }
                     lastRowId = rowId;
                     rowLp.setMargins((int)marginall, (int)marginall, (int)marginall, (int)marginall);
                     row.setLayoutParams(rowLp);
@@ -227,6 +237,18 @@ public class ReportCardCreate extends AppCompatActivity implements GetSubjectLis
                     }
                     layoutTest.addView(row);
 
+                    if(repeatLoop == true) {
+//                        row.setId(rowId);
+//                        rowLp.setMargins((int) marginall, (int) marginall, (int) marginall, (int)marginall);
+//                        row.setLayoutParams(rowLp);
+//                        layoutTest.addView(row);
+//                        lastRowId = rowId;
+                    //                        continue;
+                        repeatLoop = false;
+                    }else{
+                        rowIterator++;
+                    }
+
                 }
 
                 //setContentView(layout);
@@ -241,7 +263,7 @@ public class ReportCardCreate extends AppCompatActivity implements GetSubjectLis
 
     MarkSheetData subMitMarkdata = null;
     SubjectWiseMarks subWiseMarks = null;
-
+    boolean mCheckIfMarksNotObt = false;
     public void addSubject() {
 
         int count = layout.getChildCount();
@@ -260,6 +282,10 @@ public class ReportCardCreate extends AppCompatActivity implements GetSubjectLis
                 ReportCardStaticData.getSelectedTypeOfExam(),regNum);
 
         for (int i = 0; i < count; i++) {
+
+            if(i ==  0){
+                continue;
+            }
 
             RelativeLayout oneRow = (RelativeLayout) row.getChildAt(i);
             int innerChildCount = oneRow.getChildCount();
@@ -289,6 +315,8 @@ public class ReportCardCreate extends AppCompatActivity implements GetSubjectLis
                         strMarks =  ((EditText) edtText).getText().toString();
                         if(strMarks!=null && strMarks.length() > 0) {
                             marks = Integer.parseInt(strMarks);
+                        }else{
+                            mCheckIfMarksNotObt = true;
                         }
                         Log.d("testasa", "marks " + marks);
                     }
@@ -327,19 +355,46 @@ public class ReportCardCreate extends AppCompatActivity implements GetSubjectLis
             }
         }
 
+    }
 
+    void executeSubmitMarkSheetCreated(){
+        SubmitMarkSheetReq req = new SubmitMarkSheetReq(ReportCardCreate.this, subMitMarkdata, this);
+        req.executeRequest();
+
+       ReportCardStaticData.showProgressBar(this);
     }
 
     void submitMarkSheetCreated(){
 
-        SubmitMarkSheetReq req = new SubmitMarkSheetReq(ReportCardCreate.this,subMitMarkdata,this);
-        req.executeRequest();
+        if(mCheckIfMarksNotObt == true){
 
+            new AlertDialog.Builder(ReportCardCreate.this)
+                    .setTitle("Half Filled ReportCard")
+                    .setMessage("Are you sure want to upload ?")
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            executeSubmitMarkSheetCreated();
+                        }
+                    })
+                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // do nothing
+                        }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+
+
+        }else{
+            executeSubmitMarkSheetCreated();
+        }
+        mCheckIfMarksNotObt = false;
     }
 
     @Override
     public void onSubmitMarksResponse(CommonRequest.ResponseCode res, MarkSheetData data) {
         Log.d(TAG, "response :" + res);
+        ReportCardStaticData.dismissProgressBar();
         switch (res) {
             case COMMON_RES_SUCCESS:
                 Toast.makeText(ReportCardCreate.this,"Report Card Successfully Uploaded",Toast.LENGTH_LONG).show();
