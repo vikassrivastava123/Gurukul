@@ -30,6 +30,10 @@
             android:name=".ui.ReportCardUi.ReportCardCreate"
             android:label="@string/reportCard"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.NoticeBoard.selectClass"
+            android:label="@string/title_activity_select_class"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -5,13 +5,13 @@ import in.co.thingsdata.gurukul.ui.ReportCardUi.ReportCardAdapter;
 /**
  * Created by Ritika on 2/10/2017.
  */
-public class ReportCardData extends DataOfUi {
+public class ReportCardModel extends DataOfUi {
 
     String subject = null , marksObtained = null , total = null , percentage = null;
 
     String name = null ,regNumber = null ,regId = null; int rollNumber = 0 ;
 
-    public ReportCardData(String argname , int argrollNumber ,String regId){
+    public ReportCardModel(String argname, int argrollNumber, String regId){
 
         name = argname;
         rollNumber = argrollNumber;
@@ -19,7 +19,7 @@ public class ReportCardData extends DataOfUi {
 
     }
 
-    public ReportCardData(String argsubject , String argmarksObtained, String argtotal, String argpercentage){
+    public ReportCardModel(String argsubject, String argmarksObtained, String argtotal, String argpercentage){
 
         subject = argsubject ; marksObtained = argmarksObtained; total = argtotal;
         percentage = argpercentage;

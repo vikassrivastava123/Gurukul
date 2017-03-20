@@ -15,7 +15,7 @@ import java.util.List;
 
 import in.co.thingsdata.gurukul.R;
 import in.co.thingsdata.gurukul.ui.dataUi.DataOfUi;
-import in.co.thingsdata.gurukul.ui.dataUi.ReportCardData;
+import in.co.thingsdata.gurukul.ui.dataUi.ReportCardModel;
 
 /**
  * Created by Ritika on 2/10/2017.
@@ -97,7 +97,7 @@ int row_index = -1;
             holder.row_view.setBackgroundColor(Color.parseColor("#ffffff"));
         }
 
-        ReportCardData data = (ReportCardData) mListOfData.get(position);
+        ReportCardModel data = (ReportCardModel) mListOfData.get(position);
         if(mScrnNumber == SINGLE_STUDENT_REPORTCARD_DETAIL) {
             holder.subject.setText(data.getSubject());
             holder.marksObtained.setText(data.getMarksObtained());

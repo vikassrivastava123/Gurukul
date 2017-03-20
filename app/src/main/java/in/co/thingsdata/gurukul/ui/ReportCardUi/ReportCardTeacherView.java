@@ -27,7 +27,7 @@ import in.co.thingsdata.gurukul.data.common.UserData;
 import in.co.thingsdata.gurukul.services.helper.CommonRequest;
 import in.co.thingsdata.gurukul.services.request.GetClassListRequest;
 import in.co.thingsdata.gurukul.services.request.GetStudentListInClassReq;
-import in.co.thingsdata.gurukul.ui.dataUi.ReportCardData;
+import in.co.thingsdata.gurukul.ui.dataUi.ReportCardModel;
 import in.co.thingsdata.gurukul.ui.dataUi.ReportCardStaticData;
 
 public class ReportCardTeacherView extends AppCompatActivity
@@ -210,7 +210,7 @@ public class ReportCardTeacherView extends AppCompatActivity
 
     @Override
     public void onGetStudentListResponse(CommonRequest.ResponseCode res, GetStudentListInClassData data) {
-        ReportCardData dataStudentListForAdapter = null;
+        ReportCardModel dataStudentListForAdapter = null;
         ReportCardStaticData.dismissProgressBar();
         switch (res){
 
@@ -226,7 +226,7 @@ public class ReportCardTeacherView extends AppCompatActivity
                      String name = obj.getName();
                      int rollNumber = obj.getRollNumber();
                      String regId = obj.getRegistrationId();
-                     dataStudentListForAdapter = new ReportCardData(name,rollNumber,regId);
+                     dataStudentListForAdapter = new ReportCardModel(name,rollNumber,regId);
                      ReportCardStaticData.dataList.add(dataStudentListForAdapter);
 
                 }

@@ -33,7 +33,7 @@ import in.co.thingsdata.gurukul.services.helper.CommonRequest;
 import in.co.thingsdata.gurukul.services.request.GetSubjectListReq;
 import in.co.thingsdata.gurukul.services.request.SubmitMarkSheetReq;
 import in.co.thingsdata.gurukul.ui.dataUi.DataOfUi;
-import in.co.thingsdata.gurukul.ui.dataUi.ReportCardData;
+import in.co.thingsdata.gurukul.ui.dataUi.ReportCardModel;
 import in.co.thingsdata.gurukul.ui.dataUi.ReportCardStaticData;
 
 public class ReportCardCreate extends AppCompatActivity implements GetSubjectListReq.GetSubjectListResponse ,
@@ -273,7 +273,7 @@ public class ReportCardCreate extends AppCompatActivity implements GetSubjectLis
         RelativeLayout row = (RelativeLayout)viewScrol.getChildAt(0);
         count = row.getChildCount();
 
-        ReportCardData rcData = (ReportCardData)ReportCardStaticData.dataList.get(indexOfStudentSel);
+        ReportCardModel rcData = (ReportCardModel)ReportCardStaticData.dataList.get(indexOfStudentSel);
         int rolnum = ReportCardStaticData.getSelectedRollNumbber();
         String regNum = ReportCardStaticData.getRegistrationId();
 

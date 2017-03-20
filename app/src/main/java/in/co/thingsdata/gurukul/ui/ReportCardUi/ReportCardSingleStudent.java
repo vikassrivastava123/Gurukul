@@ -24,7 +24,7 @@ import in.co.thingsdata.gurukul.data.common.UserData;
 import in.co.thingsdata.gurukul.services.helper.CommonRequest;
 import in.co.thingsdata.gurukul.services.request.GetResultReq;
 import in.co.thingsdata.gurukul.ui.dataUi.DataOfUi;
-import in.co.thingsdata.gurukul.ui.dataUi.ReportCardData;
+import in.co.thingsdata.gurukul.ui.dataUi.ReportCardModel;
 import in.co.thingsdata.gurukul.ui.dataUi.ReportCardStaticData;
 
 public class ReportCardSingleStudent extends AppCompatActivity implements GetResultReq.GetResultCallback {
@@ -43,7 +43,7 @@ public class ReportCardSingleStudent extends AppCompatActivity implements GetRes
     AutoCompleteTextView tvYear , tvTypeOfExam;
     int mRolNumber = 0;
     TextView mTitle;
-    ReportCardData mSelectedStudent;
+    ReportCardModel mSelectedStudent;
     public static String TAG = "ReportCardSingleStudent";
     int mposInList;
     @Override
@@ -57,7 +57,7 @@ public class ReportCardSingleStudent extends AppCompatActivity implements GetRes
         mposInList = intent.getIntExtra(getResources().getString(R.string.intent_extra_posInList), 1);
 
         try {
-            mSelectedStudent = (ReportCardData) ReportCardStaticData.dataList.get(mposInList);
+            mSelectedStudent = (ReportCardModel) ReportCardStaticData.dataList.get(mposInList);
             mName.setText(mSelectedStudent.getName());
 
             mClassSection.setText(getResources().getText(R.string.classOfStudent) +  ReportCardStaticData.getSelectedClass()
@@ -207,7 +207,7 @@ public class ReportCardSingleStudent extends AppCompatActivity implements GetRes
                     mTotalMarks += totalMarks;
                     float percentage = (marks*100)/ totalMarks;
 
-                    ReportCardData data = new ReportCardData(subjMakrs.getSubject().getSubjectId(), Integer.toString(marks),
+                    ReportCardModel data = new ReportCardModel(subjMakrs.getSubject().getSubjectId(), Integer.toString(marks),
                             Integer.toString(totalMarks), Float.toString(percentage));
                     dataList.add(data);
 
