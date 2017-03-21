@@ -225,7 +225,7 @@ public class ReportCardSingleStudent extends AppCompatActivity implements GetRes
 
     }
 
-    public void getResultsOfQuery(){
+    private void getResultsOfQuery(){
 
         try {
             String token = UserData.getAccessToken();

@@ -29,6 +29,7 @@ public class ReportCardAdapter extends RecyclerView.Adapter<ReportCardAdapter.Re
     public static final int SINGLE_STUDENT_REPORTCARD_DETAIL = 0;
     public static final int TEACHER_VIEW_REPORTCARD = 1;
     public static final int CREATE_REPORT_CARD = 2;
+    public static final int NB_STATICS = 3;
     private OnItemClickListener mOnItemClickListener;
 
     public interface OnItemClickListener {
@@ -51,6 +52,11 @@ public class ReportCardAdapter extends RecyclerView.Adapter<ReportCardAdapter.Re
         else if(mScrnNumber == TEACHER_VIEW_REPORTCARD){
             itemView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.rc_tv_studentlist, parent, false);
+        }
+
+        else if(mScrnNumber == NB_STATICS){
+            itemView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.nb_statics, parent, false);
         }
 
         return new ReportCardViewHolder(itemView);
@@ -109,6 +115,10 @@ int row_index = -1;
             holder.rollnumber.setText(Integer.toString(rollNumber));
         }else if(mScrnNumber == CREATE_REPORT_CARD){
             holder.subject.setText(data.getSubject());
+            holder.marksObtained.setText(data.getMarksObtained());
+            holder.total.setText(data.getTotal());
+        }else if(mScrnNumber == NB_STATICS){
+            holder.nbName.setText(data.getSubject());
             holder.marksObtained.setText(data.getMarksObtained());
             holder.total.setText(data.getTotal());
         }
@@ -177,6 +187,7 @@ int row_index = -1;
 
         public TextView subject,marksObtained , total,percentage;
         public TextView name,rollnumber;
+        public TextView nbName,nbRollNum,nbClass,nbResponse;
         public View row_view;
 
         public ReportCardViewHolder(View view) {
@@ -198,6 +209,11 @@ int row_index = -1;
                 subject = (TextView) view.findViewById(R.id.subject);
                 marksObtained = (TextView) view.findViewById(R.id.marksObtained);
                 total = (TextView) view.findViewById(R.id.total);
+            }else if(mScrnNumber == NB_STATICS){
+                nbName = (TextView) view.findViewById(R.id.nbSClass);
+                nbRollNum = (TextView) view.findViewById(R.id.nbSRollN);
+                nbClass = (TextView) view.findViewById(R.id.nbSClass);
+                nbResponse = (TextView) view.findViewById(R.id.nbSResponse);
             }
 
         }

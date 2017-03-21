@@ -14,7 +14,9 @@
     <string name="title_activity_rc_create">rc_create</string>
     <string name="subject_id">subId</string>
     <string name="intent_extra_posInList">pos</string>
+    <string name="intent_extra_id_notification_selected">idOfNotification</string>
     <string name="intent_extra_rolnum">rolnum</string>
     <string name="title_activity_create_notification">CreateNotification</string>
     <string name="title_activity_select_class">selectClass</string>
+    <string name="title_activity_notice_board_statics">NoticeBoardStatics</string>
 </resources>
