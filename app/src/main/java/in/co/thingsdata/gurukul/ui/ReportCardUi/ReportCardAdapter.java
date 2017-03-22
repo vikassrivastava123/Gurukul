@@ -15,6 +15,7 @@ import java.util.List;
 
 import in.co.thingsdata.gurukul.R;
 import in.co.thingsdata.gurukul.ui.dataUi.DataOfUi;
+import in.co.thingsdata.gurukul.ui.dataUi.NoticeBoardModel;
 import in.co.thingsdata.gurukul.ui.dataUi.ReportCardModel;
 
 /**
@@ -30,6 +31,7 @@ public class ReportCardAdapter extends RecyclerView.Adapter<ReportCardAdapter.Re
     public static final int TEACHER_VIEW_REPORTCARD = 1;
     public static final int CREATE_REPORT_CARD = 2;
     public static final int NB_STATICS = 3;
+    public static final int NB_LIST = 4;
     private OnItemClickListener mOnItemClickListener;
 
     public interface OnItemClickListener {
@@ -48,15 +50,15 @@ public class ReportCardAdapter extends RecyclerView.Adapter<ReportCardAdapter.Re
         {
             itemView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.reportcarddetail, parent, false);
-        }
-        else if(mScrnNumber == TEACHER_VIEW_REPORTCARD){
+        }else if(mScrnNumber == TEACHER_VIEW_REPORTCARD){
             itemView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.rc_tv_studentlist, parent, false);
-        }
-
-        else if(mScrnNumber == NB_STATICS){
+        }else if(mScrnNumber == NB_STATICS){
             itemView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.nb_statics, parent, false);
+        }else if(mScrnNumber == NB_LIST){
+            itemView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.nb_list_adapter, parent, false);
         }
 
         return new ReportCardViewHolder(itemView);
@@ -103,24 +105,34 @@ int row_index = -1;
             holder.row_view.setBackgroundColor(Color.parseColor("#ffffff"));
         }
 
-        ReportCardModel data = (ReportCardModel) mListOfData.get(position);
+
         if(mScrnNumber == SINGLE_STUDENT_REPORTCARD_DETAIL) {
+            ReportCardModel data = (ReportCardModel) mListOfData.get(position);
             holder.subject.setText(data.getSubject());
             holder.marksObtained.setText(data.getMarksObtained());
             holder.total.setText(data.getTotal());
             holder.percentage.setText(data.getPercentage());
         }else if(mScrnNumber == TEACHER_VIEW_REPORTCARD) {
+            ReportCardModel data = (ReportCardModel) mListOfData.get(position);
             holder.name.setText(data.getName());
             int rollNumber = data.getRollNumber();
             holder.rollnumber.setText(Integer.toString(rollNumber));
         }else if(mScrnNumber == CREATE_REPORT_CARD){
+            ReportCardModel data = (ReportCardModel) mListOfData.get(position);
             holder.subject.setText(data.getSubject());
             holder.marksObtained.setText(data.getMarksObtained());
             holder.total.setText(data.getTotal());
         }else if(mScrnNumber == NB_STATICS){
-            holder.nbName.setText(data.getSubject());
-            holder.marksObtained.setText(data.getMarksObtained());
-            holder.total.setText(data.getTotal());
+            NoticeBoardModel data = (NoticeBoardModel) mListOfData.get(position);
+            holder.nbName.setText(data.getStatsName());
+            holder.nbRollNum.setText(data.getStatsRolNum());
+            holder.nbClass.setText(data.getStatsClass());
+            holder.nbClass.setText(data.getStatsResponse());
+        }else if(mScrnNumber == NB_LIST){
+            NoticeBoardModel data = (NoticeBoardModel) mListOfData.get(position);
+            holder.nbTitle.setText(data.getListTitle());
+            holder.nbDiscriptioin.setText(data.getListDiscription());
+
         }
 
     }
@@ -188,6 +200,7 @@ int row_index = -1;
         public TextView subject,marksObtained , total,percentage;
         public TextView name,rollnumber;
         public TextView nbName,nbRollNum,nbClass,nbResponse;
+        public TextView nbTitle,nbDiscriptioin;
         public View row_view;
 
         public ReportCardViewHolder(View view) {
@@ -214,6 +227,9 @@ int row_index = -1;
                 nbRollNum = (TextView) view.findViewById(R.id.nbSRollN);
                 nbClass = (TextView) view.findViewById(R.id.nbSClass);
                 nbResponse = (TextView) view.findViewById(R.id.nbSResponse);
+            }else if(mScrnNumber == NB_LIST){
+                nbTitle = (TextView) view.findViewById(R.id.nbLTitle);
+                nbDiscriptioin =  (TextView) view.findViewById(R.id.nbLDes);
             }
 
         }

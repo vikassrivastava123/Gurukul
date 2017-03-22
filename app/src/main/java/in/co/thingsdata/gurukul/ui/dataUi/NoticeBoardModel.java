@@ -14,9 +14,16 @@ public class NoticeBoardModel extends DataOfUi implements Serializable  {
     String statsClass = null;
     String statsResponse = null;
 
+    String listTitle = null, listDiscription = null;
+
     public NoticeBoardModel(String argClassName, boolean isSelected){
         mClassname = argClassName;
         this.isSelected = isSelected;
+    }
+
+    public NoticeBoardModel(String arglistTitle, String argDiscription){
+        listTitle = arglistTitle;
+        listDiscription = argDiscription;
     }
 
     public NoticeBoardModel(String argName, String argRolNum, String argClass,String argResp){
@@ -24,6 +31,14 @@ public class NoticeBoardModel extends DataOfUi implements Serializable  {
         statsRolNum = argRolNum;
         statsClass = argClass;
         statsResponse = argResp;
+    }
+
+
+    public String getListTitle() {
+        return listTitle;
+    }
+    public String getListDiscription() {
+        return listDiscription;
     }
 
     public String getClassName() {
@@ -65,19 +80,19 @@ public class NoticeBoardModel extends DataOfUi implements Serializable  {
 
     }
 
-    public String getStatsName(int index){
+    public String getStatsName(){
 
         return statsName;
     }
-    public String getStatsRolNum(int index){
+    public String getStatsRolNum(){
 
         return statsRolNum;
     }
-    public String getStatsClass(int index){
+    public String getStatsClass(){
 
         return statsClass;
     }
-    public String getStatsResponse(int index){
+    public String getStatsResponse(){
 
         return statsResponse;
     }

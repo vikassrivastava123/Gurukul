@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import in.co.thingsdata.gurukul.R;
-import in.co.thingsdata.gurukul.ui.NoticeBoard.selectClass;
+import in.co.thingsdata.gurukul.ui.NoticeBoard.NotesList;
 import in.co.thingsdata.gurukul.ui.ReportCardUi.ReportCardTeacherView;
 
 public class Dashboard extends AppCompatActivity {
@@ -25,7 +25,7 @@ public class Dashboard extends AppCompatActivity {
     }
 
     public void launchNoticeBoard(View view) {
-        Intent launchFeature = new Intent(this, selectClass.class);
+        Intent launchFeature = new Intent(this, NotesList.class);
         startActivity(launchFeature);
 
     }
