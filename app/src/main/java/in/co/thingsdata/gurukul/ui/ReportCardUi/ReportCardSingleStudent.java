@@ -23,6 +23,7 @@ import in.co.thingsdata.gurukul.data.common.CommonDetails;
 import in.co.thingsdata.gurukul.data.common.UserData;
 import in.co.thingsdata.gurukul.services.helper.CommonRequest;
 import in.co.thingsdata.gurukul.services.request.GetResultReq;
+import in.co.thingsdata.gurukul.ui.dataUi.CommonAdapter;
 import in.co.thingsdata.gurukul.ui.dataUi.DataOfUi;
 import in.co.thingsdata.gurukul.ui.dataUi.ReportCardModel;
 import in.co.thingsdata.gurukul.ui.dataUi.ReportCardStaticData;
@@ -31,7 +32,7 @@ public class ReportCardSingleStudent extends AppCompatActivity implements GetRes
 
     private List<DataOfUi> dataList = new ArrayList<>();
     private RecyclerView mRecyclerView;
-    private ReportCardAdapter mAdapter;
+    private CommonAdapter mAdapter;
 
     int mTotalMarksObtained  = 80, mTotalMarks = 100;
     float mFinalPer = 0;
@@ -68,7 +69,7 @@ public class ReportCardSingleStudent extends AppCompatActivity implements GetRes
         }catch(NullPointerException e){
             Log.d(TAG,"Data is null");
         }
-        mAdapter = new ReportCardAdapter(dataList,ReportCardAdapter.SINGLE_STUDENT_REPORTCARD_DETAIL , new ReportCardAdapter.OnItemClickListener() {
+        mAdapter = new CommonAdapter(dataList, CommonAdapter.SINGLE_STUDENT_REPORTCARD_DETAIL , new CommonAdapter.OnItemClickListener() {
 
             @Override
             public void onItemClick(View view, int position) {

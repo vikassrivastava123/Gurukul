@@ -1,4 +1,4 @@
-package in.co.thingsdata.gurukul.ui.ReportCardUi;
+package in.co.thingsdata.gurukul.ui.dataUi;
 
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
@@ -14,18 +14,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import in.co.thingsdata.gurukul.R;
-import in.co.thingsdata.gurukul.ui.dataUi.DataOfUi;
-import in.co.thingsdata.gurukul.ui.dataUi.NoticeBoardModel;
-import in.co.thingsdata.gurukul.ui.dataUi.ReportCardModel;
 
 /**
  * Created by Ritika on 2/10/2017.
  */
-public class ReportCardAdapter extends RecyclerView.Adapter<ReportCardAdapter.ReportCardViewHolder> implements Filterable {
+public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.ReportCardViewHolder> implements Filterable {
 
     List<DataOfUi> mListOfData = null;
     List<DataOfUi> mListOfDataOrginal = null;
-    private static final String TAG = "ReportCardAdapter";
+    private static final String TAG = "CommonAdapter";
     int mScrnNumber = -1;
     public static final int SINGLE_STUDENT_REPORTCARD_DETAIL = 0;
     public static final int TEACHER_VIEW_REPORTCARD = 1;
@@ -142,7 +139,7 @@ int row_index = -1;
         return mListOfData.size();
     }
 
-    public ReportCardAdapter(List<DataOfUi> listOfData , int scrnNumber , OnItemClickListener onItemClickListener){
+    public CommonAdapter(List<DataOfUi> listOfData, int scrnNumber, OnItemClickListener onItemClickListener){
         mListOfData = listOfData;
         mListOfDataOrginal = listOfData;
         mScrnNumber = scrnNumber;
@@ -173,7 +170,7 @@ int row_index = -1;
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
                 mListOfData = (List<DataOfUi>) results.values;
-                ReportCardAdapter.this.notifyDataSetChanged();
+                CommonAdapter.this.notifyDataSetChanged();
             }
         };
 

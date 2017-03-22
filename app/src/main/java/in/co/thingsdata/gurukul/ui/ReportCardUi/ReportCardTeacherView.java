@@ -27,6 +27,7 @@ import in.co.thingsdata.gurukul.data.common.UserData;
 import in.co.thingsdata.gurukul.services.helper.CommonRequest;
 import in.co.thingsdata.gurukul.services.request.GetClassListRequest;
 import in.co.thingsdata.gurukul.services.request.GetStudentListInClassReq;
+import in.co.thingsdata.gurukul.ui.dataUi.CommonAdapter;
 import in.co.thingsdata.gurukul.ui.dataUi.ReportCardModel;
 import in.co.thingsdata.gurukul.ui.dataUi.ReportCardStaticData;
 
@@ -36,7 +37,7 @@ public class ReportCardTeacherView extends AppCompatActivity
         {
 
     private RecyclerView mRecyclerView = null;
-    private ReportCardAdapter mAdapter = null;
+    private CommonAdapter mAdapter = null;
 
     Button findButton ,upLoadButton;
     AutoCompleteTextView searchList;
@@ -116,8 +117,8 @@ public class ReportCardTeacherView extends AppCompatActivity
         initAutoTextView();
 
 
-        mAdapter = new ReportCardAdapter(ReportCardStaticData.dataList,ReportCardAdapter.TEACHER_VIEW_REPORTCARD
-                , new ReportCardAdapter.OnItemClickListener() {
+        mAdapter = new CommonAdapter(ReportCardStaticData.dataList, CommonAdapter.TEACHER_VIEW_REPORTCARD
+                , new CommonAdapter.OnItemClickListener() {
 
             @Override
             public void onItemClick(View view, int position) {
@@ -191,7 +192,7 @@ public class ReportCardTeacherView extends AppCompatActivity
 
     void initRecyclerView(){
         if(mAdapter == null) {
-            mAdapter = new ReportCardAdapter(ReportCardStaticData.dataList, ReportCardAdapter.TEACHER_VIEW_REPORTCARD , new ReportCardAdapter.OnItemClickListener() {
+            mAdapter = new CommonAdapter(ReportCardStaticData.dataList, CommonAdapter.TEACHER_VIEW_REPORTCARD , new CommonAdapter.OnItemClickListener() {
 
                 @Override
                 public void onItemClick(View view, int position) {

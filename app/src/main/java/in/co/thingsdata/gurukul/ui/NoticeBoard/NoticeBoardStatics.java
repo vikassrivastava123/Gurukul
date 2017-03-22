@@ -20,13 +20,13 @@ import in.co.thingsdata.gurukul.data.common.NotificationReplyDetail;
 import in.co.thingsdata.gurukul.data.common.UserData;
 import in.co.thingsdata.gurukul.services.helper.CommonRequest;
 import in.co.thingsdata.gurukul.services.request.GetNotificationStatsRequest;
-import in.co.thingsdata.gurukul.ui.ReportCardUi.ReportCardAdapter;
+import in.co.thingsdata.gurukul.ui.dataUi.CommonAdapter;
 import in.co.thingsdata.gurukul.ui.dataUi.DataOfUi;
 import in.co.thingsdata.gurukul.ui.dataUi.NoticeBoardModel;
 
 public class NoticeBoardStatics extends AppCompatActivity implements GetNotificationStatsRequest.GetNotificationStatsCallback{
     private RecyclerView mRecyclerView;
-    private ReportCardAdapter mAdapter;
+    private CommonAdapter mAdapter;
 
     TextView mtvYes,mtvNo,mtvPending;
     private List<DataOfUi> dataList = new ArrayList<>();
@@ -47,7 +47,7 @@ public class NoticeBoardStatics extends AppCompatActivity implements GetNotifica
         mSelNotification = intent.getStringExtra(getResources().getString(R.string.intent_extra_id_notification_selected));
 
 
-        mAdapter = new ReportCardAdapter(dataList,ReportCardAdapter.NB_STATICS , new ReportCardAdapter.OnItemClickListener() {
+        mAdapter = new CommonAdapter(dataList, CommonAdapter.NB_STATICS , new CommonAdapter.OnItemClickListener() {
 
             @Override
             public void onItemClick(View view, int position) {

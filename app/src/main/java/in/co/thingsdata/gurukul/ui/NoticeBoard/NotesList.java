@@ -16,14 +16,14 @@ import in.co.thingsdata.gurukul.data.common.Notification;
 import in.co.thingsdata.gurukul.data.common.UserData;
 import in.co.thingsdata.gurukul.services.helper.CommonRequest;
 import in.co.thingsdata.gurukul.services.request.GetNotificationRequest;
-import in.co.thingsdata.gurukul.ui.ReportCardUi.ReportCardAdapter;
+import in.co.thingsdata.gurukul.ui.dataUi.CommonAdapter;
 import in.co.thingsdata.gurukul.ui.dataUi.DataOfUi;
 import in.co.thingsdata.gurukul.ui.dataUi.NoticeBoardModel;
 
 public class NotesList extends AppCompatActivity implements GetNotificationRequest.GetNotificationCallback{
 
     private RecyclerView mRecyclerView;
-    private ReportCardAdapter mAdapter;
+    private CommonAdapter mAdapter;
 
     TextView mtvTitle,mtvDiscription;
     private List<DataOfUi> dataList = new ArrayList<>();

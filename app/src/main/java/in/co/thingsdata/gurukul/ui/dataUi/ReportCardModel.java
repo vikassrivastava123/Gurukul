@@ -1,7 +1,5 @@
 package in.co.thingsdata.gurukul.ui.dataUi;
 
-import in.co.thingsdata.gurukul.ui.ReportCardUi.ReportCardAdapter;
-
 /**
  * Created by Ritika on 2/10/2017.
  */
@@ -90,9 +88,9 @@ public class ReportCardModel extends DataOfUi {
     @Override
     public String getFilterableObject(int scrnName) {
         String retVal = null;
-        if(scrnName == ReportCardAdapter.SINGLE_STUDENT_REPORTCARD_DETAIL)
+        if(scrnName == CommonAdapter.SINGLE_STUDENT_REPORTCARD_DETAIL)
             retVal = subject;
-        else if(scrnName == ReportCardAdapter.TEACHER_VIEW_REPORTCARD){
+        else if(scrnName == CommonAdapter.TEACHER_VIEW_REPORTCARD){
             retVal = name;
         }
         return retVal;

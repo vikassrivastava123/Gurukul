@@ -32,6 +32,7 @@ import in.co.thingsdata.gurukul.data.common.UserData;
 import in.co.thingsdata.gurukul.services.helper.CommonRequest;
 import in.co.thingsdata.gurukul.services.request.GetSubjectListReq;
 import in.co.thingsdata.gurukul.services.request.SubmitMarkSheetReq;
+import in.co.thingsdata.gurukul.ui.dataUi.CommonAdapter;
 import in.co.thingsdata.gurukul.ui.dataUi.DataOfUi;
 import in.co.thingsdata.gurukul.ui.dataUi.ReportCardModel;
 import in.co.thingsdata.gurukul.ui.dataUi.ReportCardStaticData;
@@ -41,7 +42,7 @@ public class ReportCardCreate extends AppCompatActivity implements GetSubjectLis
 
     private List<DataOfUi> dataList = new ArrayList<>();
     private RecyclerView recyclerView;
-    private ReportCardAdapter mAdapter;
+    private CommonAdapter mAdapter;
     HorizontalScrollView addSubjectView;
     RelativeLayout layout;
     int editBOxId = 1;
